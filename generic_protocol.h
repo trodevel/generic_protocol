@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3598 $ $Date:: 2016-04-01 #$ $Author: serge $
+// $Revision: 3607 $ $Date:: 2016-04-03 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
 #define LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
@@ -85,7 +85,7 @@ struct AuthenticateRequest: public ForwardMessage
 {
     virtual ~AuthenticateRequest() {};
 
-    std::string         user_id;
+    std::string         user_login;
     std::string         password;
 };
 
@@ -114,6 +114,9 @@ struct CloseSessionResponse: public BackwardMessage
 
 struct Request: public ForwardMessage
 {
+protected:
+    Request() {}
+
     virtual ~Request() {};
 
     std::string         session_id;
