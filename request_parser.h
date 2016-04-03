@@ -19,11 +19,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3609 $ $Date:: 2016-04-03 #$ $Author: serge $
+// $Revision: 3619 $ $Date:: 2016-04-03 #$ $Author: serge $
 
 #include <stdexcept>            // std::runtime_error
 
-#include "../server_core/generic_request.h"    // GenericRequest
+#include "../generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
 #include "generic_protocol.h"   // Request...
 
@@ -43,10 +43,10 @@ public:
 
 public:
 
-    static request_type_e   detect_request_type( const server_core::GenericRequest & r );
+    static request_type_e   detect_request_type( const generic_request::Request & r );
 
-    static AuthenticateRequest *    to_authenticate_request( const server_core::GenericRequest & r );
-    static CloseSessionRequest *    to_close_session_request( const server_core::GenericRequest & r );
+    static AuthenticateRequest *    to_authenticate_request( const generic_request::Request & r );
+    static CloseSessionRequest *    to_close_session_request( const generic_request::Request & r );
 };
 
 } // namespace generic_protocol

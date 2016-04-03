@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3604 $ $Date:: 2016-04-02 #$ $Author: serge $
+// $Revision: 3613 $ $Date:: 2016-04-03 #$ $Author: serge $
 
 #include "csv_helper.h"                 // self
 
@@ -35,7 +35,7 @@ namespace generic_protocol
 
 std::string CsvHelper::to_csv( const ErrorResponse & r )
 {
-    return utils::CsvHelper::to_csv( "ERROR", StrHelper::to_string( r.type ), r.descr );
+    return utils::CsvHelper::to_csv( "ERROR", r.type, r.descr );
 }
 
 std::string CsvHelper::to_csv( const AuthenticateResponse & r )

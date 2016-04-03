@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3609 $ $Date:: 2016-04-03 #$ $Author: serge $
+// $Revision: 3619 $ $Date:: 2016-04-03 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -56,7 +56,7 @@ request_type_e to_request_type( const std::string & s )
     return it->second;
 }
 
-request_type_e  RequestParser::detect_request_type( const server_core::GenericRequest & r )
+request_type_e  RequestParser::detect_request_type( const generic_request::Request & r )
 {
     const std::string & cmd        = r.get_param( "CMD" );
 
@@ -67,7 +67,7 @@ request_type_e  RequestParser::detect_request_type( const server_core::GenericRe
 }
 
 
-AuthenticateRequest * RequestParser::to_authenticate_request( const server_core::GenericRequest & r )
+AuthenticateRequest * RequestParser::to_authenticate_request( const generic_request::Request & r )
 {
     AuthenticateRequest * res = new AuthenticateRequest;
 
@@ -79,7 +79,7 @@ AuthenticateRequest * RequestParser::to_authenticate_request( const server_core:
     return res;
 }
 
-CloseSessionRequest * RequestParser::to_close_session_request( const server_core::GenericRequest & r )
+CloseSessionRequest * RequestParser::to_close_session_request( const generic_request::Request & r )
 {
     CloseSessionRequest * res = new CloseSessionRequest;
 
