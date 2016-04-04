@@ -1,5 +1,5 @@
 <?php
-// $Revision: 3611 $ $Date:: 2016-04-03 #$ $Author: serge $
+// $Revision: 3622 $ $Date:: 2016-04-04 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -34,6 +34,7 @@ class ErrorResponse extends BackwardMessage
     const NOT_PERMITTED           = 2;
     const INVALID_ARGUMENT        = 3;
     const RUNTIME_ERROR           = 4;
+    const PARSE_ERROR             = 5;
 
     public          $type;
     public          $descr;

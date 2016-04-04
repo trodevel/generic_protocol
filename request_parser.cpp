@@ -19,11 +19,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3619 $ $Date:: 2016-04-03 #$ $Author: serge $
+// $Revision: 3620 $ $Date:: 2016-04-04 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
-#include "parser.h"                 // Parser
 #include "request_validator.h"      // RequestValidator
 
 namespace generic_protocol

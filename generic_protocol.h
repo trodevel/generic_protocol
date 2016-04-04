@@ -19,12 +19,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3607 $ $Date:: 2016-04-03 #$ $Author: serge $
+// $Revision: 3624 $ $Date:: 2016-04-04 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
 #define LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
 
-#include <stdint.h>             // uint32_t
 #include <string>               // std::string
 
 namespace generic_protocol
@@ -116,6 +115,8 @@ struct Request: public ForwardMessage
 {
 protected:
     Request() {}
+
+public:
 
     virtual ~Request() {};
 

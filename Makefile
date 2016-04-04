@@ -50,6 +50,8 @@ INCL = -I$(BOOST_INC) -I.
 STATICLIB=$(LIBNAME).a
 
 SRCC = csv_helper.cpp \
+	request_parser.cpp \
+	request_validator.cpp \
 	str_helper.cpp \
 
 OBJS = $(patsubst %.cpp,$(OBJDIR)/%.o,$(SRCC))
