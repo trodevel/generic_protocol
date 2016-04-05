@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3619 $ $Date:: 2016-04-03 #$ $Author: serge $
+// $Revision: 3634 $ $Date:: 2016-04-05 #$ $Author: serge $
 
 #include <stdexcept>            // std::runtime_error
 
@@ -46,6 +46,7 @@ public:
     static request_type_e   detect_request_type( const generic_request::Request & r );
 
     static AuthenticateRequest *    to_authenticate_request( const generic_request::Request & r );
+    static AuthenticateAltRequest * to_authenticate_alt_request( const generic_request::Request & r );
     static CloseSessionRequest *    to_close_session_request( const generic_request::Request & r );
 };
 

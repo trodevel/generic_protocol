@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3620 $ $Date:: 2016-04-04 #$ $Author: serge $
+// $Revision: 3634 $ $Date:: 2016-04-05 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -44,6 +44,7 @@ request_type_e to_request_type( const std::string & s )
     if( m.empty() )
     {
         insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( AUTHENTICATE_REQUEST ) );
+        insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( AUTHENTICATE_ALT_REQUEST ) );
         insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( CLOSE_SESSION_REQUEST ) );
     }
 
@@ -71,6 +72,18 @@ AuthenticateRequest * RequestParser::to_authenticate_request( const generic_requ
     AuthenticateRequest * res = new AuthenticateRequest;
 
     res->user_login = r.get_param( "USER_LOGIN" );
+    res->password   = r.get_param( "PASSWORD" );
+
+    RequestValidator::validate( res );
+
+    return res;
+}
+
+AuthenticateAltRequest * RequestParser::to_authenticate_alt_request( const generic_request::Request & r )
+{
+    auto * res = new AuthenticateAltRequest;
+
+    res->user_id    = std::stoi( r.get_param( "USER_ID" ) );
     res->password   = r.get_param( "PASSWORD" );
 
     RequestValidator::validate( res );

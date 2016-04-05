@@ -1,5 +1,5 @@
 <?php
-// $Revision: 3622 $ $Date:: 2016-04-04 #$ $Author: serge $
+// $Revision: 3634 $ $Date:: 2016-04-05 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -64,7 +64,7 @@ class AuthenticateRequest extends ForwardMessage
     
     public to_generic_request()
     {
-        return "CMD=AUTHENTICATE_REQUEST&user_login:X=" . str2hex( $this->user_login ) . "&PASSWORD:X=" . str2hex( $this->password );
+        return "CMD=AUTHENTICATE_REQUEST&USER_LOGIN:X=" . str2hex( $this->user_login ) . "&PASSWORD:X=" . str2hex( $this->password );
     }
     
     function to_html()
@@ -72,6 +72,24 @@ class AuthenticateRequest extends ForwardMessage
         return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
             get_html_table_row_header( array( 'REQUEST', 'USER_LOGIN', 'PASSWORD' ) ) .
             get_html_table_row_data( array( 'AUTHENTICATE_REQUEST', str2hex( $this->user_login ), str2hex( $this->password ) ) ) );
+    }
+}
+
+class AuthenticateAltRequest extends ForwardMessage
+{
+    public          $user_id;
+    public          $password;
+    
+    public to_generic_request()
+    {
+        return "CMD=AUTHENTICATE_REQUEST&USER_ID=" . $this->user_login . "&PASSWORD:X=" . str2hex( $this->password );
+    }
+    
+    function to_html()
+    {
+        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
+            get_html_table_row_header( array( 'REQUEST', 'USER_ID', 'PASSWORD' ) ) .
+            get_html_table_row_data( array( 'AUTHENTICATE_ALT_REQUEST', $this->user_id, str2hex( $this->password ) ) ) );
     }
 }
 

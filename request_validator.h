@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3612 $ $Date:: 2016-04-03 #$ $Author: serge $
+// $Revision: 3634 $ $Date:: 2016-04-05 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
 #define LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
@@ -33,6 +33,7 @@ class RequestValidator
 {
 public:
     static bool validate( const AuthenticateRequest * r );
+    static bool validate( const AuthenticateAltRequest * r );
     static bool validate( const CloseSessionRequest * r );
     static bool validate( const Request * r );
 };
