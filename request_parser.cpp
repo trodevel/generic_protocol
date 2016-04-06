@@ -19,11 +19,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3634 $ $Date:: 2016-04-05 #$ $Author: serge $
+// $Revision: 3656 $ $Date:: 2016-04-07 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
 #include "request_validator.h"      // RequestValidator
+#include "malformed_request.h"      // MalformedRequest
 
 namespace generic_protocol
 {
@@ -58,21 +59,23 @@ request_type_e to_request_type( const std::string & s )
 
 request_type_e  RequestParser::detect_request_type( const generic_request::Request & r )
 {
-    const std::string & cmd        = r.get_param( "CMD" );
+    std::string cmd;
 
-    if( cmd.empty() )
+    if( r.get_value( "CMD", cmd ) == false )
         throw MalformedRequest( "CMD is not defined" );
 
     return to_request_type( cmd );
 }
 
-
 AuthenticateRequest * RequestParser::to_authenticate_request( const generic_request::Request & r )
 {
     AuthenticateRequest * res = new AuthenticateRequest;
 
-    res->user_login = r.get_param( "USER_LOGIN" );
-    res->password   = r.get_param( "PASSWORD" );
+    if( r.get_value( "USER_LOGIN", res->user_login ) == false )
+        throw MalformedRequest( "USER_LOGIN is not defined" );
+
+    if( r.get_value( "PASSWORD", res->password ) == false )
+        throw MalformedRequest( "PASSWORD is not defined" );
 
     RequestValidator::validate( res );
 
@@ -83,8 +86,11 @@ AuthenticateAltRequest * RequestParser::to_authenticate_alt_request( const gener
 {
     auto * res = new AuthenticateAltRequest;
 
-    res->user_id    = std::stoi( r.get_param( "USER_ID" ) );
-    res->password   = r.get_param( "PASSWORD" );
+    if( r.get_value_uint32( "USER_ID", res->user_id ) == false )
+        throw MalformedRequest( "USER_ID is not defined" );
+
+    if( r.get_value( "PASSWORD", res->password ) == false )
+        throw MalformedRequest( "PASSWORD is not defined" );
 
     RequestValidator::validate( res );
 
@@ -95,9 +101,18 @@ CloseSessionRequest * RequestParser::to_close_session_request( const generic_req
 {
     CloseSessionRequest * res = new CloseSessionRequest;
 
-    res->session_id = r.get_param( "SESSION_ID" );
+    if( r.get_value( "SESSION_ID", res->session_id ) == false )
+        throw MalformedRequest( "SESSION_ID is not defined" );
 
     RequestValidator::validate( res );
+
+    return res;
+}
+
+Request * RequestParser::to_request( Request * res, const generic_request::Request & r )
+{
+    if( r.get_value( "SESSION_ID", res->session_id ) == false )
+        throw MalformedRequest( "SESSION_ID is not defined" );
 
     return res;
 }

@@ -19,9 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3634 $ $Date:: 2016-04-05 #$ $Author: serge $
-
-#include <stdexcept>            // std::runtime_error
+// $Revision: 3655 $ $Date:: 2016-04-07 #$ $Author: serge $
 
 #include "../generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
@@ -33,21 +31,13 @@ namespace generic_protocol
 class RequestParser
 {
 public:
-    struct MalformedRequest: public std::runtime_error
-    {
-        MalformedRequest( const std::string & str ):
-            std::runtime_error( str )
-        {}
-    };
-
-
-public:
 
     static request_type_e   detect_request_type( const generic_request::Request & r );
 
     static AuthenticateRequest *    to_authenticate_request( const generic_request::Request & r );
     static AuthenticateAltRequest * to_authenticate_alt_request( const generic_request::Request & r );
     static CloseSessionRequest *    to_close_session_request( const generic_request::Request & r );
+    static Request *                to_request( Request * res, const generic_request::Request & r );
 };
 
 } // namespace generic_protocol

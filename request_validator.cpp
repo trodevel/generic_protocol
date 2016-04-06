@@ -19,11 +19,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3634 $ $Date:: 2016-04-05 #$ $Author: serge $
+// $Revision: 3654 $ $Date:: 2016-04-07 #$ $Author: serge $
 
 #include "request_validator.h"      // self
 
-#include "request_parser.h"         // MalformedRequest
+#include "malformed_request.h"      // MalformedRequest
 
 namespace generic_protocol
 {
@@ -31,10 +31,10 @@ namespace generic_protocol
 bool RequestValidator::validate( const AuthenticateRequest * r )
 {
     if( r->user_login.empty() )
-        throw RequestParser::MalformedRequest( "USER_LOGIN is empty" );
+        throw MalformedRequest( "USER_LOGIN is empty" );
 
     if( r->password.empty() )
-        throw RequestParser::MalformedRequest( "PASSWORD is empty" );
+        throw MalformedRequest( "PASSWORD is empty" );
 
     return true;
 }
@@ -42,10 +42,10 @@ bool RequestValidator::validate( const AuthenticateRequest * r )
 bool RequestValidator::validate( const AuthenticateAltRequest * r )
 {
     if( r->user_id == 0 )
-        throw RequestParser::MalformedRequest( "USER_ID is 0" );
+        throw MalformedRequest( "USER_ID is 0" );
 
     if( r->password.empty() )
-        throw RequestParser::MalformedRequest( "PASSWORD is empty" );
+        throw MalformedRequest( "PASSWORD is empty" );
 
     return true;
 }
@@ -53,7 +53,7 @@ bool RequestValidator::validate( const AuthenticateAltRequest * r )
 bool validate( const CloseSessionRequest * r )
 {
     if( r->session_id.empty() )
-        throw RequestParser::MalformedRequest( "SESSION_ID is empty" );
+        throw MalformedRequest( "SESSION_ID is empty" );
 
     return true;
 }
@@ -61,7 +61,7 @@ bool validate( const CloseSessionRequest * r )
 bool validate( const Request * r )
 {
     if( r->session_id.empty() )
-        throw RequestParser::MalformedRequest( "SESSION_ID is empty" );
+        throw MalformedRequest( "SESSION_ID is empty" );
 
     return true;
 }
