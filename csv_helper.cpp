@@ -19,9 +19,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3613 $ $Date:: 2016-04-03 #$ $Author: serge $
+// $Revision: 3677 $ $Date:: 2016-04-08 #$ $Author: serge $
 
 #include "csv_helper.h"                 // self
+
+#include <typeinfo>                     // typeid
 
 #include "../utils/csv_helper.h"        // CsvHelper
 #include "../utils/assert.h"            // ASSERT
@@ -32,6 +34,28 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 namespace generic_protocol
 {
+
+std::string CsvHelper::to_csv( const BackwardMessage & r )
+{
+    if( typeid( r ) == typeid( ErrorResponse ) )
+    {
+        return to_csv( static_cast<const ErrorResponse&>( r ) );
+    }
+    else if( typeid( r ) == typeid( AuthenticateResponse ) )
+    {
+        return to_csv( static_cast<const AuthenticateResponse&>( r ) );
+    }
+    else if( typeid( r ) == typeid( CloseSessionResponse ) )
+    {
+        return to_csv( static_cast<const CloseSessionResponse&>( r ) );
+    }
+    else
+    {
+        ASSERT( 0 );
+    }
+
+    return std::string();
+}
 
 std::string CsvHelper::to_csv( const ErrorResponse & r )
 {

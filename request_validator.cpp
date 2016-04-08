@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3654 $ $Date:: 2016-04-07 #$ $Author: serge $
+// $Revision: 3672 $ $Date:: 2016-04-08 #$ $Author: serge $
 
 #include "request_validator.h"      // self
 
@@ -50,7 +50,7 @@ bool RequestValidator::validate( const AuthenticateAltRequest * r )
     return true;
 }
 
-bool validate( const CloseSessionRequest * r )
+bool RequestValidator::validate( const CloseSessionRequest * r )
 {
     if( r->session_id.empty() )
         throw MalformedRequest( "SESSION_ID is empty" );
@@ -58,7 +58,7 @@ bool validate( const CloseSessionRequest * r )
     return true;
 }
 
-bool validate( const Request * r )
+bool RequestValidator::validate( const Request * r )
 {
     if( r->session_id.empty() )
         throw MalformedRequest( "SESSION_ID is empty" );

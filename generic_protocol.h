@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3634 $ $Date:: 2016-04-05 #$ $Author: serge $
+// $Revision: 3664 $ $Date:: 2016-04-08 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
 #define LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
@@ -52,6 +52,7 @@ struct ForwardMessage: public MessageBase
 protected:
     ForwardMessage() {}
 
+public:
     virtual ~ForwardMessage() {};
 };
 
@@ -60,6 +61,7 @@ struct BackwardMessage: public MessageBase
 protected:
     BackwardMessage() {}
 
+public:
     virtual ~BackwardMessage() {};
 };
 
