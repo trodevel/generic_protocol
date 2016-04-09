@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3655 $ $Date:: 2016-04-07 #$ $Author: serge $
+// $Revision: 3701 $ $Date:: 2016-04-09 #$ $Author: serge $
 
 #include "../generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
@@ -33,6 +33,8 @@ class RequestParser
 public:
 
     static request_type_e   detect_request_type( const generic_request::Request & r );
+
+    static ForwardMessage *         to_forward_message( const generic_request::Request & r );
 
     static AuthenticateRequest *    to_authenticate_request( const generic_request::Request & r );
     static AuthenticateAltRequest * to_authenticate_alt_request( const generic_request::Request & r );

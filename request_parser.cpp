@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3656 $ $Date:: 2016-04-07 #$ $Author: serge $
+// $Revision: 3705 $ $Date:: 2016-04-09 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -67,9 +67,33 @@ request_type_e  RequestParser::detect_request_type( const generic_request::Reque
     return to_request_type( cmd );
 }
 
+ForwardMessage * RequestParser::to_forward_message( const generic_request::Request & r )
+{
+    request_type_e  type = RequestParser::detect_request_type( r );
+
+    if( type  == request_type_e::AUTHENTICATE_REQUEST )
+    {
+        return to_authenticate_request( r );
+    }
+    if( type  == request_type_e::AUTHENTICATE_ALT_REQUEST )
+    {
+        return to_authenticate_alt_request( r );
+    }
+    else if( type  == request_type_e::CLOSE_SESSION_REQUEST )
+    {
+        return to_close_session_request( r );
+    }
+    else
+    {
+        throw MalformedRequest( "unknown request type" );
+    }
+
+    return nullptr;
+}
+
 AuthenticateRequest * RequestParser::to_authenticate_request( const generic_request::Request & r )
 {
-    AuthenticateRequest * res = new AuthenticateRequest;
+    auto * res = new AuthenticateRequest;
 
     if( r.get_value( "USER_LOGIN", res->user_login ) == false )
         throw MalformedRequest( "USER_LOGIN is not defined" );
@@ -99,7 +123,7 @@ AuthenticateAltRequest * RequestParser::to_authenticate_alt_request( const gener
 
 CloseSessionRequest * RequestParser::to_close_session_request( const generic_request::Request & r )
 {
-    CloseSessionRequest * res = new CloseSessionRequest;
+    auto * res = new CloseSessionRequest;
 
     if( r.get_value( "SESSION_ID", res->session_id ) == false )
         throw MalformedRequest( "SESSION_ID is not defined" );
