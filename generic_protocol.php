@@ -1,5 +1,5 @@
 <?php
-// $Revision: 3634 $ $Date:: 2016-04-05 #$ $Author: serge $
+// $Revision: 3763 $ $Date:: 2016-04-12 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -38,17 +38,23 @@ class ErrorResponse extends BackwardMessage
 
     public          $type;
     public          $descr;
-    
+
+    function __construct( $type, $descr )
+    {
+        $this->type    = $type;
+        $this->descr   = $descr;
+    }
+
     function to_html()
     {
         return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
             get_html_table_row_header( array( 'RESULT', 'TYPE', 'DESCRIPTION' ) ) .
-            get_html_table_row_data( array( 'ERROR', type_to_string( $this->type ), $this->descr ) ) );
+            get_html_table_row_data( array( 'ERROR', $this->type_to_string( $this->type ), $this->descr ) ) );
     }
-    
+
     public static function type_to_string( $value )
     {
-        $class = new ReflectionClass(__CLASS__);
+        $class = new \ReflectionClass(__CLASS__);
         $constants = array_flip($class->getConstants());
 
         return $constants[ $value ];
@@ -61,12 +67,18 @@ class AuthenticateRequest extends ForwardMessage
 {
     public          $user_login;
     public          $password;
-    
-    public to_generic_request()
+
+    function __construct( $user_login, $password )
+    {
+        $this->user_login = $user_login;
+        $this->password   = $password;
+    }
+
+    public function to_generic_request()
     {
         return "CMD=AUTHENTICATE_REQUEST&USER_LOGIN:X=" . str2hex( $this->user_login ) . "&PASSWORD:X=" . str2hex( $this->password );
     }
-    
+
     function to_html()
     {
         return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
@@ -79,12 +91,18 @@ class AuthenticateAltRequest extends ForwardMessage
 {
     public          $user_id;
     public          $password;
-    
-    public to_generic_request()
+
+    function __construct( $user_id, $password )
     {
-        return "CMD=AUTHENTICATE_REQUEST&USER_ID=" . $this->user_login . "&PASSWORD:X=" . str2hex( $this->password );
+        $this->user_id  = $user_id;
+        $this->password = $password;
     }
-    
+
+    public function to_generic_request()
+    {
+        return "CMD=AUTHENTICATE_ALT_REQUEST&USER_ID=" . $this->user_id . "&PASSWORD:X=" . str2hex( $this->password );
+    }
+
     function to_html()
     {
         return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
@@ -96,7 +114,12 @@ class AuthenticateAltRequest extends ForwardMessage
 class AuthenticateResponse extends BackwardMessage
 {
     public          $session_id;
-    
+
+    function __construct( $session_id )
+    {
+        $this->session_id = $session_id;
+    }
+
     function to_html()
     {
         return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
@@ -110,12 +133,17 @@ class AuthenticateResponse extends BackwardMessage
 class CloseSessionRequest extends ForwardMessage
 {
     public          $session_id;
-    
-    public to_generic_request()
+
+    function __construct( $session_id )
     {
-        return "CMD=CLOSE_SESSION_REQUEST&SESSION_ID=" . $this->session_id );
+       $this->session_id = $session_id;
     }
-    
+
+    public function to_generic_request()
+    {
+        return "CMD=CLOSE_SESSION_REQUEST&SESSION_ID=" . $this->session_id;
+    }
+
     function to_html()
     {
         return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',

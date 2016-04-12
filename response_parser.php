@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3623 $ $Date:: 2016-04-04 #$ $Author: serge $
+// $Revision: 3767 $ $Date:: 2016-04-12 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -32,10 +32,7 @@ function parse_error_response( & $resp )
 {
     // ERROR;1;authentication failed;
 
-    $res = new ErrorResponse;
-
-    $res->type  = $resp[1];
-    $res->descr = $resp[2];
+    $res = new ErrorResponse( $resp[1], $resp[2] );
 
     return $res;
 }
@@ -44,16 +41,14 @@ function parse_authenticate_response( & $resp )
 {
     // AUTHENTICATE_RESPONSE;b3ef4ab3-2c1c-4590-8d9c-a764ec068dbf;
 
-    $res = new AutheticateResponse;
-
-    $res->session_id    = $resp[1];
+    $res = new AuthenticateResponse( $resp[1] );
 
     return $res;
 }
 
 function parse_close_session_response( & $resp )
 {
-    // SESSION_CLOSE_RESPONSE;
+    // CLOSE_SESSION_RESPONSE;
 
     $res = new CloseSessionResponse;
 
@@ -64,12 +59,29 @@ function create_parse_error()
 {
     // ERROR_RESPONSE;1;authentication failed;
 
-    $res = new ErrorResponse;
-
-    $res->type  = ErrorResponse::PARSE_ERROR;
-    $res->descr = "cannot parse response";
+    $res = new ErrorResponse( ErrorResponse::PARSE_ERROR, "cannot parse response" );
 
     return $res;
+}
+
+function get_response_type( $csv_arr )
+{
+    if( sizeof( $csv_arr ) < 1 )
+        return '?';
+
+    $type = $csv_arr[0][0];
+
+    switch( $type )
+    {
+    case 'ERROR':
+    case 'AUTHENTICATE_RESPONSE':
+    case 'CLOSE_SESSION_RESPONSE':
+        return $type;
+    default:
+        break;
+    }
+
+    return '?';
 }
 
 function parse_response( $arr )
@@ -77,21 +89,23 @@ function parse_response( $arr )
     if( sizeof( $arr ) < 1 )
         return false;
 
-    $resp = convert_csv_to_array( $arr );
+    $csv_arr = convert_csv_to_array( $arr );
 
-    //echo "resp[0][0]=" . $resp[0][0] . "<br>";
-    //echo "resp[0][1]=" . $resp[0][1] . "<br>";
+    $type = get_response_type( $csv_arr );
 
-    if( $resp[0][0] == 'ERROR' )
-        return parse_error_response( $resp[0] );
+    switch( $type )
+    {
+    case 'ERROR':
+        return parse_error_response( $csv_arr[0] );
+    case 'AUTHENTICATE_RESPONSE':
+        return parse_authenticate_response( $csv_arr[0] );
+    case 'CLOSE_SESSION_RESPONSE':
+        return parse_close_session_response( $csv_arr[0] );
+    default:
+        break;
+    }
 
-    if( $resp[0][0] == 'AUTHENTICATE_RESPONSE' )
-        return parse_authenticate_response( $resp[0] );
-
-    if( $resp[0][0] == 'CLOSE_SESSION_RESPONSE' )
-        return parse_close_session_response( $resp[0] );
-
-    return create_parse_error;
+    return create_parse_error();
 }
 
 ?>
