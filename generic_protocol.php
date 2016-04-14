@@ -1,10 +1,11 @@
 <?php
-// $Revision: 3763 $ $Date:: 2016-04-12 #$ $Author: serge $
+// $Revision: 3787 $ $Date:: 2016-04-14 #$ $Author: serge $
 
 namespace generic_protocol;
 
 require_once 'php_snippets/hexcodec.php';           // str2hex()
 require_once 'php_snippets/html_elems.php';         // get_html_table_row_header
+require_once 'request_assembler.php';               // assemble_request()
 
 // base messages *******************************************
 
@@ -76,7 +77,12 @@ class AuthenticateRequest extends ForwardMessage
 
     public function to_generic_request()
     {
-        return "CMD=AUTHENTICATE_REQUEST&USER_LOGIN:X=" . str2hex( $this->user_login ) . "&PASSWORD:X=" . str2hex( $this->password );
+        $res = array(
+            "CMD"          => "AUTHENTICATE_REQUEST",
+            "USER_LOGIN:X" => str2hex( $this->user_login ),
+            "PASSWORD:X"   => str2hex( $this->password ) );
+
+        return assemble_request( $res );
     }
 
     function to_html()
