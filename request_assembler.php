@@ -19,9 +19,11 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// $Revision: 3786 $ $Date:: 2016-04-14 #$ $Author: serge $
+// $Revision: 3790 $ $Date:: 2016-04-15 #$ $Author: serge $
 
 namespace generic_protocol;
+
+require_once 'php_snippets/hexcodec.php';           // str2hex()
 
 function assemble_request( & $array )
 {
@@ -30,6 +32,18 @@ function assemble_request( & $array )
     foreach( $array as $key => $value )
     {
         $res = $res . "$key=$value&";
+    }
+
+    return $res;
+}
+
+function assemble_request_enc( & $array )
+{
+    $res = "";
+
+    foreach( $array as $key => $value )
+    {
+        $res = $res . "$key:X=" . \str2hex( $value ) . "&";
     }
 
     return $res;
