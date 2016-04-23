@@ -1,5 +1,5 @@
 <?php
-// $Revision: 3787 $ $Date:: 2016-04-14 #$ $Author: serge $
+// $Revision: 3811 $ $Date:: 2016-04-22 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -106,7 +106,12 @@ class AuthenticateAltRequest extends ForwardMessage
 
     public function to_generic_request()
     {
-        return "CMD=AUTHENTICATE_ALT_REQUEST&USER_ID=" . $this->user_id . "&PASSWORD:X=" . str2hex( $this->password );
+        $res = array(
+            "CMD"          => "AUTHENTICATE_ALT_REQUEST",
+            "USER_ID"      => $this->user_id,
+            "PASSWORD:X"   => str2hex( $this->password ) );
+
+        return assemble_request( $res );
     }
 
     function to_html()
@@ -147,7 +152,11 @@ class CloseSessionRequest extends ForwardMessage
 
     public function to_generic_request()
     {
-        return "CMD=CLOSE_SESSION_REQUEST&SESSION_ID=" . $this->session_id;
+        $res = array(
+            "CMD"          => "CLOSE_SESSION_REQUEST",
+            "SESSION_ID"   => $this->session_id );
+
+        return assemble_request( $res );
     }
 
     function to_html()
@@ -173,6 +182,19 @@ class CloseSessionResponse extends BackwardMessage
 abstract class Request extends ForwardMessage
 {
     public          $session_id;
+
+    function __construct( $session_id )
+    {
+        $this->session_id = $session_id;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+            "SESSION_ID"   => $this->session_id );
+
+        return assemble_request( $res );
+    }
 }
 
 
