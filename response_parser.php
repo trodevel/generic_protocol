@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3767 $ $Date:: 2016-04-12 #$ $Author: serge $
+// $Revision: 3840 $ $Date:: 2016-04-26 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -84,13 +84,8 @@ function get_response_type( $csv_arr )
     return '?';
 }
 
-function parse_response( $arr )
+function parse_csv_array( $csv_arr )
 {
-    if( sizeof( $arr ) < 1 )
-        return false;
-
-    $csv_arr = convert_csv_to_array( $arr );
-
     $type = get_response_type( $csv_arr );
 
     switch( $type )
@@ -106,6 +101,16 @@ function parse_response( $arr )
     }
 
     return create_parse_error();
+}
+
+function parse_response( $arr )
+{
+    if( sizeof( $arr ) < 1 )
+        return false;
+
+    $csv_arr = convert_csv_to_array( $arr );
+
+    return parse_csv_array( $csv_arr );
 }
 
 ?>
