@@ -1,5 +1,5 @@
 <?php
-// $Revision: 3811 $ $Date:: 2016-04-22 #$ $Author: serge $
+// $Revision: 4364 $ $Date:: 2016-08-08 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -183,7 +183,12 @@ abstract class Request extends ForwardMessage
 {
     public          $session_id;
 
-    function __construct( $session_id )
+    function __construct()
+    {
+        $this->session_id = "";
+    }
+    
+    public function set_session_id( $session_id )
     {
         $this->session_id = $session_id;
     }
