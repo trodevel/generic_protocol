@@ -19,11 +19,11 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// $Revision: 3790 $ $Date:: 2016-04-15 #$ $Author: serge $
+// $Revision: 4395 $ $Date:: 2016-08-19 #$ $Author: serge $
 
 namespace generic_protocol;
 
-require_once 'php_snippets/hexcodec.php';           // str2hex()
+require_once '../php_snippets/hexcodec.php';        // str2hex()
 
 function assemble_request( & $array )
 {

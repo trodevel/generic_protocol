@@ -21,11 +21,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3840 $ $Date:: 2016-04-26 #$ $Author: serge $
+// $Revision: 4395 $ $Date:: 2016-08-19 #$ $Author: serge $
 
 namespace generic_protocol;
 
-require_once 'php_snippets/convert_csv_to_array.php';      // convert_csv_to_array()
+require_once '../php_snippets/convert_csv_to_array.php';   // convert_csv_to_array()
 require_once 'generic_protocol.php';
 
 function parse_error_response( & $resp )

@@ -1,10 +1,10 @@
 <?php
-// $Revision: 4364 $ $Date:: 2016-08-08 #$ $Author: serge $
+// $Revision: 4395 $ $Date:: 2016-08-19 #$ $Author: serge $
 
 namespace generic_protocol;
 
-require_once 'php_snippets/hexcodec.php';           // str2hex()
-require_once 'php_snippets/html_elems.php';         // get_html_table_row_header
+require_once '../php_snippets/hexcodec.php';        // str2hex()
+require_once '../php_snippets/html_elems.php';      // get_html_table_row_header
 require_once 'request_assembler.php';               // assemble_request()
 
 // base messages *******************************************
@@ -187,7 +187,7 @@ abstract class Request extends ForwardMessage
     {
         $this->session_id = "";
     }
-    
+
     public function set_session_id( $session_id )
     {
         $this->session_id = $session_id;
