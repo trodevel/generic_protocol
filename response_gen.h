@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3610 $ $Date:: 2016-04-03 #$ $Author: serge $
+// $Revision: 4444 $ $Date:: 2016-09-20 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_RESPONSE_GEN_H
 #define LIB_GENERIC_PROTOCOL_RESPONSE_GEN_H
@@ -51,6 +51,15 @@ inline AuthenticateResponse* create_autheticate_response( const std::string & se
 inline CloseSessionResponse* create_close_session_response()
 {
     auto res = new CloseSessionResponse;
+
+    return res;
+}
+
+inline GetUserIdResponse* create_get_user_id_response( const uint32_t user_id )
+{
+    auto res = new GetUserIdResponse;
+
+    res->user_id    = user_id;
 
     return res;
 }

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 4439 $ $Date:: 2016-09-19 #$ $Author: serge $
+// $Revision: 4448 $ $Date:: 2016-09-20 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -149,6 +149,9 @@ Request * RequestParser::to_request( Request * res, const generic_request::Reque
 GetUserIdRequest * RequestParser::to_get_user_id( const generic_request::Request & r )
 {
     auto * res = new GetUserIdRequest;
+
+    if( r.get_value( "SESSION_ID", res->session_id ) == false )
+        throw MalformedRequest( "SESSION_ID is not defined" );
 
     if( r.get_value( "USER_LOGIN", res->user_login ) == false )
         throw MalformedRequest( "USER_LOGIN is not defined" );
