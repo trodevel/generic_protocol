@@ -1,5 +1,5 @@
 <?php
-// $Revision: 4436 $ $Date:: 2016-09-19 #$ $Author: serge $
+// $Revision: 4453 $ $Date:: 2016-09-20 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -218,17 +218,17 @@ class GetUserIdRequest extends Request
     public function to_generic_request()
     {
         $res = array(
-                "CMD"          => "GET_USER_ID_REQUEST",
+                "CMD"          => "GET_USER_ID",
                 "USER_LOGIN:X" => str2hex( $this->user_login ) );
 
-        return assemble_request( $res );
+        return assemble_request( $res ) . parent::to_generic_request();
     }
 
     function to_html()
     {
         return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
                 get_html_table_row_header( array( 'REQUEST', 'USER_LOGIN' ) ) .
-                get_html_table_row_data( array( 'GET_USER_ID_REQUEST', str2hex( $this->user_login ) ) ) );
+                get_html_table_row_data( array( 'GET_USER_ID', str2hex( $this->user_login ) ) ) );
     }
 }
 

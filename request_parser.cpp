@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 4448 $ $Date:: 2016-09-20 #$ $Author: serge $
+// $Revision: 4453 $ $Date:: 2016-09-20 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -47,7 +47,7 @@ request_type_e to_request_type( const std::string & s )
         insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( AUTHENTICATE_REQUEST ) );
         insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( AUTHENTICATE_ALT_REQUEST ) );
         insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( CLOSE_SESSION_REQUEST ) );
-        insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( GET_USER_ID_REQUEST ) );
+        insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( GET_USER_ID ) );
     }
 
     auto it = m.find( s );
@@ -84,7 +84,7 @@ ForwardMessage * RequestParser::to_forward_message( const generic_request::Reque
     {
         return to_close_session_request( r );
     }
-    else if( type  == request_type_e::GET_USER_ID_REQUEST )
+    else if( type  == request_type_e::GET_USER_ID )
     {
         return to_get_user_id( r );
     }

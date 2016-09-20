@@ -29,7 +29,7 @@ int main()
     {
         test_1( "CMD=AUTHENTICATE_REQUEST&USER_LOGIN=xxx&PASSWORD=yyy" );
 
-        test_2( "CMD=GET_USER_ID_REQUEST&USER_LOGIN=xxx" );
+        test_2( "CMD=GET_USER_ID&USER_LOGIN=xxx" );
 
         std::cout << "OK" << std::endl;
     }
