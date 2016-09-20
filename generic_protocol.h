@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3664 $ $Date:: 2016-04-08 #$ $Author: serge $
+// $Revision: 4435 $ $Date:: 2016-09-19 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
 #define LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
@@ -120,7 +120,7 @@ struct CloseSessionResponse: public BackwardMessage
     virtual ~CloseSessionResponse() {};
 };
 
-// authentication messages **********************************
+// request base **********************************
 
 struct Request: public ForwardMessage
 {
@@ -133,6 +133,23 @@ public:
 
     std::string         session_id;
 };
+
+// user id handling **********************************
+
+struct GetUserIdRequest: public Request
+{
+    virtual ~GetUserIdRequest() {};
+
+    std::string         user_login;
+};
+
+struct GetUserIdResponse: public BackwardMessage
+{
+    virtual ~GetUserIdResponse() {};
+
+    uint32_t            user_id;
+};
+
 
 } // namespace generic_protocol
 

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3748 $ $Date:: 2016-04-11 #$ $Author: serge $
+// $Revision: 4439 $ $Date:: 2016-09-19 #$ $Author: serge $
 
 #include "../generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
@@ -40,6 +40,7 @@ public:
     static AuthenticateAltRequest * to_authenticate_alt_request( const generic_request::Request & r );
     static CloseSessionRequest *    to_close_session_request( const generic_request::Request & r );
     static Request *                to_request( Request * res, const generic_request::Request & r );
+    static GetUserIdRequest *       to_get_user_id( const generic_request::Request & r );
 };
 
 } // namespace generic_protocol

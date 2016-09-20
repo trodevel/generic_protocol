@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3748 $ $Date:: 2016-04-11 #$ $Author: serge $
+// $Revision: 4439 $ $Date:: 2016-09-19 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -47,6 +47,7 @@ request_type_e to_request_type( const std::string & s )
         insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( AUTHENTICATE_REQUEST ) );
         insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( AUTHENTICATE_ALT_REQUEST ) );
         insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( CLOSE_SESSION_REQUEST ) );
+        insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( GET_USER_ID_REQUEST ) );
     }
 
     auto it = m.find( s );
@@ -82,6 +83,10 @@ ForwardMessage * RequestParser::to_forward_message( const generic_request::Reque
     else if( type  == request_type_e::CLOSE_SESSION_REQUEST )
     {
         return to_close_session_request( r );
+    }
+    else if( type  == request_type_e::GET_USER_ID_REQUEST )
+    {
+        return to_get_user_id( r );
     }
     else
     {
@@ -137,6 +142,18 @@ Request * RequestParser::to_request( Request * res, const generic_request::Reque
 {
     if( r.get_value( "SESSION_ID", res->session_id ) == false )
         throw MalformedRequest( "SESSION_ID is not defined" );
+
+    return res;
+}
+
+GetUserIdRequest * RequestParser::to_get_user_id( const generic_request::Request & r )
+{
+    auto * res = new GetUserIdRequest;
+
+    if( r.get_value( "USER_LOGIN", res->user_login ) == false )
+        throw MalformedRequest( "USER_LOGIN is not defined" );
+
+    RequestValidator::validate( res );
 
     return res;
 }

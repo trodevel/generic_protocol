@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 4395 $ $Date:: 2016-08-19 #$ $Author: serge $
+// $Revision: 4442 $ $Date:: 2016-09-19 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -55,6 +55,15 @@ function parse_close_session_response( & $resp )
     return $res;
 }
 
+function parse_get_user_id_response( & $resp )
+{
+    // GET_USER_ID_RESPONSE;123456789;
+
+    $res = new GetUserIdResponse( $resp[1] );
+
+    return $res;
+}
+
 function create_parse_error()
 {
     // ERROR_RESPONSE;1;authentication failed;
@@ -76,6 +85,7 @@ function get_response_type( $csv_arr )
     case 'ERROR':
     case 'AUTHENTICATE_RESPONSE':
     case 'CLOSE_SESSION_RESPONSE':
+    case 'GET_USER_ID_RESPONSE':
         return $type;
     default:
         break;
@@ -96,6 +106,8 @@ function parse_csv_array( $csv_arr )
         return parse_authenticate_response( $csv_arr[0] );
     case 'CLOSE_SESSION_RESPONSE':
         return parse_close_session_response( $csv_arr[0] );
+    case 'GET_USER_ID_RESPONSE':
+        return parse_get_user_id_response( $csv_arr[0] );
     default:
         break;
     }

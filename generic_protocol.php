@@ -1,5 +1,5 @@
 <?php
-// $Revision: 4395 $ $Date:: 2016-08-19 #$ $Author: serge $
+// $Revision: 4436 $ $Date:: 2016-09-19 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -199,6 +199,53 @@ abstract class Request extends ForwardMessage
             "SESSION_ID"   => $this->session_id );
 
         return assemble_request( $res );
+    }
+}
+
+// user id handling **********************************
+
+class GetUserIdRequest extends Request
+{
+    public          $user_login;
+
+    function __construct( $user_login )
+    {
+        parent::__construct();
+
+        $this->user_login = $user_login;
+    }
+
+    public function to_generic_request()
+    {
+        $res = array(
+                "CMD"          => "GET_USER_ID_REQUEST",
+                "USER_LOGIN:X" => str2hex( $this->user_login ) );
+
+        return assemble_request( $res );
+    }
+
+    function to_html()
+    {
+        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
+                get_html_table_row_header( array( 'REQUEST', 'USER_LOGIN' ) ) .
+                get_html_table_row_data( array( 'GET_USER_ID_REQUEST', str2hex( $this->user_login ) ) ) );
+    }
+}
+
+class GetUserIdResponse extends BackwardMessage
+{
+    public          $user_id;
+
+    function __construct( $user_id )
+    {
+        $this->user_id = $user_id;
+    }
+
+    function to_html()
+    {
+        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
+                get_html_table_row_header( array( 'RESPONSE', 'USER_ID' ) ) .
+                get_html_table_row_data( array( 'GET_USER_ID_RESPONSE', $this->user_id ) ) );
     }
 }
 

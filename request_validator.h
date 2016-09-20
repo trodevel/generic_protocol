@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3634 $ $Date:: 2016-04-05 #$ $Author: serge $
+// $Revision: 4438 $ $Date:: 2016-09-19 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
 #define LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
@@ -36,6 +36,7 @@ public:
     static bool validate( const AuthenticateAltRequest * r );
     static bool validate( const CloseSessionRequest * r );
     static bool validate( const Request * r );
+    static bool validate( const GetUserIdRequest * r );
 };
 
 } // namespace generic_protocol

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3677 $ $Date:: 2016-04-08 #$ $Author: serge $
+// $Revision: 4440 $ $Date:: 2016-09-19 #$ $Author: serge $
 
 #include "csv_helper.h"                 // self
 
@@ -49,6 +49,10 @@ std::string CsvHelper::to_csv( const BackwardMessage & r )
     {
         return to_csv( static_cast<const CloseSessionResponse&>( r ) );
     }
+    else if( typeid( r ) == typeid( GetUserIdResponse ) )
+    {
+        return to_csv( static_cast<const GetUserIdResponse&>( r ) );
+    }
     else
     {
         ASSERT( 0 );
@@ -70,6 +74,11 @@ std::string CsvHelper::to_csv( const AuthenticateResponse & r )
 std::string CsvHelper::to_csv( const CloseSessionResponse & r )
 {
     return utils::CsvHelper::to_csv( "CLOSE_SESSION_RESPONSE" );
+}
+
+std::string CsvHelper::to_csv( const GetUserIdResponse & r )
+{
+    return utils::CsvHelper::to_csv( "GET_USER_ID_RESPONSE", r.user_id );
 }
 
 } // namespace generic_protocol

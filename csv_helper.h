@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3665 $ $Date:: 2016-04-08 #$ $Author: serge $
+// $Revision: 4440 $ $Date:: 2016-09-19 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_CSV_HELPER_H
 #define LIB_GENERIC_PROTOCOL_CSV_HELPER_H
@@ -36,6 +36,7 @@ public:
     static std::string to_csv( const ErrorResponse & r );
     static std::string to_csv( const AuthenticateResponse & r );
     static std::string to_csv( const CloseSessionResponse & r );
+    static std::string to_csv( const GetUserIdResponse & r );
 };
 
 } // namespace generic_protocol
