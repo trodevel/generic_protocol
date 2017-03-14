@@ -1,10 +1,10 @@
 <?php
-// $Revision: 4453 $ $Date:: 2016-09-20 #$ $Author: serge $
+// $Revision: 5995 $ $Date:: 2017-03-13 #$ $Author: serge $
 
 namespace generic_protocol;
 
-require_once '../php_snippets/hexcodec.php';        // str2hex()
-require_once '../php_snippets/html_elems.php';      // get_html_table_row_header
+require_once __DIR__.'/../php_snippets/hexcodec.php';        // str2hex()
+require_once __DIR__.'/../php_snippets/html_elems.php';      // get_html_table_row_header
 require_once 'request_assembler.php';               // assemble_request()
 
 // base messages *******************************************
