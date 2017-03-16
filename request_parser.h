@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 4458 $ $Date:: 2016-09-22 #$ $Author: serge $
+// $Revision: 6073 $ $Date:: 2017-03-16 #$ $Author: serge $
 
 #include "../generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
@@ -34,13 +34,13 @@ public:
 
     static request_type_e   detect_request_type( const generic_request::Request & r );
 
-    static ForwardMessage *         to_forward_message( const generic_request::Request & r );
+    static ForwardMessage *     to_forward_message( const generic_request::Request & r );
 
-    static AuthenticateRequest *    to_authenticate_request( const generic_request::Request & r );
-    static AuthenticateAltRequest * to_authenticate_alt_request( const generic_request::Request & r );
-    static CloseSessionRequest *    to_close_session_request( const generic_request::Request & r );
-    static Request *                to_request( Request * res, const generic_request::Request & r );
-    static GetUserIdRequest *       to_get_user_id( const generic_request::Request & r );
+    static ForwardMessage *     to_authenticate_request( const generic_request::Request & r );
+    static ForwardMessage *     to_authenticate_alt_request( const generic_request::Request & r );
+    static ForwardMessage *     to_close_session_request( const generic_request::Request & r );
+    static Request *            to_request( Request * res, const generic_request::Request & r );
+    static ForwardMessage *     to_get_user_id( const generic_request::Request & r );
 };
 
 } // namespace generic_protocol

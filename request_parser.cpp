@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 4458 $ $Date:: 2016-09-22 #$ $Author: serge $
+// $Revision: 6073 $ $Date:: 2017-03-16 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -70,33 +70,27 @@ request_type_e  RequestParser::detect_request_type( const generic_request::Reque
 
 ForwardMessage * RequestParser::to_forward_message( const generic_request::Request & r )
 {
-    request_type_e  type = RequestParser::detect_request_type( r );
+    auto type = RequestParser::detect_request_type( r );
 
-    if( type  == request_type_e::AUTHENTICATE_REQUEST )
+    typedef ForwardMessage* (*PPMF)( const generic_request::Request & r );
+
+    static const std::map<request_type_e, PPMF> funcs =
     {
-        return to_authenticate_request( r );
-    }
-    if( type  == request_type_e::AUTHENTICATE_ALT_REQUEST )
-    {
-        return to_authenticate_alt_request( r );
-    }
-    else if( type  == request_type_e::CLOSE_SESSION_REQUEST )
-    {
-        return to_close_session_request( r );
-    }
-    else if( type  == request_type_e::GET_USER_ID )
-    {
-        return to_get_user_id( r );
-    }
-    else
-    {
+        { request_type_e::AUTHENTICATE_REQUEST,     & RequestParser::to_authenticate_request },
+        { request_type_e::AUTHENTICATE_ALT_REQUEST, & RequestParser::to_authenticate_alt_request },
+        { request_type_e::CLOSE_SESSION_REQUEST,    & RequestParser::to_close_session_request },
+        { request_type_e::GET_USER_ID,              & RequestParser::to_get_user_id },
+    };
+
+    auto it = funcs.find( type );
+
+    if( it == funcs.end() )
         throw MalformedRequest( "unknown request type" );
-    }
 
-    return nullptr;
+    return it->second( r );
 }
 
-AuthenticateRequest * RequestParser::to_authenticate_request( const generic_request::Request & r )
+ForwardMessage * RequestParser::to_authenticate_request( const generic_request::Request & r )
 {
     auto * res = new AuthenticateRequest;
 
@@ -111,7 +105,7 @@ AuthenticateRequest * RequestParser::to_authenticate_request( const generic_requ
     return res;
 }
 
-AuthenticateAltRequest * RequestParser::to_authenticate_alt_request( const generic_request::Request & r )
+ForwardMessage * RequestParser::to_authenticate_alt_request( const generic_request::Request & r )
 {
     auto * res = new AuthenticateAltRequest;
 
@@ -126,7 +120,7 @@ AuthenticateAltRequest * RequestParser::to_authenticate_alt_request( const gener
     return res;
 }
 
-CloseSessionRequest * RequestParser::to_close_session_request( const generic_request::Request & r )
+ForwardMessage * RequestParser::to_close_session_request( const generic_request::Request & r )
 {
     auto * res = new CloseSessionRequest;
 
@@ -146,7 +140,7 @@ Request * RequestParser::to_request( Request * res, const generic_request::Reque
     return res;
 }
 
-GetUserIdRequest * RequestParser::to_get_user_id( const generic_request::Request & r )
+ForwardMessage * RequestParser::to_get_user_id( const generic_request::Request & r )
 {
     auto * res = new GetUserIdRequest;
 

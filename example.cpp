@@ -9,7 +9,7 @@ void test_1( const std::string & str )
 {
     generic_request::Request gr = generic_request::RequestParser::to_request( str );
 
-    generic_protocol::AuthenticateRequest * r = generic_protocol::RequestParser::to_authenticate_request( gr );
+    auto r = static_cast<generic_protocol::AuthenticateRequest *>( generic_protocol::RequestParser::to_authenticate_request( gr ) );
 
     delete r;
 }
@@ -27,9 +27,9 @@ int main()
 {
     try
     {
-        test_1( "CMD=AUTHENTICATE_REQUEST&USER_LOGIN=xxx&PASSWORD=yyy" );
+        test_1( "CMD=AUTHENTICATE_REQUEST&USER_LOGIN=xxx&PASSWORD=yyy&SESSION_ID=zzz" );
 
-        test_2( "CMD=GET_USER_ID&USER_LOGIN=xxx" );
+        test_2( "CMD=GET_USER_ID&USER_LOGIN=xxx&SESSION_ID=zzz" );
 
         std::cout << "OK" << std::endl;
     }
