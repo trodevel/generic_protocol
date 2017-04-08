@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 5995 $ $Date:: 2017-03-13 #$ $Author: serge $
+// $Revision: 6542 $ $Date:: 2017-04-07 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -64,65 +64,50 @@ function parse_get_user_id_response( & $resp )
     return $res;
 }
 
-function create_parse_error()
+class ResponseParser
 {
-    // ERROR_RESPONSE;1;authentication failed;
-
-    $res = new ErrorResponse( ErrorResponse::PARSE_ERROR, "cannot parse response" );
-
-    return $res;
-}
-
-function get_response_type( $csv_arr )
-{
-    if( sizeof( $csv_arr ) < 1 )
-        return '?';
-
-    $type = $csv_arr[0][0];
-
-    switch( $type )
+    public static function parse( $arr )
     {
-    case 'ERROR':
-    case 'AUTHENTICATE_RESPONSE':
-    case 'CLOSE_SESSION_RESPONSE':
-    case 'GET_USER_ID_RESPONSE':
-        return $type;
-    default:
-        break;
+        if( sizeof( $arr ) < 1 )
+            return false;
+
+        $csv_arr = \convert_csv_to_array( $arr );
+
+        return static::parse_csv_array( $csv_arr );
     }
 
-    return '?';
-}
-
-function parse_csv_array( $csv_arr )
-{
-    $type = get_response_type( $csv_arr );
-
-    switch( $type )
+    protected static function parse_csv_array( $csv_arr )
     {
-    case 'ERROR':
-        return parse_error_response( $csv_arr[0] );
-    case 'AUTHENTICATE_RESPONSE':
-        return parse_authenticate_response( $csv_arr[0] );
-    case 'CLOSE_SESSION_RESPONSE':
-        return parse_close_session_response( $csv_arr[0] );
-    case 'GET_USER_ID_RESPONSE':
-        return parse_get_user_id_response( $csv_arr[0] );
-    default:
-        break;
+        if( sizeof( $csv_arr ) < 1 )
+            return self::create_parse_error();
+
+        $type = $csv_arr[0][0];
+
+        $func_map = array(
+            'ERROR'                     => 'parse_error_response',
+            'AUTHENTICATE_RESPONSE'     => 'parse_authenticate_response',
+            'CLOSE_SESSION_RESPONSE'    => 'parse_close_session_response',
+            'GET_USER_ID_RESPONSE'      => 'parse_get_user_id_response'
+        );
+
+        if( array_key_exists( $type, $func_map ) )
+        {
+            $func = '\\generic_protocol\\' . $func_map[ $type ];
+            return $func( $csv_arr[0] );
+        }
+
+        return self::create_parse_error();
     }
 
-    return create_parse_error();
-}
+    protected static function create_parse_error()
+    {
+        // ERROR_RESPONSE;1;authentication failed;
 
-function parse_response( $arr )
-{
-    if( sizeof( $arr ) < 1 )
-        return false;
+        $res = new ErrorResponse( ErrorResponse::PARSE_ERROR, "cannot parse response" );
 
-    $csv_arr = convert_csv_to_array( $arr );
+        return $res;
+    }
 
-    return parse_csv_array( $csv_arr );
 }
 
 ?>

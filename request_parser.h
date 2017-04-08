@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 6073 $ $Date:: 2017-03-16 #$ $Author: serge $
+// $Revision: 6542 $ $Date:: 2017-04-07 #$ $Author: serge $
 
 #include "../generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
@@ -42,5 +42,8 @@ public:
     static Request *            to_request( Request * res, const generic_request::Request & r );
     static ForwardMessage *     to_get_user_id( const generic_request::Request & r );
 };
+
+void get_value_or_throw( std::string & res, const std::string & key, const generic_request::Request & r );
+void get_value_or_throw_uint32( uint32_t & res, const std::string & key, const generic_request::Request & r );
 
 } // namespace generic_protocol

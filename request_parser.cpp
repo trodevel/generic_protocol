@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 6073 $ $Date:: 2017-03-16 #$ $Author: serge $
+// $Revision: 6542 $ $Date:: 2017-04-07 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -153,6 +153,18 @@ ForwardMessage * RequestParser::to_get_user_id( const generic_request::Request &
     RequestValidator::validate( res );
 
     return res;
+}
+
+void get_value_or_throw( std::string & res, const std::string & key, const generic_request::Request & r )
+{
+    if( r.get_value( key, res ) == false )
+        throw MalformedRequest( key + " is not defined" );
+}
+
+void get_value_or_throw_uint32( uint32_t & res, const std::string & key, const generic_request::Request & r )
+{
+    if( r.get_value_uint32( key, res ) == false )
+        throw MalformedRequest( key + " is not defined or not numerical" );
 }
 
 } // namespace generic_protocol
