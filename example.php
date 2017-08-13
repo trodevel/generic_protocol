@@ -1,9 +1,10 @@
 <?php
 
-// $Revision: 6542 $ $Date:: 2017-04-07 #$ $Author: serge $
+// $Revision: 7576 $ $Date:: 2017-08-11 #$ $Author: serge $
 
 require_once 'generic_protocol.php';
 require_once 'response_parser.php';
+require_once 'str_helper.php';
 
 $login      = 'test';
 $user_id    = 175774203;
@@ -34,18 +35,18 @@ $parsed_close = \generic_protocol\ResponseParser::parse( $resp_close );
 $parsed_auth  = \generic_protocol\ResponseParser::parse( $resp_auth );
 $parsed_id    = \generic_protocol\ResponseParser::parse( $resp_id );
 
-echo "parsed unknown:\n" . $parsed_unk->to_html() . "\n";
-echo "parsed error  :\n" . $parsed_err->to_html() . "\n";
-echo "parsed close  :\n" . $parsed_close->to_html() . "\n";
-echo "parsed auth   :\n" . $parsed_auth->to_html() . "\n";
-echo "parsed id     :\n" . $parsed_id->to_html() . "\n";
+echo "parsed unknown:\n" . \generic_protocol\to_html( $parsed_unk ) . "\n";
+echo "parsed error  :\n" . \generic_protocol\to_html( $parsed_err ) . "\n";
+echo "parsed close  :\n" . \generic_protocol\to_html( $parsed_close ) . "\n";
+echo "parsed auth   :\n" . \generic_protocol\to_html( $parsed_auth ) . "\n";
+echo "parsed id     :\n" . \generic_protocol\to_html( $parsed_id ) . "\n";
 
 {
     $resp  = 'broken;';
 
     $parsed = \generic_protocol\ResponseParser::parse( $resp );
 
-    echo "parsed :\n" . $parsed->to_html() . "\n";
+    echo "parsed :\n" . \generic_protocol\to_html( $parsed ) . "\n";
 }
 
 

@@ -1,20 +1,15 @@
 <?php
-// $Revision: 6462 $ $Date:: 2017-04-05 #$ $Author: serge $
+// $Revision: 7574 $ $Date:: 2017-08-11 #$ $Author: serge $
 
 namespace generic_protocol;
 
 require_once __DIR__.'/../php_snippets/hexcodec.php';        // str2hex()
-require_once __DIR__.'/../php_snippets/html_elems.php';      // get_html_table_row_header
 require_once 'request_assembler.php';               // assemble_request()
 
 // base messages *******************************************
 
 abstract class MessageBase
 {
-    public function to_html()
-    {
-        return "not implemented yet";
-    }
 }
 
 // forward/backward messages *******************************
@@ -45,21 +40,6 @@ class ErrorResponse extends BackwardMessage
         $this->type    = $type;
         $this->descr   = $descr;
     }
-
-    function to_html()
-    {
-        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-            get_html_table_row_header( array( 'RESULT', 'TYPE', 'DESCRIPTION' ) ) .
-            get_html_table_row_data( array( 'ERROR', $this->type_to_string( $this->type ), $this->descr ) ) );
-    }
-
-    public static function type_to_string( $value )
-    {
-        $class = new \ReflectionClass(__CLASS__);
-        $constants = array_flip($class->getConstants());
-
-        return $constants[ $value ];
-    }
 }
 
 // authentication messages *********************************
@@ -84,13 +64,6 @@ class AuthenticateRequest extends ForwardMessage
 
         return assemble_request( $res );
     }
-
-    function to_html()
-    {
-        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-            get_html_table_row_header( array( 'REQUEST', 'USER_LOGIN', 'PASSWORD' ) ) .
-            get_html_table_row_data( array( 'AUTHENTICATE_REQUEST', str2hex( $this->user_login ), str2hex( $this->password ) ) ) );
-    }
 }
 
 class AuthenticateAltRequest extends ForwardMessage
@@ -113,13 +86,6 @@ class AuthenticateAltRequest extends ForwardMessage
 
         return assemble_request( $res );
     }
-
-    function to_html()
-    {
-        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-            get_html_table_row_header( array( 'REQUEST', 'USER_ID', 'PASSWORD' ) ) .
-            get_html_table_row_data( array( 'AUTHENTICATE_ALT_REQUEST', $this->user_id, str2hex( $this->password ) ) ) );
-    }
 }
 
 class AuthenticateResponse extends BackwardMessage
@@ -129,13 +95,6 @@ class AuthenticateResponse extends BackwardMessage
     function __construct( $session_id )
     {
         $this->session_id = $session_id;
-    }
-
-    function to_html()
-    {
-        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-            get_html_table_row_header( array( 'RESPONSE', 'SESSION_ID' ) ) .
-            get_html_table_row_data( array( 'AUTHENTICATE_RESPONSE', $this->session_id ) ) );
     }
 }
 
@@ -158,23 +117,10 @@ class CloseSessionRequest extends ForwardMessage
 
         return assemble_request( $res );
     }
-
-    function to_html()
-    {
-        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-            get_html_table_row_header( array( 'REQUEST', 'SESSION_ID' ) ) .
-            get_html_table_row_data( array( 'CLOSE_SESSION_REQUEST', $this->session_id ) ) );
-    }
 }
 
 class CloseSessionResponse extends BackwardMessage
 {
-    function to_html()
-    {
-        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-            get_html_table_row_header( array( 'RESPONSE' ) ) .
-            get_html_table_row_data( array( 'CLOSE_SESSION_RESPONSE' ) ) );
-    }
 }
 
 // request base ********************************************
@@ -218,13 +164,6 @@ class GetUserIdRequest extends Request
 
         return assemble_request( $res ) . parent::to_generic_request();
     }
-
-    function to_html()
-    {
-        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-                get_html_table_row_header( array( 'REQUEST', 'USER_LOGIN' ) ) .
-                get_html_table_row_data( array( 'GET_USER_ID', str2hex( $this->user_login ) ) ) );
-    }
 }
 
 class GetUserIdResponse extends BackwardMessage
@@ -234,13 +173,6 @@ class GetUserIdResponse extends BackwardMessage
     function __construct( $user_id )
     {
         $this->user_id = $user_id;
-    }
-
-    function to_html()
-    {
-        return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
-                get_html_table_row_header( array( 'RESPONSE', 'USER_ID' ) ) .
-                get_html_table_row_data( array( 'GET_USER_ID_RESPONSE', $this->user_id ) ) );
     }
 }
 
