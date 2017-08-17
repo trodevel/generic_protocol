@@ -1,5 +1,5 @@
 <?php
-// $Revision: 7575 $ $Date:: 2017-08-11 #$ $Author: serge $
+// $Revision: 7605 $ $Date:: 2017-08-16 #$ $Author: serge $
 
 namespace generic_protocol;
 

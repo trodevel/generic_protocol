@@ -56,7 +56,7 @@ SRCC = csv_helper.cpp \
 
 OBJS = $(patsubst %.cpp,$(OBJDIR)/%.o,$(SRCC))
 
-LIB_NAMES = utils generic_request
+LIB_NAMES = generic_request utils
 LIBS = $(patsubst %,$(BINDIR)/lib%.a,$(LIB_NAMES))
 
 all: static

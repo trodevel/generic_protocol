@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 6542 $ $Date:: 2017-04-07 #$ $Author: serge $
+// $Revision: 7629 $ $Date:: 2017-08-16 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -109,7 +109,7 @@ ForwardMessage * RequestParser::to_authenticate_alt_request( const generic_reque
 {
     auto * res = new AuthenticateAltRequest;
 
-    if( r.get_value_uint32( "USER_ID", res->user_id ) == false )
+    if( r.get_value_converted( "USER_ID", res->user_id ) == false )
         throw MalformedRequest( "USER_ID is not defined" );
 
     if( r.get_value( "PASSWORD", res->password ) == false )
@@ -163,7 +163,7 @@ void get_value_or_throw( std::string & res, const std::string & key, const gener
 
 void get_value_or_throw_uint32( uint32_t & res, const std::string & key, const generic_request::Request & r )
 {
-    if( r.get_value_uint32( key, res ) == false )
+    if( r.get_value_converted( key, res ) == false )
         throw MalformedRequest( key + " is not defined or not numerical" );
 }
 
