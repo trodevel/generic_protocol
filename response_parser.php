@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 6542 $ $Date:: 2017-04-07 #$ $Author: serge $
+// $Revision: 8422 $ $Date:: 2017-11-27 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -32,7 +32,7 @@ function parse_error_response( & $resp )
 {
     // ERROR;1;authentication failed;
 
-    $res = new ErrorResponse( $resp[1], $resp[2] );
+    $res = new ErrorResponse( intval( $resp[1] ), $resp[2] );
 
     return $res;
 }
@@ -59,7 +59,7 @@ function parse_get_user_id_response( & $resp )
 {
     // GET_USER_ID_RESPONSE;123456789;
 
-    $res = new GetUserIdResponse( $resp[1] );
+    $res = new GetUserIdResponse( intval( $resp[1] ) );
 
     return $res;
 }
