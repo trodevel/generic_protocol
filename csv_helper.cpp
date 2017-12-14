@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 4458 $ $Date:: 2016-09-22 #$ $Author: serge $
+// $Revision: 8501 $ $Date:: 2017-12-13 #$ $Author: serge $
 
 #include "csv_helper.h"                 // self
 
@@ -53,12 +53,25 @@ std::string CsvHelper::to_csv( const BackwardMessage & r )
     {
         return to_csv( static_cast<const GetUserIdResponse&>( r ) );
     }
+    else if( typeid( r ) == typeid( GetSessionInfoResponse ) )
+    {
+        return to_csv( static_cast<const GetSessionInfoResponse&>( r ) );
+    }
     else
     {
         ASSERT( 0 );
     }
 
     return std::string();
+}
+
+std::ostream & write( std::ostream & os, const SessionInfo & r )
+{
+    return utils::CsvHelper::write(
+            os,
+            r.user_id,
+            r.start_time,
+            r.expiration_time );
 }
 
 std::string CsvHelper::to_csv( const ErrorResponse & r )
@@ -79,6 +92,16 @@ std::string CsvHelper::to_csv( const CloseSessionResponse & r )
 std::string CsvHelper::to_csv( const GetUserIdResponse & r )
 {
     return utils::CsvHelper::to_csv( "GET_USER_ID_RESPONSE", r.user_id );
+}
+
+std::string CsvHelper::to_csv( const GetSessionInfoResponse & r )
+{
+    std::ostringstream os;
+
+    utils::CsvHelper::write( os, "GetSessionInfoResponse" );
+    write( os, r.session_info );
+
+    return os.str();
 }
 
 } // namespace generic_protocol

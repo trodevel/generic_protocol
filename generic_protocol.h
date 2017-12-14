@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 8490 $ $Date:: 2017-12-12 #$ $Author: serge $
+// $Revision: 8500 $ $Date:: 2017-12-13 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
 #define LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
@@ -157,7 +157,6 @@ struct SessionInfo
     uint32_t            user_id;
     uint32_t            start_time;
     uint32_t            expiration_time;
-    bool                is_expired;
 };
 
 struct GetSessionInfoRequest: public Request

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 7629 $ $Date:: 2017-08-16 #$ $Author: serge $
+// $Revision: 8499 $ $Date:: 2017-12-13 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -40,20 +40,22 @@ void insert_inverse_pair( _M & map, _U first, _V second )
 
 request_type_e to_request_type( const std::string & s )
 {
-    typedef std::map< std::string, request_type_e > Map;
+    typedef request_type_e Type;
+    typedef std::map< std::string, Type > Map;
     static Map m;
     if( m.empty() )
     {
-        insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( AUTHENTICATE_REQUEST ) );
-        insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( AUTHENTICATE_ALT_REQUEST ) );
-        insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( CLOSE_SESSION_REQUEST ) );
-        insert_inverse_pair( m, request_type_e:: TUPLE_VAL_STR( GET_USER_ID ) );
+        insert_inverse_pair( m, Type:: TUPLE_VAL_STR( AUTHENTICATE_REQUEST ) );
+        insert_inverse_pair( m, Type:: TUPLE_VAL_STR( AUTHENTICATE_ALT_REQUEST ) );
+        insert_inverse_pair( m, Type:: TUPLE_VAL_STR( CLOSE_SESSION_REQUEST ) );
+        insert_inverse_pair( m, Type:: TUPLE_VAL_STR( GET_USER_ID ) );
+        insert_inverse_pair( m, Type:: TUPLE_VAL_STR( GetSessionInfoRequest ) );
     }
 
     auto it = m.find( s );
 
     if( it == m.end() )
-        return request_type_e::UNDEF;
+        return Type::UNDEF;
 
     return it->second;
 }
@@ -80,6 +82,7 @@ ForwardMessage * RequestParser::to_forward_message( const generic_request::Reque
         { request_type_e::AUTHENTICATE_ALT_REQUEST, & RequestParser::to_authenticate_alt_request },
         { request_type_e::CLOSE_SESSION_REQUEST,    & RequestParser::to_close_session_request },
         { request_type_e::GET_USER_ID,              & RequestParser::to_get_user_id },
+        { request_type_e::GetSessionInfoRequest,    & RequestParser::to_GetSessionInfoRequest },
     };
 
     auto it = funcs.find( type );
@@ -149,6 +152,21 @@ ForwardMessage * RequestParser::to_get_user_id( const generic_request::Request &
 
     if( r.get_value( "USER_LOGIN", res->user_login ) == false )
         throw MalformedRequest( "USER_LOGIN is not defined" );
+
+    RequestValidator::validate( res );
+
+    return res;
+}
+
+ForwardMessage * RequestParser::to_GetSessionInfoRequest( const generic_request::Request & r )
+{
+    auto * res = new GetSessionInfoRequest;
+
+    if( r.get_value( "SESSION_ID", res->session_id ) == false )
+        throw MalformedRequest( "SESSION_ID is not defined" );
+
+    if( r.get_value( "ID", res->id ) == false )
+        throw MalformedRequest( "ID is not defined" );
 
     RequestValidator::validate( res );
 

@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 4458 $ $Date:: 2016-09-22 #$ $Author: serge $
+// $Revision: 8502 $ $Date:: 2017-12-13 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_RESPONSE_GEN_H
 #define LIB_GENERIC_PROTOCOL_RESPONSE_GEN_H
@@ -60,6 +60,15 @@ inline GetUserIdResponse* create_get_user_id_response( const uint32_t user_id )
     auto res = new GetUserIdResponse;
 
     res->user_id    = user_id;
+
+    return res;
+}
+
+inline GetSessionInfoResponse* create_GetSessionInfoResponse( const SessionInfo & session_info )
+{
+    auto res = new GetSessionInfoResponse;
+
+    res->session_info   = session_info;
 
     return res;
 }

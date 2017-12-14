@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 4458 $ $Date:: 2016-09-22 #$ $Author: serge $
+// $Revision: 8498 $ $Date:: 2017-12-13 #$ $Author: serge $
 
 #include "request_validator.h"      // self
 
@@ -73,6 +73,17 @@ bool RequestValidator::validate( const GetUserIdRequest * r )
 
     if( r->user_login.empty() )
         throw MalformedRequest( "USER_LOGIN is empty" );
+
+    return true;
+}
+
+bool RequestValidator::validate( const GetSessionInfoRequest * r )
+{
+    if( r->session_id.empty() )
+        throw MalformedRequest( "SESSION_ID is empty" );
+
+    if( r->id.empty() )
+        throw MalformedRequest( "ID is empty" );
 
     return true;
 }

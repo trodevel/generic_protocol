@@ -19,12 +19,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 4458 $ $Date:: 2016-09-22 #$ $Author: serge $
+// $Revision: 8501 $ $Date:: 2017-12-13 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_CSV_HELPER_H
 #define LIB_GENERIC_PROTOCOL_CSV_HELPER_H
 
 #include "generic_protocol.h"       // ErrorResponse, ...
+
+#include <sstream>                  // std::ostream
 
 namespace generic_protocol
 {
@@ -32,11 +34,14 @@ namespace generic_protocol
 class CsvHelper
 {
 public:
+    static std::ostream & write( std::ostream & os, const SessionInfo & r );
+
     static std::string to_csv( const BackwardMessage & r );
     static std::string to_csv( const ErrorResponse & r );
     static std::string to_csv( const AuthenticateResponse & r );
     static std::string to_csv( const CloseSessionResponse & r );
     static std::string to_csv( const GetUserIdResponse & r );
+    static std::string to_csv( const GetSessionInfoResponse & r );
 };
 
 } // namespace generic_protocol
