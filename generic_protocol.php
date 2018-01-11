@@ -1,5 +1,5 @@
 <?php
-// $Revision: 7605 $ $Date:: 2017-08-16 #$ $Author: serge $
+// $Revision: 8509 $ $Date:: 2018-01-11 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -175,6 +175,42 @@ class GetUserIdResponse extends BackwardMessage
         $this->user_id = $user_id;
     }
 }
+
+// session info **********************************
+
+class SessionInfo
+{
+    public          $user_id;           // user ID
+    public          $start_time;        // session start time
+    public          $expiration_time;   // session expiration time
+};
+
+class GetSessionInfoRequest extends Request
+{
+    public          $id;
+    
+    function __construct( $session_id, $id )
+    {
+        parent::__construct( $session_id );
+        
+        $this->id   = $id;
+    }
+    
+    public function to_generic_request()
+    {
+        $res = array(
+            "CMD"       => "GetSessionInfoRequest",
+            "ID"        => $this->id );
+        
+        return assemble_request( $res ) . parent::to_generic_request();
+    }
+    
+};
+
+class GetSessionInfoResponse extends BackwardMessage
+{
+    public          $session_info;  // type SessionInfo
+};
 
 
 ?>

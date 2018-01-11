@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 8501 $ $Date:: 2017-12-13 #$ $Author: serge $
+// $Revision: 8506 $ $Date:: 2018-01-11 #$ $Author: serge $
 
 #include "csv_helper.h"                 // self
 
@@ -65,7 +65,7 @@ std::string CsvHelper::to_csv( const BackwardMessage & r )
     return std::string();
 }
 
-std::ostream & write( std::ostream & os, const SessionInfo & r )
+std::ostream & CsvHelper::write( std::ostream & os, const SessionInfo & r )
 {
     return utils::CsvHelper::write(
             os,

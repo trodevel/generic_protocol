@@ -2,41 +2,54 @@
 
 #include "generic_protocol.h"
 #include "request_parser.h"
+#include "response_gen.h"
 #include "str_helper.h"
+#include "csv_helper.h"     // CsvHelper
 #include "../generic_request/request_parser.h"
 
-void test_1( const std::string & str )
+void test( const std::string & str )
 {
-    generic_request::Request gr = generic_request::RequestParser::to_request( str );
+    std::cout << "REQ = " << str << " - ";
 
-    auto r = static_cast<generic_protocol::AuthenticateRequest *>( generic_protocol::RequestParser::to_authenticate_request( gr ) );
+    try
+    {
+        generic_request::Request gr = generic_request::RequestParser::to_request( str );
 
-    delete r;
+        generic_protocol::ForwardMessage * r = generic_protocol::RequestParser::to_forward_message( gr );
+
+        delete r;
+
+        std::cout << "ok\n";
+    }
+    catch( std::exception & e )
+    {
+        std::cout << "FAILED - " << e.what() << "\n";
+    }
 }
 
-void test_2( const std::string & str )
+void test_GetSessionInfoResponse()
 {
-    generic_request::Request gr = generic_request::RequestParser::to_request( str );
+    generic_protocol::SessionInfo si;
 
-    auto * r = generic_protocol::RequestParser::to_get_user_id( gr );
+    generic_protocol::init( & si, 123, 1515700200, 1515701100 );
 
-    delete r;
+    auto s = generic_protocol::create_GetSessionInfoResponse( si );
+
+    std::cout << generic_protocol::CsvHelper::to_csv( * s ) << std::endl;
+
+    delete s;
 }
 
 int main()
 {
-    try
-    {
-        test_1( "CMD=AUTHENTICATE_REQUEST&USER_LOGIN=xxx&PASSWORD=yyy&SESSION_ID=zzz" );
+    test_GetSessionInfoResponse();
 
-        test_2( "CMD=GET_USER_ID&USER_LOGIN=xxx&SESSION_ID=zzz" );
+    std::cout << "\n*********************************\n" << std::endl;
 
-        std::cout << "OK" << std::endl;
-    }
-    catch( std::exception & e )
-    {
-        std::cout << "ERROR: " << e.what() << std::endl;
-    }
+    test( "CMD=AUTHENTICATE_REQUEST&USER_LOGIN=xxx&PASSWORD=yyy&SESSION_ID=zzz" );
+    test( "CMD=GET_USER_ID&USER_LOGIN=xxx&SESSION_ID=zzz" );
+    test( "CMD=GetSessionInfoRequest&ID=xxx&SESSION_ID=zzz" );
+    test( "CMD=GetSessionInfoRequest&SESSION_ID=zzz" );
 
     return 0;
 }
