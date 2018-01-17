@@ -1,10 +1,11 @@
 <?php
-// $Revision: 7605 $ $Date:: 2017-08-16 #$ $Author: serge $
+// $Revision: 8516 $ $Date:: 2018-01-16 #$ $Author: serge $
 
 namespace generic_protocol;
 
 require_once __DIR__.'/../php_snippets/hexcodec.php';        // str2hex()
 require_once __DIR__.'/../php_snippets/html_elems.php';      // get_html_table_row_header
+require_once __DIR__.'/../php_snippets/epoch_to_date.php';   // epoch_to_date_time
 
 
 // error response ******************************************
@@ -82,6 +83,36 @@ function to_html_GetUserIdResponse( & $obj )
             get_html_table_row_data( array( 'GET_USER_ID_RESPONSE', $obj->user_id ) ) );
 }
 
+// session info ********************************************
+
+function get_header_SessionInfo()
+{
+    return get_html_table_header_elems( array( 'USER_ID', 'START TIME', 'EXP TIME' ) );
+}
+
+function to_html_td_SessionInfo( & $obj )
+{
+    return get_html_table_data_elems( array(
+        $obj->user_id,
+        epoch_to_date_time( $obj->start_time ) . " ($obj->start_time)" ,
+        epoch_to_date_time( $obj->expiration_time ) . " ($obj->expiration_time)" 
+    ) );
+}
+
+function to_html_GetSessionInfoRequest( & $obj )
+{
+    return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
+        get_html_table_row_header( array( 'ID' ) ) .
+        get_html_table_row_data( array( $obj->id ) ) );
+}
+
+function to_html_GetSessionInfoResponse( & $obj )
+{
+    return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
+        get_html_table_tr( get_header_SessionInfo() ) .
+        get_html_table_tr( to_html_td_SessionInfo( $obj->session_info ) ) );
+}
+
 // *********************************************************
 
 function to_html( $obj )
@@ -94,7 +125,9 @@ function to_html( $obj )
         'generic_protocol\CloseSessionRequest'      => 'to_html_CloseSessionRequest',
         'generic_protocol\CloseSessionResponse'     => 'to_html_CloseSessionResponse',
         'generic_protocol\GetUserIdRequest'         => 'to_html_GetUserIdRequest',
-        'generic_protocol\GetUserIdResponse'        => 'to_html_GetUserIdResponse'
+        'generic_protocol\GetUserIdResponse'        => 'to_html_GetUserIdResponse',
+        'generic_protocol\GetSessionInfoRequest'    => 'to_html_GetSessionInfoRequest',
+        'generic_protocol\GetSessionInfoResponse'   => 'to_html_GetSessionInfoResponse'
     );
 
     $type = get_class ( $obj );

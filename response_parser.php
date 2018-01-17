@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 8422 $ $Date:: 2017-11-27 #$ $Author: serge $
+// $Revision: 8515 $ $Date:: 2018-01-16 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -58,8 +58,32 @@ function parse_close_session_response( & $resp )
 function parse_get_user_id_response( & $resp )
 {
     // GET_USER_ID_RESPONSE;123456789;
-
+    
     $res = new GetUserIdResponse( intval( $resp[1] ) );
+    
+    return $res;
+}
+
+function parse_SessionInfo( & $csv_arr, $offset )
+{
+    $res = new SessionInfo;
+
+    $res->user_id           = intval( $csv_arr[ $offset++ ] );
+    $res->start_time        = intval( $csv_arr[ $offset++ ] );
+    $res->expiration_time   = intval( $csv_arr[ $offset++ ] );
+
+    return $res;
+}
+
+function parse_GetSessionInfoResponse( & $resp )
+{
+    // GetSessionInfoResponse;123;1515700200;1515701100;
+
+    $res = new GetSessionInfoResponse;
+
+    $offs = 1;
+
+    $res->session_info  = parse_SessionInfo( $resp, $offs );
 
     return $res;
 }
@@ -87,7 +111,8 @@ class ResponseParser
             'ERROR'                     => 'parse_error_response',
             'AUTHENTICATE_RESPONSE'     => 'parse_authenticate_response',
             'CLOSE_SESSION_RESPONSE'    => 'parse_close_session_response',
-            'GET_USER_ID_RESPONSE'      => 'parse_get_user_id_response'
+            'GET_USER_ID_RESPONSE'      => 'parse_get_user_id_response',
+            'GetSessionInfoResponse'    => 'parse_GetSessionInfoResponse'
         );
 
         if( array_key_exists( $type, $func_map ) )
