@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 8499 $ $Date:: 2017-12-13 #$ $Author: serge $
+// $Revision: 9049 $ $Date:: 2018-05-04 #$ $Author: serge $
 
 #include "../generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
@@ -36,15 +36,12 @@ public:
 
     static ForwardMessage *     to_forward_message( const generic_request::Request & r );
 
-    static ForwardMessage *     to_authenticate_request( const generic_request::Request & r );
-    static ForwardMessage *     to_authenticate_alt_request( const generic_request::Request & r );
-    static ForwardMessage *     to_close_session_request( const generic_request::Request & r );
+    static ForwardMessage *     to_AuthenticateRequest( const generic_request::Request & r );
+    static ForwardMessage *     to_AuthenticateAltRequest( const generic_request::Request & r );
+    static ForwardMessage *     to_CloseSessionRequest( const generic_request::Request & r );
     static Request *            to_request( Request * res, const generic_request::Request & r );
-    static ForwardMessage *     to_get_user_id( const generic_request::Request & r );
+    static ForwardMessage *     to_GetUserIdRequest( const generic_request::Request & r );
     static ForwardMessage *     to_GetSessionInfoRequest( const generic_request::Request & r );
 };
-
-void get_value_or_throw( std::string & res, const std::string & key, const generic_request::Request & r );
-void get_value_or_throw_uint32( uint32_t & res, const std::string & key, const generic_request::Request & r );
 
 } // namespace generic_protocol

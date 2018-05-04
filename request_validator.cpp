@@ -19,14 +19,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 8498 $ $Date:: 2017-12-13 #$ $Author: serge $
+// $Revision: 9044 $ $Date:: 2018-05-04 #$ $Author: serge $
 
 #include "request_validator.h"      // self
 
-#include "malformed_request.h"      // MalformedRequest
+#include "basic_parser/malformed_request.h"     // MalformedRequest
 
 namespace generic_protocol
 {
+
+typedef basic_parser::MalformedRequest MalformedRequest;
 
 bool RequestValidator::validate( const AuthenticateRequest * r )
 {

@@ -19,15 +19,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 8499 $ $Date:: 2017-12-13 #$ $Author: serge $
+// $Revision: 9049 $ $Date:: 2018-05-04 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
 #include "request_validator.h"      // RequestValidator
-#include "malformed_request.h"      // MalformedRequest
+#include "basic_parser/malformed_request.h"     // MalformedRequest
 
 namespace generic_protocol
 {
+
+typedef basic_parser::MalformedRequest MalformedRequest;
 
 #define TUPLE_VAL_STR(_x_)  _x_,#_x_
 #define TUPLE_STR_VAL(_x_)  #_x_,_x_
@@ -78,10 +80,10 @@ ForwardMessage * RequestParser::to_forward_message( const generic_request::Reque
 
     static const std::map<request_type_e, PPMF> funcs =
     {
-        { request_type_e::AUTHENTICATE_REQUEST,     & RequestParser::to_authenticate_request },
-        { request_type_e::AUTHENTICATE_ALT_REQUEST, & RequestParser::to_authenticate_alt_request },
-        { request_type_e::CLOSE_SESSION_REQUEST,    & RequestParser::to_close_session_request },
-        { request_type_e::GET_USER_ID,              & RequestParser::to_get_user_id },
+        { request_type_e::AUTHENTICATE_REQUEST,     & RequestParser::to_AuthenticateRequest },
+        { request_type_e::AUTHENTICATE_ALT_REQUEST, & RequestParser::to_AuthenticateAltRequest },
+        { request_type_e::CLOSE_SESSION_REQUEST,    & RequestParser::to_CloseSessionRequest },
+        { request_type_e::GET_USER_ID,              & RequestParser::to_GetUserIdRequest },
         { request_type_e::GetSessionInfoRequest,    & RequestParser::to_GetSessionInfoRequest },
     };
 
@@ -93,7 +95,7 @@ ForwardMessage * RequestParser::to_forward_message( const generic_request::Reque
     return it->second( r );
 }
 
-ForwardMessage * RequestParser::to_authenticate_request( const generic_request::Request & r )
+ForwardMessage * RequestParser::to_AuthenticateRequest( const generic_request::Request & r )
 {
     auto * res = new AuthenticateRequest;
 
@@ -108,7 +110,7 @@ ForwardMessage * RequestParser::to_authenticate_request( const generic_request::
     return res;
 }
 
-ForwardMessage * RequestParser::to_authenticate_alt_request( const generic_request::Request & r )
+ForwardMessage * RequestParser::to_AuthenticateAltRequest( const generic_request::Request & r )
 {
     auto * res = new AuthenticateAltRequest;
 
@@ -123,7 +125,7 @@ ForwardMessage * RequestParser::to_authenticate_alt_request( const generic_reque
     return res;
 }
 
-ForwardMessage * RequestParser::to_close_session_request( const generic_request::Request & r )
+ForwardMessage * RequestParser::to_CloseSessionRequest( const generic_request::Request & r )
 {
     auto * res = new CloseSessionRequest;
 
@@ -143,7 +145,7 @@ Request * RequestParser::to_request( Request * res, const generic_request::Reque
     return res;
 }
 
-ForwardMessage * RequestParser::to_get_user_id( const generic_request::Request & r )
+ForwardMessage * RequestParser::to_GetUserIdRequest( const generic_request::Request & r )
 {
     auto * res = new GetUserIdRequest;
 
@@ -171,18 +173,6 @@ ForwardMessage * RequestParser::to_GetSessionInfoRequest( const generic_request:
     RequestValidator::validate( res );
 
     return res;
-}
-
-void get_value_or_throw( std::string & res, const std::string & key, const generic_request::Request & r )
-{
-    if( r.get_value( key, res ) == false )
-        throw MalformedRequest( key + " is not defined" );
-}
-
-void get_value_or_throw_uint32( uint32_t & res, const std::string & key, const generic_request::Request & r )
-{
-    if( r.get_value_converted( key, res ) == false )
-        throw MalformedRequest( key + " is not defined or not numerical" );
 }
 
 } // namespace generic_protocol
