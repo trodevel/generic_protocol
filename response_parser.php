@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 8519 $ $Date:: 2018-01-17 #$ $Author: serge $
+// $Revision: 9915 $ $Date:: 2018-10-22 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -121,10 +121,10 @@ class ResponseParser
             return $func( $csv_arr[0] );
         }
 
-        return self::create_parse_error();
+        return NULL;
     }
 
-    protected static function create_parse_error()
+    public static function create_parse_error()
     {
         // ERROR_RESPONSE;1;authentication failed;
 
