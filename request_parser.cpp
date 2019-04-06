@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 9125 $ $Date:: 2018-05-08 #$ $Author: serge $
+// $Revision: 10788 $ $Date:: 2019-04-07 #$ $Author: serge $
 
 #include "request_parser.h"         // self
 
@@ -105,7 +105,7 @@ ForwardMessage * RequestParser::to_AuthenticateRequest( const generic_request::R
     if( r.get_value( "PASSWORD", res->password ) == false )
         throw MalformedRequest( "PASSWORD is not defined" );
 
-    RequestValidator::validate( res );
+    RequestValidator::validate( * res );
 
     return res;
 }
@@ -120,7 +120,7 @@ ForwardMessage * RequestParser::to_AuthenticateAltRequest( const generic_request
     if( r.get_value( "PASSWORD", res->password ) == false )
         throw MalformedRequest( "PASSWORD is not defined" );
 
-    RequestValidator::validate( res );
+    RequestValidator::validate( * res );
 
     return res;
 }
@@ -132,7 +132,7 @@ ForwardMessage * RequestParser::to_CloseSessionRequest( const generic_request::R
     if( r.get_value( "SESSION_ID", res->session_id ) == false )
         throw MalformedRequest( "SESSION_ID is not defined" );
 
-    RequestValidator::validate( res );
+    RequestValidator::validate( * res );
 
     return res;
 }
@@ -155,7 +155,7 @@ ForwardMessage * RequestParser::to_GetUserIdRequest( const generic_request::Requ
     if( r.get_value( "USER_LOGIN", res->user_login ) == false )
         throw MalformedRequest( "USER_LOGIN is not defined" );
 
-    RequestValidator::validate( res );
+    RequestValidator::validate( * res );
 
     return res;
 }
@@ -170,7 +170,7 @@ ForwardMessage * RequestParser::to_GetSessionInfoRequest( const generic_request:
     if( r.get_value( "ID", res->id ) == false )
         throw MalformedRequest( "ID is not defined" );
 
-    RequestValidator::validate( res );
+    RequestValidator::validate( * res );
 
     return res;
 }

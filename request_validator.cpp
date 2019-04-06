@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 9125 $ $Date:: 2018-05-08 #$ $Author: serge $
+// $Revision: 10788 $ $Date:: 2019-04-07 #$ $Author: serge $
 
 #include "request_validator.h"      // self
 
@@ -30,61 +30,61 @@ namespace generic_protocol
 
 typedef basic_parser::MalformedRequest MalformedRequest;
 
-bool RequestValidator::validate( const AuthenticateRequest * r )
+bool RequestValidator::validate( const AuthenticateRequest & r )
 {
-    if( r->user_login.empty() )
+    if( r.user_login.empty() )
         throw MalformedRequest( "USER_LOGIN is empty" );
 
-    if( r->password.empty() )
+    if( r.password.empty() )
         throw MalformedRequest( "PASSWORD is empty" );
 
     return true;
 }
 
-bool RequestValidator::validate( const AuthenticateAltRequest * r )
+bool RequestValidator::validate( const AuthenticateAltRequest & r )
 {
-    if( r->user_id == 0 )
+    if( r.user_id == 0 )
         throw MalformedRequest( "USER_ID is 0" );
 
-    if( r->password.empty() )
+    if( r.password.empty() )
         throw MalformedRequest( "PASSWORD is empty" );
 
     return true;
 }
 
-bool RequestValidator::validate( const CloseSessionRequest * r )
+bool RequestValidator::validate( const CloseSessionRequest & r )
 {
-    if( r->session_id.empty() )
+    if( r.session_id.empty() )
         throw MalformedRequest( "SESSION_ID is empty" );
 
     return true;
 }
 
-bool RequestValidator::validate( const Request * r )
+bool RequestValidator::validate( const Request & r )
 {
-    if( r->session_id.empty() )
+    if( r.session_id.empty() )
         throw MalformedRequest( "SESSION_ID is empty" );
 
     return true;
 }
 
-bool RequestValidator::validate( const GetUserIdRequest * r )
+bool RequestValidator::validate( const GetUserIdRequest & r )
 {
-    if( r->session_id.empty() )
+    if( r.session_id.empty() )
         throw MalformedRequest( "SESSION_ID is empty" );
 
-    if( r->user_login.empty() )
+    if( r.user_login.empty() )
         throw MalformedRequest( "USER_LOGIN is empty" );
 
     return true;
 }
 
-bool RequestValidator::validate( const GetSessionInfoRequest * r )
+bool RequestValidator::validate( const GetSessionInfoRequest & r )
 {
-    if( r->session_id.empty() )
+    if( r.session_id.empty() )
         throw MalformedRequest( "SESSION_ID is empty" );
 
-    if( r->id.empty() )
+    if( r.id.empty() )
         throw MalformedRequest( "ID is empty" );
 
     return true;

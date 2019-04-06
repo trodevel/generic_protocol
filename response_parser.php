@@ -21,7 +21,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 9915 $ $Date:: 2018-10-22 #$ $Author: serge $
+// $Revision: 9939 $ $Date:: 2018-11-02 #$ $Author: serge $
 
 namespace generic_protocol;
 
