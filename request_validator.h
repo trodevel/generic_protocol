@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10868 $ $Date:: 2019-04-19 #$ $Author: serge $
+// $Revision: 11277 $ $Date:: 2019-05-12 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
 #define LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
@@ -42,6 +42,7 @@ public:
 
 #define THROW_IF_INT_ZERO(_var,_key)        { if( _var == 0 ) throw RequestParser::MalformedRequest( _key " is 0" ); }
 #define THROW_IF_INT_NEG(_var,_key)         { if( _var < 0 ) throw RequestParser::MalformedRequest( _key " < 0" ); }
+#define THROW_IF_INT_NOT_IN_RANGE(_var,_key,_min,_max)  { if( ( _var < _min ) || ( _var > _max ) ) throw RequestParser::MalformedRequest( _key " not in range [" + std::to_string( _min ) + "; " + std::to_string( _max ) + "]" ); }
 #define THROW_IF_INT_NEG_ZERO(_var,_key)    { if( _var <= 0 ) throw RequestParser::MalformedRequest( _key " <= 0" ); }
 #define THROW_IF_FLOAT_ZERO(_var,_key)      { if( _var == 0. ) throw RequestParser::MalformedRequest( _key " is 0" ); }
 #define THROW_IF_FLOAT_NEG(_var,_key)       { if( _var < 0. ) throw RequestParser::MalformedRequest( _key " < 0" ); }
