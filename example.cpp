@@ -1,11 +1,11 @@
 #include <iostream>
 
 #include "protocol.h"
-#include "request_parser.h"
+#include "parser.h"
 #include "response_gen.h"
 #include "str_helper.h"
 #include "csv_helper.h"     // CsvHelper
-#include "../generic_request/request_parser.h"
+#include "../generic_request/parser.h"
 
 void test( const std::string & str )
 {
@@ -13,9 +13,9 @@ void test( const std::string & str )
 
     try
     {
-        generic_request::Request gr = generic_request::RequestParser::to_request( str );
+        generic_request::Request gr = generic_request::Parser::to_request( str );
 
-        generic_protocol::ForwardMessage * r = generic_protocol::RequestParser::to_forward_message( gr );
+        generic_protocol::ForwardMessage * r = generic_protocol::Parser::to_forward_message( gr );
 
         delete r;
 

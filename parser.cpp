@@ -19,9 +19,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12435 $ $Date:: 2019-12-07 #$ $Author: serge $
+// $Revision: 12748 $ $Date:: 2020-02-15 #$ $Author: serge $
 
-#include "request_parser.h"         // self
+#include "parser.h"         // self
 
 #include "request_validator.h"      // RequestValidator
 #include "basic_parser/malformed_request.h"     // MalformedRequest
@@ -62,7 +62,7 @@ request_type_e to_request_type( const std::string & s )
     return it->second;
 }
 
-request_type_e  RequestParser::detect_request_type( const generic_request::Request & r )
+request_type_e  Parser::detect_request_type( const generic_request::Request & r )
 {
     std::string cmd;
 
@@ -72,19 +72,19 @@ request_type_e  RequestParser::detect_request_type( const generic_request::Reque
     return to_request_type( cmd );
 }
 
-ForwardMessage * RequestParser::to_forward_message( const generic_request::Request & r )
+ForwardMessage * Parser::to_forward_message( const generic_request::Request & r )
 {
-    auto type = RequestParser::detect_request_type( r );
+    auto type = Parser::detect_request_type( r );
 
     typedef ForwardMessage* (*PPMF)( const generic_request::Request & r );
 
     static const std::map<request_type_e, PPMF> funcs =
     {
-        { request_type_e::AUTHENTICATE_REQUEST,     & RequestParser::to_AuthenticateRequest },
-        { request_type_e::AUTHENTICATE_ALT_REQUEST, & RequestParser::to_AuthenticateAltRequest },
-        { request_type_e::CLOSE_SESSION_REQUEST,    & RequestParser::to_CloseSessionRequest },
-        { request_type_e::GET_USER_ID,              & RequestParser::to_GetUserIdRequest },
-        { request_type_e::GetSessionInfoRequest,    & RequestParser::to_GetSessionInfoRequest },
+        { request_type_e::AUTHENTICATE_REQUEST,     & Parser::to_AuthenticateRequest },
+        { request_type_e::AUTHENTICATE_ALT_REQUEST, & Parser::to_AuthenticateAltRequest },
+        { request_type_e::CLOSE_SESSION_REQUEST,    & Parser::to_CloseSessionRequest },
+        { request_type_e::GET_USER_ID,              & Parser::to_GetUserIdRequest },
+        { request_type_e::GetSessionInfoRequest,    & Parser::to_GetSessionInfoRequest },
     };
 
     auto it = funcs.find( type );
@@ -95,7 +95,7 @@ ForwardMessage * RequestParser::to_forward_message( const generic_request::Reque
     return it->second( r );
 }
 
-ForwardMessage * RequestParser::to_AuthenticateRequest( const generic_request::Request & r )
+ForwardMessage * Parser::to_AuthenticateRequest( const generic_request::Request & r )
 {
     auto * res = new AuthenticateRequest;
 
@@ -110,7 +110,7 @@ ForwardMessage * RequestParser::to_AuthenticateRequest( const generic_request::R
     return res;
 }
 
-ForwardMessage * RequestParser::to_AuthenticateAltRequest( const generic_request::Request & r )
+ForwardMessage * Parser::to_AuthenticateAltRequest( const generic_request::Request & r )
 {
     auto * res = new AuthenticateAltRequest;
 
@@ -125,7 +125,7 @@ ForwardMessage * RequestParser::to_AuthenticateAltRequest( const generic_request
     return res;
 }
 
-ForwardMessage * RequestParser::to_CloseSessionRequest( const generic_request::Request & r )
+ForwardMessage * Parser::to_CloseSessionRequest( const generic_request::Request & r )
 {
     auto * res = new CloseSessionRequest;
 
@@ -137,7 +137,7 @@ ForwardMessage * RequestParser::to_CloseSessionRequest( const generic_request::R
     return res;
 }
 
-Request * RequestParser::to_request( Request * res, const generic_request::Request & r )
+Request * Parser::to_request( Request * res, const generic_request::Request & r )
 {
     if( r.get_value( "SESSION_ID", res->session_id ) == false )
         throw MalformedRequest( "SESSION_ID is not defined" );
@@ -145,7 +145,7 @@ Request * RequestParser::to_request( Request * res, const generic_request::Reque
     return res;
 }
 
-ForwardMessage * RequestParser::to_GetUserIdRequest( const generic_request::Request & r )
+ForwardMessage * Parser::to_GetUserIdRequest( const generic_request::Request & r )
 {
     auto * res = new GetUserIdRequest;
 
@@ -160,7 +160,7 @@ ForwardMessage * RequestParser::to_GetUserIdRequest( const generic_request::Requ
     return res;
 }
 
-ForwardMessage * RequestParser::to_GetSessionInfoRequest( const generic_request::Request & r )
+ForwardMessage * Parser::to_GetSessionInfoRequest( const generic_request::Request & r )
 {
     auto * res = new GetSessionInfoRequest;
 

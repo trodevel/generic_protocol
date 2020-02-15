@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12699 $ $Date:: 2020-02-04 #$ $Author: serge $
+// $Revision: 12748 $ $Date:: 2020-02-15 #$ $Author: serge $
 
 #include "../generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
@@ -28,7 +28,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 namespace generic_protocol
 {
 
-class RequestParser
+class Parser
 {
 public:
 
