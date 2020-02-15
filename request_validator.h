@@ -19,12 +19,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 11277 $ $Date:: 2019-05-12 #$ $Author: serge $
+// $Revision: 12699 $ $Date:: 2020-02-04 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
 #define LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
 
-#include "generic_protocol.h"       // Request...
+#include "protocol.h"       // Request...
 
 namespace generic_protocol
 {

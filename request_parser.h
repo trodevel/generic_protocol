@@ -19,11 +19,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 9125 $ $Date:: 2018-05-08 #$ $Author: serge $
+// $Revision: 12699 $ $Date:: 2020-02-04 #$ $Author: serge $
 
 #include "../generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
-#include "generic_protocol.h"   // Request...
+#include "protocol.h"   // Request...
 
 namespace generic_protocol
 {

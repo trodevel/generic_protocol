@@ -19,30 +19,34 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 8519 $ $Date:: 2018-01-17 #$ $Author: serge $
+// $Revision: 12721 $ $Date:: 2020-02-14 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_CSV_HELPER_H
 #define LIB_GENERIC_PROTOCOL_CSV_HELPER_H
 
-#include "generic_protocol.h"       // ErrorResponse, ...
+#include "protocol.h"       // ErrorResponse, ...
 
 #include <sstream>                  // std::ostream
 
 namespace generic_protocol
 {
 
-class CsvHelper
+namespace csv_helper
 {
-public:
-    static std::ostream & write( std::ostream & os, const SessionInfo & r );
 
-    static std::string to_csv( const BackwardMessage & r );
-    static std::string to_csv( const ErrorResponse & r );
-    static std::string to_csv( const AuthenticateResponse & r );
-    static std::string to_csv( const CloseSessionResponse & r );
-    static std::string to_csv( const GetUserIdResponse & r );
-    static std::string to_csv( const GetSessionInfoResponse & r );
-};
+std::ostream & write( std::ostream & os, const ErrorResponse & r );
+std::ostream & write( std::ostream & os, const AuthenticateResponse & r );
+std::ostream & write( std::ostream & os, const CloseSessionResponse & r );
+std::ostream & write( std::ostream & os, const GetUserIdResponse & r );
+std::ostream & write( std::ostream & os, const GetSessionInfoResponse & r );
+std::ostream & write( std::ostream & os, const SessionInfo & r );
+
+std::ostream & write( std::ostream & os, const Object & r );
+std::ostream & write( std::ostream & os, const SessionInfo & r );
+
+std::string to_csv( const Object & r );
+
+} // namespace csv_helper
 
 } // namespace generic_protocol
 

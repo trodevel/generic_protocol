@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 8519 $ $Date:: 2018-01-17 #$ $Author: serge $
+// $Revision: 12704 $ $Date:: 2020-02-04 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
 #define LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
@@ -32,22 +32,17 @@ namespace generic_protocol
 
 // base messages *******************************************
 
-struct MessageBase
+struct Object
 {
 protected:
-    MessageBase() {}
+    Object() {}
 
-    virtual ~MessageBase() {};
-};
-
-struct ObjectBase
-{
-    virtual ~ObjectBase() {};
+    virtual ~Object() {};
 };
 
 // forward/backward messages *******************************
 
-struct ForwardMessage: public MessageBase
+struct ForwardMessage: public Object
 {
 protected:
     ForwardMessage() {}
@@ -56,7 +51,7 @@ public:
     virtual ~ForwardMessage() {};
 };
 
-struct BackwardMessage: public MessageBase
+struct BackwardMessage: public Object
 {
 protected:
     BackwardMessage() {}

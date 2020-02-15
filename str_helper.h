@@ -19,11 +19,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3600 $ $Date:: 2016-04-02 #$ $Author: serge $
+// $Revision: 12699 $ $Date:: 2020-02-04 #$ $Author: serge $
 
 #include <string>
 
-#include "generic_protocol.h"       // ErrorResponse::type_e
+#include "protocol.h"       // ErrorResponse::type_e
 
 namespace generic_protocol
 {

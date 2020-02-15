@@ -19,14 +19,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 10640 $ $Date:: 2019-03-13 #$ $Author: serge $
+// $Revision: 12710 $ $Date:: 2020-02-05 #$ $Author: serge $
 
 #include "csv_helper.h"                 // self
 
 #include <typeinfo>                     // typeid
 
-#include "../utils/csv_helper.h"        // CsvHelper
-#include "../utils/utils_assert.h"            // ASSERT
+#include "utils/csv_helper.h"           // CsvHelper
+#include "utils/utils_assert.h"         // ASSERT
 
 #include "str_helper.h"                 // StrHelper
 
@@ -35,73 +35,91 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 namespace generic_protocol
 {
 
-std::string CsvHelper::to_csv( const BackwardMessage & r )
+namespace csv_helper
+{
+
+std::ostream & write( std::ostream & os, const ErrorResponse & r )
+{
+    os << utils::CsvHelper::to_csv( "ERROR", r.type, r.descr );
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const AuthenticateResponse & r )
+{
+    os << utils::CsvHelper::to_csv( "AUTHENTICATE_RESPONSE", r.session_id );
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const CloseSessionResponse & r )
+{
+    os << utils::CsvHelper::to_csv( "CLOSE_SESSION_RESPONSE" );
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const GetUserIdResponse & r )
+{
+    os << utils::CsvHelper::to_csv( "GET_USER_ID_RESPONSE", r.user_id );
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const GetSessionInfoResponse & r )
+{
+    utils::CsvHelper::write( os, "GetSessionInfoResponse" );
+    write( os, r.session_info );
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const Object & r )
 {
     if( typeid( r ) == typeid( ErrorResponse ) )
     {
-        return to_csv( static_cast<const ErrorResponse&>( r ) );
+        return write( os, static_cast<const ErrorResponse&>( r ) );
     }
     else if( typeid( r ) == typeid( AuthenticateResponse ) )
     {
-        return to_csv( static_cast<const AuthenticateResponse&>( r ) );
+        return write( os, static_cast<const AuthenticateResponse&>( r ) );
     }
     else if( typeid( r ) == typeid( CloseSessionResponse ) )
     {
-        return to_csv( static_cast<const CloseSessionResponse&>( r ) );
+        return write( os, static_cast<const CloseSessionResponse&>( r ) );
     }
     else if( typeid( r ) == typeid( GetUserIdResponse ) )
     {
-        return to_csv( static_cast<const GetUserIdResponse&>( r ) );
+        return write( os, static_cast<const GetUserIdResponse&>( r ) );
     }
     else if( typeid( r ) == typeid( GetSessionInfoResponse ) )
     {
-        return to_csv( static_cast<const GetSessionInfoResponse&>( r ) );
+        return write( os, static_cast<const GetSessionInfoResponse&>( r ) );
     }
     else
     {
         ASSERT( 0 );
     }
 
-    return std::string();
+    return os;
 }
 
-std::ostream & CsvHelper::write( std::ostream & os, const SessionInfo & r )
+std::ostream & write( std::ostream & os, const SessionInfo & r )
 {
-    return utils::CsvHelper::write(
+    utils::CsvHelper::write(
             os,
             r.user_id,
             r.start_time,
             r.expiration_time );
+
+    return os;
 }
 
-std::string CsvHelper::to_csv( const ErrorResponse & r )
-{
-    return utils::CsvHelper::to_csv( "ERROR", r.type, r.descr );
-}
-
-std::string CsvHelper::to_csv( const AuthenticateResponse & r )
-{
-    return utils::CsvHelper::to_csv( "AUTHENTICATE_RESPONSE", r.session_id );
-}
-
-std::string CsvHelper::to_csv( const CloseSessionResponse & r )
-{
-    return utils::CsvHelper::to_csv( "CLOSE_SESSION_RESPONSE" );
-}
-
-std::string CsvHelper::to_csv( const GetUserIdResponse & r )
-{
-    return utils::CsvHelper::to_csv( "GET_USER_ID_RESPONSE", r.user_id );
-}
-
-std::string CsvHelper::to_csv( const GetSessionInfoResponse & r )
+std::string to_csv( const Object & r )
 {
     std::ostringstream os;
 
-    utils::CsvHelper::write( os, "GetSessionInfoResponse" );
-    write( os, r.session_info );
+    write( os, r );
 
     return os.str();
 }
+
+} // namespace csv_helper
 
 } // namespace generic_protocol

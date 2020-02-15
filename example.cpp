@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "generic_protocol.h"
+#include "protocol.h"
 #include "request_parser.h"
 #include "response_gen.h"
 #include "str_helper.h"
@@ -35,7 +35,7 @@ void test_GetSessionInfoResponse()
 
     auto s = generic_protocol::create_GetSessionInfoResponse( si );
 
-    std::cout << generic_protocol::CsvHelper::to_csv( * s ) << std::endl;
+    std::cout << generic_protocol::csv_helper::to_csv( * s ) << std::endl;
 
     delete s;
 }

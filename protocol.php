@@ -1,5 +1,5 @@
 <?php
-// $Revision: 8519 $ $Date:: 2018-01-17 #$ $Author: serge $
+// $Revision: 12704 $ $Date:: 2020-02-04 #$ $Author: serge $
 
 namespace generic_protocol;
 
@@ -8,17 +8,17 @@ require_once 'request_assembler.php';               // assemble_request()
 
 // base messages *******************************************
 
-abstract class MessageBase
+abstract class Object
 {
 }
 
 // forward/backward messages *******************************
 
-abstract class ForwardMessage extends MessageBase
+abstract class ForwardMessage extends Object
 {
 }
 
-abstract class BackwardMessage extends MessageBase
+abstract class BackwardMessage extends Object
 {
 }
 
