@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12759 $ $Date:: 2020-02-17 #$ $Author: serge $
+// $Revision: 12763 $ $Date:: 2020-02-19 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL__EXPORTED_PARSER_H
 #define LIB_GENERIC_PROTOCOL__EXPORTED_PARSER_H
@@ -33,6 +33,9 @@ namespace basic_parser
 void get_value_or_throw( generic_protocol::ErrorResponse::type_e * res, const std::string & key, const generic_request::Request & r );
 
 void get_value_or_throw( generic_protocol::SessionInfo * res, const std::string & key, const generic_request::Request & r );
+
+void get_value_or_throw( generic_protocol::BackwardMessage * res, const generic_request::Request & r );
+void get_value_or_throw( generic_protocol::Request * res, const generic_request::Request & r );
 
 void get_value_or_throw( generic_protocol::AuthenticateRequest * res, const generic_request::Request & r );
 void get_value_or_throw( generic_protocol::AuthenticateAltRequest * res, const generic_request::Request & r );

@@ -19,9 +19,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12748 $ $Date:: 2020-02-15 #$ $Author: serge $
+// $Revision: 12767 $ $Date:: 2020-02-19 #$ $Author: serge $
 
-#include "../generic_request/request.h"    // generic_request::Request
+#include "generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
 #include "protocol.h"   // Request...
 

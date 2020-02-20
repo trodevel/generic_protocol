@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12760 $ $Date:: 2020-02-17 #$ $Author: serge $
+// $Revision: 12766 $ $Date:: 2020-02-19 #$ $Author: serge $
 
 // includes
 #include "exported_parser.h"
@@ -47,6 +47,15 @@ void get_value_or_throw( generic_protocol::SessionInfo * res, const std::string 
     get_value_or_throw( & res->expiration_time, key + ".EXPIRATION_TIME", r );
 }
 
+void get_value_or_throw( generic_protocol::BackwardMessage * res, const generic_request::Request & r )
+{
+}
+
+void get_value_or_throw( generic_protocol::Request * res, const generic_request::Request & r )
+{
+    get_value_or_throw( & res->session_id, "SESSION_ID", r );
+}
+
 void get_value_or_throw( generic_protocol::ErrorResponse * res, const generic_request::Request & r )
 {
     get_value_or_throw( & res->type, "TYPE", r );
@@ -55,10 +64,14 @@ void get_value_or_throw( generic_protocol::ErrorResponse * res, const generic_re
 
 void get_value_or_throw( generic_protocol::AuthenticateRequest * res, const generic_request::Request & r )
 {
+    get_value_or_throw( & res->user_login, "USER_LOGIN", r );
+    get_value_or_throw( & res->password, "PASSWORD", r );
 }
 
 void get_value_or_throw( generic_protocol::AuthenticateAltRequest * res, const generic_request::Request & r )
 {
+    get_value_or_throw( & res->user_id, "USER_ID", r );
+    get_value_or_throw( & res->password, "PASSWORD", r );
 }
 
 void get_value_or_throw( generic_protocol::AuthenticateResponse * res, const generic_request::Request & r )
@@ -67,6 +80,7 @@ void get_value_or_throw( generic_protocol::AuthenticateResponse * res, const gen
 
 void get_value_or_throw( generic_protocol::CloseSessionRequest * res, const generic_request::Request & r )
 {
+    get_value_or_throw( & res->session_id, "SESSION_ID", r );
 }
 
 void get_value_or_throw( generic_protocol::CloseSessionResponse * res, const generic_request::Request & r )
@@ -75,6 +89,8 @@ void get_value_or_throw( generic_protocol::CloseSessionResponse * res, const gen
 
 void get_value_or_throw( generic_protocol::GetUserIdRequest * res, const generic_request::Request & r )
 {
+    get_value_or_throw( & res->session_id, "SESSION_ID", r );
+    get_value_or_throw( & res->user_login, "USER_LOGIN", r );
 }
 
 void get_value_or_throw( generic_protocol::GetUserIdResponse * res, const generic_request::Request & r )
@@ -83,6 +99,8 @@ void get_value_or_throw( generic_protocol::GetUserIdResponse * res, const generi
 
 void get_value_or_throw( generic_protocol::GetSessionInfoRequest * res, const generic_request::Request & r )
 {
+    get_value_or_throw( & res->session_id, "SESSION_ID", r );
+    get_value_or_throw( & res->id, "ID", r );
 }
 
 void get_value_or_throw( generic_protocol::GetSessionInfoResponse * res, const generic_request::Request & r )

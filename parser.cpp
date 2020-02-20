@@ -19,11 +19,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12748 $ $Date:: 2020-02-15 #$ $Author: serge $
+// $Revision: 12768 $ $Date:: 2020-02-19 #$ $Author: serge $
 
 #include "parser.h"         // self
 
 #include "request_validator.h"      // RequestValidator
+#include "exported_parser.h"        // basic_parser::get_value_or_throw
 #include "basic_parser/malformed_request.h"     // MalformedRequest
 
 namespace generic_protocol
@@ -99,11 +100,7 @@ ForwardMessage * Parser::to_AuthenticateRequest( const generic_request::Request 
 {
     auto * res = new AuthenticateRequest;
 
-    if( r.get_value( "USER_LOGIN", res->user_login ) == false )
-        throw MalformedRequest( "USER_LOGIN is not defined" );
-
-    if( r.get_value( "PASSWORD", res->password ) == false )
-        throw MalformedRequest( "PASSWORD is not defined" );
+    ::basic_parser::get_value_or_throw( res, r );
 
     RequestValidator::validate( * res );
 
@@ -114,11 +111,7 @@ ForwardMessage * Parser::to_AuthenticateAltRequest( const generic_request::Reque
 {
     auto * res = new AuthenticateAltRequest;
 
-    if( r.get_value_converted( "USER_ID", res->user_id ) == false )
-        throw MalformedRequest( "USER_ID is not defined" );
-
-    if( r.get_value( "PASSWORD", res->password ) == false )
-        throw MalformedRequest( "PASSWORD is not defined" );
+    ::basic_parser::get_value_or_throw( res, r );
 
     RequestValidator::validate( * res );
 
@@ -129,8 +122,7 @@ ForwardMessage * Parser::to_CloseSessionRequest( const generic_request::Request 
 {
     auto * res = new CloseSessionRequest;
 
-    if( r.get_value( "SESSION_ID", res->session_id ) == false )
-        throw MalformedRequest( "SESSION_ID is not defined" );
+    ::basic_parser::get_value_or_throw( res, r );
 
     RequestValidator::validate( * res );
 
@@ -139,8 +131,7 @@ ForwardMessage * Parser::to_CloseSessionRequest( const generic_request::Request 
 
 Request * Parser::to_request( Request * res, const generic_request::Request & r )
 {
-    if( r.get_value( "SESSION_ID", res->session_id ) == false )
-        throw MalformedRequest( "SESSION_ID is not defined" );
+    ::basic_parser::get_value_or_throw( res, r );
 
     return res;
 }
@@ -149,11 +140,7 @@ ForwardMessage * Parser::to_GetUserIdRequest( const generic_request::Request & r
 {
     auto * res = new GetUserIdRequest;
 
-    if( r.get_value( "SESSION_ID", res->session_id ) == false )
-        throw MalformedRequest( "SESSION_ID is not defined" );
-
-    if( r.get_value( "USER_LOGIN", res->user_login ) == false )
-        throw MalformedRequest( "USER_LOGIN is not defined" );
+    ::basic_parser::get_value_or_throw( res, r );
 
     RequestValidator::validate( * res );
 
@@ -164,11 +151,7 @@ ForwardMessage * Parser::to_GetSessionInfoRequest( const generic_request::Reques
 {
     auto * res = new GetSessionInfoRequest;
 
-    if( r.get_value( "SESSION_ID", res->session_id ) == false )
-        throw MalformedRequest( "SESSION_ID is not defined" );
-
-    if( r.get_value( "ID", res->id ) == false )
-        throw MalformedRequest( "ID is not defined" );
+    ::basic_parser::get_value_or_throw( res, r );
 
     RequestValidator::validate( * res );
 
