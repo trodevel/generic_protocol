@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12792 $ $Date:: 2020-02-26 #$ $Author: serge $
+// $Revision: 12801 $ $Date:: 2020-02-26 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL__EXPORTED_VALIDATOR_H
 #define LIB_GENERIC_PROTOCOL__EXPORTED_VALIDATOR_H
@@ -32,22 +32,22 @@ namespace basic_parser
 namespace validator
 {
 
-bool validate( generic_protocol::ErrorResponse::type_e & r );
+bool validate( const generic_protocol::ErrorResponse::type_e & r );
 
-bool validate( generic_protocol::SessionInfo & r );
+bool validate( const generic_protocol::SessionInfo & r );
 
-bool validate( generic_protocol::BackwardMessage & r );
-bool validate( generic_protocol::Request & r );
+bool validate( const generic_protocol::BackwardMessage & r );
+bool validate( const generic_protocol::Request & r );
 
-bool validate( generic_protocol::AuthenticateRequest & r );
-bool validate( generic_protocol::AuthenticateAltRequest & r );
-bool validate( generic_protocol::AuthenticateResponse & r );
-bool validate( generic_protocol::CloseSessionRequest & r );
-bool validate( generic_protocol::CloseSessionResponse & r );
-bool validate( generic_protocol::GetUserIdRequest & r );
-bool validate( generic_protocol::GetUserIdResponse & r );
-bool validate( generic_protocol::GetSessionInfoRequest & r );
-bool validate( generic_protocol::GetSessionInfoResponse & r );
+bool validate( const generic_protocol::AuthenticateRequest & r );
+bool validate( const generic_protocol::AuthenticateAltRequest & r );
+bool validate( const generic_protocol::AuthenticateResponse & r );
+bool validate( const generic_protocol::CloseSessionRequest & r );
+bool validate( const generic_protocol::CloseSessionResponse & r );
+bool validate( const generic_protocol::GetUserIdRequest & r );
+bool validate( const generic_protocol::GetUserIdResponse & r );
+bool validate( const generic_protocol::GetSessionInfoRequest & r );
+bool validate( const generic_protocol::GetSessionInfoResponse & r );
 
 } // namespace validator
 

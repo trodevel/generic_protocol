@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12792 $ $Date:: 2020-02-26 #$ $Author: serge $
+// $Revision: 12801 $ $Date:: 2020-02-26 #$ $Author: serge $
 
 // includes
 #include "exported_parser.h"
@@ -34,7 +34,7 @@ namespace validator
 
 using namespace generic_protocol;
 
-bool validate( generic_protocol::ErrorResponse::type_e & r )
+bool validate( const generic_protocol::ErrorResponse::type_e & r )
 {
     uint32_t res_i;
 
@@ -43,70 +43,70 @@ bool validate( generic_protocol::ErrorResponse::type_e & r )
     * res = static_cast<ErrorResponse::type_e>( res_i );
 }
 
-bool validate( generic_protocol::SessionInfo & r )
+bool validate( const generic_protocol::SessionInfo & r )
 {
     get_value_or_throw( & res->user_id, key + ".USER_ID", r );
     get_value_or_throw( & res->start_time, key + ".START_TIME", r );
     get_value_or_throw( & res->expiration_time, key + ".EXPIRATION_TIME", r );
 }
 
-bool validate( generic_protocol::BackwardMessage & r )
+bool validate( const generic_protocol::BackwardMessage & r )
 {
 }
 
-bool validate( generic_protocol::Request & r )
+bool validate( const generic_protocol::Request & r )
 {
     get_value_or_throw( & res->session_id, "SESSION_ID", r );
 }
 
-bool validate( generic_protocol::ErrorResponse & r )
+bool validate( const generic_protocol::ErrorResponse & r )
 {
     get_value_or_throw( & res->type, "TYPE", r );
     get_value_or_throw( & res->descr, "DESCR", r );
 }
 
-bool validate( generic_protocol::AuthenticateRequest & r )
+bool validate( const generic_protocol::AuthenticateRequest & r )
 {
     get_value_or_throw( & res->user_login, "USER_LOGIN", r );
     get_value_or_throw( & res->password, "PASSWORD", r );
 }
 
-bool validate( generic_protocol::AuthenticateAltRequest & r )
+bool validate( const generic_protocol::AuthenticateAltRequest & r )
 {
     get_value_or_throw( & res->user_id, "USER_ID", r );
     get_value_or_throw( & res->password, "PASSWORD", r );
 }
 
-bool validate( generic_protocol::AuthenticateResponse & r )
+bool validate( const generic_protocol::AuthenticateResponse & r )
 {
 }
 
-bool validate( generic_protocol::CloseSessionRequest & r )
+bool validate( const generic_protocol::CloseSessionRequest & r )
 {
     get_value_or_throw( & res->session_id, "SESSION_ID", r );
 }
 
-bool validate( generic_protocol::CloseSessionResponse & r )
+bool validate( const generic_protocol::CloseSessionResponse & r )
 {
 }
 
-bool validate( generic_protocol::GetUserIdRequest & r )
+bool validate( const generic_protocol::GetUserIdRequest & r )
 {
     get_value_or_throw( & res->session_id, "SESSION_ID", r );
     get_value_or_throw( & res->user_login, "USER_LOGIN", r );
 }
 
-bool validate( generic_protocol::GetUserIdResponse & r )
+bool validate( const generic_protocol::GetUserIdResponse & r )
 {
 }
 
-bool validate( generic_protocol::GetSessionInfoRequest & r )
+bool validate( const generic_protocol::GetSessionInfoRequest & r )
 {
     get_value_or_throw( & res->session_id, "SESSION_ID", r );
     get_value_or_throw( & res->id, "ID", r );
 }
 
-bool validate( generic_protocol::GetSessionInfoResponse & r )
+bool validate( const generic_protocol::GetSessionInfoResponse & r )
 {
 }
 
