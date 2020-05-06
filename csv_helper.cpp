@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12710 $ $Date:: 2020-02-05 #$ $Author: serge $
+// $Revision: 12949 $ $Date:: 2020-04-30 #$ $Author: serge $
 
 #include "csv_helper.h"                 // self
 
@@ -37,6 +37,11 @@ namespace generic_protocol
 
 namespace csv_helper
 {
+
+std::ostream & write( std::ostream & os, const BackwardMessage & r )
+{
+    return os;
+}
 
 std::ostream & write( std::ostream & os, const ErrorResponse & r )
 {
@@ -91,6 +96,10 @@ std::ostream & write( std::ostream & os, const Object & r )
     else if( typeid( r ) == typeid( GetSessionInfoResponse ) )
     {
         return write( os, static_cast<const GetSessionInfoResponse&>( r ) );
+    }
+    else if( typeid( r ) == typeid( BackwardMessage ) )
+    {
+        return write( os, static_cast<const BackwardMessage&>( r ) );
     }
     else
     {

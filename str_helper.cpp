@@ -19,9 +19,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 3600 $ $Date:: 2016-04-02 #$ $Author: serge $
+// $Revision: 12970 $ $Date:: 2020-05-07 #$ $Author: serge $
 
 #include "str_helper.h"             // self
+
+#include "basic_parser/str_helper.h"
 
 #include <sstream>                  // std::ostringstream
 #include <map>
@@ -29,30 +31,118 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 namespace generic_protocol
 {
 
+namespace str_helper
+{
+
 #define TUPLE_VAL_STR(_x_)  _x_,#_x_
 #define TUPLE_STR_VAL(_x_)  #_x_,_x_
 
 #define MAP_INSERT_VAL( _m, _val )      _m.insert( Map::value_type( _val ) )
 
-const std::string & StrHelper::to_string( const ErrorResponse::type_e l )
+std::ostream & write( std::ostream & os, const ErrorResponse::type_e & r )
 {
-    typedef std::map< ErrorResponse::type_e , std::string > Map;
+    typedef ErrorResponse::type_e Type;
+    typedef std::map< Type , std::string > Map;
     static Map m =
     {
-            { ErrorResponse::type_e:: TUPLE_VAL_STR( AUTHENTICATION_ERROR ) },
-            { ErrorResponse::type_e:: TUPLE_VAL_STR( NOT_PERMITTED ) },
-            { ErrorResponse::type_e:: TUPLE_VAL_STR( INVALID_ARGUMENT ) },
-            { ErrorResponse::type_e:: TUPLE_VAL_STR( RUNTIME_ERROR ) },
+            { Type:: TUPLE_VAL_STR( AUTHENTICATION_ERROR ) },
+            { Type:: TUPLE_VAL_STR( NOT_PERMITTED ) },
+            { Type:: TUPLE_VAL_STR( INVALID_ARGUMENT ) },
+            { Type:: TUPLE_VAL_STR( RUNTIME_ERROR ) },
     };
 
     auto it = m.find( l );
 
     static const std::string undef( "?" );
 
-    if( it == m.end() )
-        return undef;
+    if( it != m.end() )
+        return ::basic_parser::str_helper::write( os, it->second );
 
-    return it->second;
+    return ::basic_parser::str_helper::write( os, undef );
 }
+
+std::ostream & write( std::ostream & os, const SessionInfo & r )
+{
+    os << "(";
+
+    write( os, " user_id=" ); ::basic_parser::str_helper::write( os, r.user_id );
+    write( os, " start_time=" ); ::basic_parser::str_helper::write( os, r.start_time );
+    write( os, " expiration_time=" ); ::basic_parser::str_helper::write( os, r.expiration_time );
+
+    os << ")";
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const Object & r )
+{
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const Request & r )
+{
+    os << " session_id = "; ::basic_parser::str_helper::write( os, r.session_id );
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const BackwardMessage & r )
+{
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const ErrorResponse & r )
+{
+    os << " type = "; ::basic_parser::str_helper::write( os, r.type );
+    os << " descr = "; ::basic_parser::str_helper::write( os, r.descr );
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const AuthenticateResponse & r )
+{
+    os << " session_id = "; ::basic_parser::str_helper::write( os, r.session_id );
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const CloseSessionResponse & r )
+{
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const GetUserIdRequest & r )
+{
+    write( os, static_cast<const Request&>( r ) );
+
+    os << " user_login = "; ::basic_parser::str_helper::write( os, r.user_login );
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const GetUserIdResponse & r )
+{
+    os << " user_id = "; ::basic_parser::str_helper::write( os, r.user_id );
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const GetSessionInfoRequest & r )
+{
+    write( os, static_cast<const Request&>( r ) );
+
+    os << " session_id = "; ::basic_parser::str_helper::write( os, r.session_id );
+
+    return os;
+}
+
+std::ostream & write( std::ostream & os, const GetSessionInfoResponse & r )
+{
+    os << " session_info = "; write( os, r.session_info );
+
+    return os;
+}
+
+} // namespace str_helper
 
 } // namespace generic_protocol

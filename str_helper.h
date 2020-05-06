@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12699 $ $Date:: 2020-02-04 #$ $Author: serge $
+// $Revision: 12969 $ $Date:: 2020-05-07 #$ $Author: serge $
 
 #include <string>
 
@@ -28,10 +28,28 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 namespace generic_protocol
 {
 
-class StrHelper
+namespace str_helper
 {
-public:
-    static const std::string & to_string( const ErrorResponse::type_e l );
-};
+
+// enum
+std::ostream & write( std::ostream & os, const ErrorResponse::type_e & r );
+
+// obj
+std::ostream & write( std::ostream & os, const SessionInfo & r );
+
+// base msg
+std::ostream & write( std::ostream & os, const Object & r );
+std::ostream & write( std::ostream & os, const Request & r );
+std::ostream & write( std::ostream & os, const BackwardMessage & r );
+
+// msg
+std::ostream & write( std::ostream & os, const ErrorResponse & r );
+std::ostream & write( std::ostream & os, const AuthenticateResponse & r );
+std::ostream & write( std::ostream & os, const CloseSessionResponse & r );
+std::ostream & write( std::ostream & os, const GetUserIdResponse & r );
+std::ostream & write( std::ostream & os, const GetSessionInfoResponse & r );
+
+}  // namespace str_helper
 
 } // namespace generic_protocol
+

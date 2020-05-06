@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12721 $ $Date:: 2020-02-14 #$ $Author: serge $
+// $Revision: 12949 $ $Date:: 2020-04-30 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_CSV_HELPER_H
 #define LIB_GENERIC_PROTOCOL_CSV_HELPER_H
@@ -33,6 +33,8 @@ namespace generic_protocol
 
 namespace csv_helper
 {
+
+std::ostream & write( std::ostream & os, const BackwardMessage & r );
 
 std::ostream & write( std::ostream & os, const ErrorResponse & r );
 std::ostream & write( std::ostream & os, const AuthenticateResponse & r );
