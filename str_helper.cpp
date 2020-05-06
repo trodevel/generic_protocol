@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12970 $ $Date:: 2020-05-07 #$ $Author: serge $
+// $Revision: 12973 $ $Date:: 2020-05-07 #$ $Author: serge $
 
 #include "str_helper.h"             // self
 
@@ -33,6 +33,8 @@ namespace generic_protocol
 
 namespace str_helper
 {
+
+using ::basic_parser::str_helper::write;
 
 #define TUPLE_VAL_STR(_x_)  _x_,#_x_
 #define TUPLE_STR_VAL(_x_)  #_x_,_x_
@@ -51,23 +53,23 @@ std::ostream & write( std::ostream & os, const ErrorResponse::type_e & r )
             { Type:: TUPLE_VAL_STR( RUNTIME_ERROR ) },
     };
 
-    auto it = m.find( l );
+    auto it = m.find( r );
 
     static const std::string undef( "?" );
 
     if( it != m.end() )
-        return ::basic_parser::str_helper::write( os, it->second );
+        return write( os, it->second );
 
-    return ::basic_parser::str_helper::write( os, undef );
+    return write( os, undef );
 }
 
 std::ostream & write( std::ostream & os, const SessionInfo & r )
 {
     os << "(";
 
-    write( os, " user_id=" ); ::basic_parser::str_helper::write( os, r.user_id );
-    write( os, " start_time=" ); ::basic_parser::str_helper::write( os, r.start_time );
-    write( os, " expiration_time=" ); ::basic_parser::str_helper::write( os, r.expiration_time );
+    write( os, " user_id=" ); write( os, r.user_id );
+    write( os, " start_time=" ); write( os, r.start_time );
+    write( os, " expiration_time=" ); write( os, r.expiration_time );
 
     os << ")";
 
@@ -81,7 +83,7 @@ std::ostream & write( std::ostream & os, const Object & r )
 
 std::ostream & write( std::ostream & os, const Request & r )
 {
-    os << " session_id = "; ::basic_parser::str_helper::write( os, r.session_id );
+    os << " session_id = "; write( os, r.session_id );
 
     return os;
 }
@@ -93,15 +95,15 @@ std::ostream & write( std::ostream & os, const BackwardMessage & r )
 
 std::ostream & write( std::ostream & os, const ErrorResponse & r )
 {
-    os << " type = "; ::basic_parser::str_helper::write( os, r.type );
-    os << " descr = "; ::basic_parser::str_helper::write( os, r.descr );
+    os << " type = "; write( os, r.type );
+    os << " descr = "; write( os, r.descr );
 
     return os;
 }
 
 std::ostream & write( std::ostream & os, const AuthenticateResponse & r )
 {
-    os << " session_id = "; ::basic_parser::str_helper::write( os, r.session_id );
+    os << " session_id = "; write( os, r.session_id );
 
     return os;
 }
@@ -115,14 +117,14 @@ std::ostream & write( std::ostream & os, const GetUserIdRequest & r )
 {
     write( os, static_cast<const Request&>( r ) );
 
-    os << " user_login = "; ::basic_parser::str_helper::write( os, r.user_login );
+    os << " user_login = "; write( os, r.user_login );
 
     return os;
 }
 
 std::ostream & write( std::ostream & os, const GetUserIdResponse & r )
 {
-    os << " user_id = "; ::basic_parser::str_helper::write( os, r.user_id );
+    os << " user_id = "; write( os, r.user_id );
 
     return os;
 }
@@ -131,7 +133,7 @@ std::ostream & write( std::ostream & os, const GetSessionInfoRequest & r )
 {
     write( os, static_cast<const Request&>( r ) );
 
-    os << " session_id = "; ::basic_parser::str_helper::write( os, r.session_id );
+    os << " session_id = "; write( os, r.session_id );
 
     return os;
 }
