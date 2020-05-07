@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12973 $ $Date:: 2020-05-07 #$ $Author: serge $
+// $Revision: 12981 $ $Date:: 2020-05-07 #$ $Author: serge $
 
 #include "str_helper.h"             // self
 
@@ -67,9 +67,9 @@ std::ostream & write( std::ostream & os, const SessionInfo & r )
 {
     os << "(";
 
-    write( os, " user_id=" ); write( os, r.user_id );
-    write( os, " start_time=" ); write( os, r.start_time );
-    write( os, " expiration_time=" ); write( os, r.expiration_time );
+    os << " user_id="; write( os, r.user_id );
+    os << " start_time="; write( os, r.start_time );
+    os << " expiration_time="; write( os, r.expiration_time );
 
     os << ")";
 
