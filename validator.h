@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 13032 $ $Date:: 2020-05-13 #$ $Author: serge $
+// $Revision: 13037 $ $Date:: 2020-05-13 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL__VALIDATOR_H
 #define LIB_GENERIC_PROTOCOL__VALIDATOR_H
@@ -31,6 +31,8 @@ namespace generic_protocol
 
 namespace validator
 {
+
+bool validate( const BackwardMessage & r );
 
 bool validate( const AuthenticateRequest & r );
 bool validate( const AuthenticateAltRequest & r );
