@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12746 $ $Date:: 2020-02-15 #$ $Author: serge $
+// $Revision: 13030 $ $Date:: 2020-05-13 #$ $Author: serge $
 
 #ifndef LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
 #define LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H

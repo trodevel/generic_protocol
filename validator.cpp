@@ -19,9 +19,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12435 $ $Date:: 2019-12-07 #$ $Author: serge $
+// $Revision: 13030 $ $Date:: 2020-05-13 #$ $Author: serge $
 
-#include "request_validator.h"      // self
+#include "validator.h"      // self
 
 #include "basic_parser/malformed_request.h"     // MalformedRequest
 
