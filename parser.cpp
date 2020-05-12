@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 13032 $ $Date:: 2020-05-13 #$ $Author: serge $
+// $Revision: 13036 $ $Date:: 2020-05-13 #$ $Author: serge $
 
 #include "parser.h"         // self
 
