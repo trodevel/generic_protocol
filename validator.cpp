@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 13030 $ $Date:: 2020-05-13 #$ $Author: serge $
+// $Revision: 13032 $ $Date:: 2020-05-13 #$ $Author: serge $
 
 #include "validator.h"      // self
 
@@ -28,9 +28,12 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 namespace generic_protocol
 {
 
+namespace validator
+{
+
 typedef basic_parser::MalformedRequest MalformedRequest;
 
-bool RequestValidator::validate( const AuthenticateRequest & r )
+bool validate( const AuthenticateRequest & r )
 {
     if( r.user_login.empty() )
         throw MalformedRequest( "USER_LOGIN is empty" );
@@ -41,7 +44,7 @@ bool RequestValidator::validate( const AuthenticateRequest & r )
     return true;
 }
 
-bool RequestValidator::validate( const AuthenticateAltRequest & r )
+bool validate( const AuthenticateAltRequest & r )
 {
     if( r.user_id == 0 )
         throw MalformedRequest( "USER_ID is 0" );
@@ -52,7 +55,7 @@ bool RequestValidator::validate( const AuthenticateAltRequest & r )
     return true;
 }
 
-bool RequestValidator::validate( const CloseSessionRequest & r )
+bool validate( const CloseSessionRequest & r )
 {
     if( r.session_id.empty() )
         throw MalformedRequest( "SESSION_ID is empty" );
@@ -60,7 +63,7 @@ bool RequestValidator::validate( const CloseSessionRequest & r )
     return true;
 }
 
-bool RequestValidator::validate( const Request & r )
+bool validate( const Request & r )
 {
     if( r.session_id.empty() )
         throw MalformedRequest( "SESSION_ID is empty" );
@@ -68,7 +71,7 @@ bool RequestValidator::validate( const Request & r )
     return true;
 }
 
-bool RequestValidator::validate( const GetUserIdRequest & r )
+bool validate( const GetUserIdRequest & r )
 {
     if( r.session_id.empty() )
         throw MalformedRequest( "SESSION_ID is empty" );
@@ -79,7 +82,7 @@ bool RequestValidator::validate( const GetUserIdRequest & r )
     return true;
 }
 
-bool RequestValidator::validate( const GetSessionInfoRequest & r )
+bool validate( const GetSessionInfoRequest & r )
 {
     if( r.session_id.empty() )
         throw MalformedRequest( "SESSION_ID is empty" );
@@ -90,4 +93,7 @@ bool RequestValidator::validate( const GetSessionInfoRequest & r )
     return true;
 }
 
+} // namespace validator
+
 } // namespace generic_protocol
+

@@ -19,26 +19,27 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 13030 $ $Date:: 2020-05-13 #$ $Author: serge $
+// $Revision: 13032 $ $Date:: 2020-05-13 #$ $Author: serge $
 
-#ifndef LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
-#define LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
+#ifndef LIB_GENERIC_PROTOCOL__VALIDATOR_H
+#define LIB_GENERIC_PROTOCOL__VALIDATOR_H
 
 #include "protocol.h"       // Request...
 
 namespace generic_protocol
 {
 
-class RequestValidator
+namespace validator
 {
-public:
-    static bool validate( const AuthenticateRequest & r );
-    static bool validate( const AuthenticateAltRequest & r );
-    static bool validate( const CloseSessionRequest & r );
-    static bool validate( const Request & r );
-    static bool validate( const GetUserIdRequest & r );
-    static bool validate( const GetSessionInfoRequest & r );
-};
+
+bool validate( const AuthenticateRequest & r );
+bool validate( const AuthenticateAltRequest & r );
+bool validate( const CloseSessionRequest & r );
+bool validate( const Request & r );
+bool validate( const GetUserIdRequest & r );
+bool validate( const GetSessionInfoRequest & r );
+
+} // namespace validator
 
 #define THROW_IF_INT_ZERO(_var,_key)        { if( _var == 0 ) throw Parser::MalformedRequest( _key " is 0" ); }
 #define THROW_IF_INT_NEG(_var,_key)         { if( _var < 0 ) throw Parser::MalformedRequest( _key " < 0" ); }
@@ -52,4 +53,4 @@ public:
 
 } // namespace generic_protocol
 
-#endif // LIB_GENERIC_PROTOCOL_REQUEST_GENERATOR_H
+#endif // LIB_GENERIC_PROTOCOL__VALIDATOR_H

@@ -19,11 +19,11 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12768 $ $Date:: 2020-02-19 #$ $Author: serge $
+// $Revision: 13032 $ $Date:: 2020-05-13 #$ $Author: serge $
 
 #include "parser.h"         // self
 
-#include "request_validator.h"      // RequestValidator
+#include "validator.h"      // Validator
 #include "exported_parser.h"        // basic_parser::get_value_or_throw
 #include "basic_parser/malformed_request.h"     // MalformedRequest
 
@@ -102,7 +102,7 @@ ForwardMessage * Parser::to_AuthenticateRequest( const generic_request::Request 
 
     ::basic_parser::get_value_or_throw( res, r );
 
-    RequestValidator::validate( * res );
+    validator::validate( * res );
 
     return res;
 }
@@ -113,7 +113,7 @@ ForwardMessage * Parser::to_AuthenticateAltRequest( const generic_request::Reque
 
     ::basic_parser::get_value_or_throw( res, r );
 
-    RequestValidator::validate( * res );
+    validator::validate( * res );
 
     return res;
 }
@@ -124,7 +124,7 @@ ForwardMessage * Parser::to_CloseSessionRequest( const generic_request::Request 
 
     ::basic_parser::get_value_or_throw( res, r );
 
-    RequestValidator::validate( * res );
+    validator::validate( * res );
 
     return res;
 }
@@ -142,7 +142,7 @@ ForwardMessage * Parser::to_GetUserIdRequest( const generic_request::Request & r
 
     ::basic_parser::get_value_or_throw( res, r );
 
-    RequestValidator::validate( * res );
+    validator::validate( * res );
 
     return res;
 }
@@ -153,7 +153,7 @@ ForwardMessage * Parser::to_GetSessionInfoRequest( const generic_request::Reques
 
     ::basic_parser::get_value_or_throw( res, r );
 
-    RequestValidator::validate( * res );
+    validator::validate( * res );
 
     return res;
 }
