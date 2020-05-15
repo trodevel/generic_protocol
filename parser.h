@@ -19,7 +19,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-// $Revision: 12767 $ $Date:: 2020-02-19 #$ $Author: serge $
+// $Revision: 13061 $ $Date:: 2020-05-15 #$ $Author: serge $
 
 #include "generic_request/request.h"    // generic_request::Request
 #include "enums.h"              // request_type_e
@@ -28,20 +28,37 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 namespace generic_protocol
 {
 
-class Parser
+namespace parser
 {
-public:
 
-    static request_type_e   detect_request_type( const generic_request::Request & r );
+void get_value_or_throw( ErrorResponse::type_e * res, const std::string & key, const generic_request::Request & r );
 
-    static ForwardMessage *     to_forward_message( const generic_request::Request & r );
+void get_value_or_throw( SessionInfo * res, const std::string & key, const generic_request::Request & r );
 
-    static ForwardMessage *     to_AuthenticateRequest( const generic_request::Request & r );
-    static ForwardMessage *     to_AuthenticateAltRequest( const generic_request::Request & r );
-    static ForwardMessage *     to_CloseSessionRequest( const generic_request::Request & r );
-    static Request *            to_request( Request * res, const generic_request::Request & r );
-    static ForwardMessage *     to_GetUserIdRequest( const generic_request::Request & r );
-    static ForwardMessage *     to_GetSessionInfoRequest( const generic_request::Request & r );
-};
+void get_value_or_throw( BackwardMessage * res, const generic_request::Request & r );
+void get_value_or_throw( Request * res, const generic_request::Request & r );
+
+void get_value_or_throw( AuthenticateRequest * res, const generic_request::Request & r );
+void get_value_or_throw( AuthenticateAltRequest * res, const generic_request::Request & r );
+void get_value_or_throw( AuthenticateResponse * res, const generic_request::Request & r );
+void get_value_or_throw( CloseSessionRequest * res, const generic_request::Request & r );
+void get_value_or_throw( CloseSessionResponse * res, const generic_request::Request & r );
+void get_value_or_throw( GetUserIdRequest * res, const generic_request::Request & r );
+void get_value_or_throw( GetUserIdResponse * res, const generic_request::Request & r );
+void get_value_or_throw( GetSessionInfoRequest * res, const generic_request::Request & r );
+void get_value_or_throw( GetSessionInfoResponse * res, const generic_request::Request & r );
+
+request_type_e   detect_request_type( const generic_request::Request & r );
+
+ForwardMessage *     to_forward_message( const generic_request::Request & r );
+
+ForwardMessage *     to_AuthenticateRequest( const generic_request::Request & r );
+ForwardMessage *     to_AuthenticateAltRequest( const generic_request::Request & r );
+ForwardMessage *     to_CloseSessionRequest( const generic_request::Request & r );
+Request *            to_request( Request * res, const generic_request::Request & r );
+ForwardMessage *     to_GetUserIdRequest( const generic_request::Request & r );
+ForwardMessage *     to_GetSessionInfoRequest( const generic_request::Request & r );
+
+} // namespace parser
 
 } // namespace generic_protocol

@@ -15,7 +15,7 @@ void test( const std::string & str )
     {
         generic_request::Request gr = generic_request::Parser::to_request( str );
 
-        generic_protocol::ForwardMessage * r = generic_protocol::Parser::to_forward_message( gr );
+        generic_protocol::ForwardMessage * r = generic_protocol::parser::to_forward_message( gr );
 
         delete r;
 
