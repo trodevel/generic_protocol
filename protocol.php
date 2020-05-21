@@ -1,10 +1,7 @@
 <?php
-// $Revision: 12704 $ $Date:: 2020-02-04 #$ $Author: serge $
+// $Revision: 13106 $ $Date:: 2020-05-21 #$ $Author: serge $
 
 namespace generic_protocol;
-
-require_once __DIR__.'/../php_snippets/hexcodec.php';        // str2hex()
-require_once 'request_assembler.php';               // assemble_request()
 
 // base messages *******************************************
 
@@ -54,16 +51,6 @@ class AuthenticateRequest extends ForwardMessage
         $this->user_login = $user_login;
         $this->password   = $password;
     }
-
-    public function to_generic_request()
-    {
-        $res = array(
-            "CMD"          => "AUTHENTICATE_REQUEST",
-            "USER_LOGIN:X" => str2hex( $this->user_login ),
-            "PASSWORD:X"   => str2hex( $this->password ) );
-
-        return assemble_request( $res );
-    }
 }
 
 class AuthenticateAltRequest extends ForwardMessage
@@ -75,16 +62,6 @@ class AuthenticateAltRequest extends ForwardMessage
     {
         $this->user_id  = $user_id;
         $this->password = $password;
-    }
-
-    public function to_generic_request()
-    {
-        $res = array(
-            "CMD"          => "AUTHENTICATE_ALT_REQUEST",
-            "USER_ID"      => $this->user_id,
-            "PASSWORD:X"   => str2hex( $this->password ) );
-
-        return assemble_request( $res );
     }
 }
 
@@ -108,15 +85,6 @@ class CloseSessionRequest extends ForwardMessage
     {
        $this->session_id = $session_id;
     }
-
-    public function to_generic_request()
-    {
-        $res = array(
-            "CMD"          => "CLOSE_SESSION_REQUEST",
-            "SESSION_ID"   => $this->session_id );
-
-        return assemble_request( $res );
-    }
 }
 
 class CloseSessionResponse extends BackwardMessage
@@ -133,14 +101,6 @@ abstract class Request extends ForwardMessage
     {
         $this->session_id = $session_id;
     }
-
-    public function to_generic_request()
-    {
-        $res = array(
-            "SESSION_ID"   => $this->session_id );
-
-        return assemble_request( $res );
-    }
 }
 
 // user id handling **********************************
@@ -154,15 +114,6 @@ class GetUserIdRequest extends Request
         parent::__construct( $session_id );
 
         $this->user_login = $user_login;
-    }
-
-    public function to_generic_request()
-    {
-        $res = array(
-                "CMD"          => "GET_USER_ID",
-                "USER_LOGIN:X" => str2hex( $this->user_login ) );
-
-        return assemble_request( $res ) . parent::to_generic_request();
     }
 }
 
@@ -188,29 +139,18 @@ class SessionInfo
 class GetSessionInfoRequest extends Request
 {
     public          $id;
-    
+
     function __construct( $session_id, $id )
     {
         parent::__construct( $session_id );
-        
+
         $this->id   = $id;
     }
-    
-    public function to_generic_request()
-    {
-        $res = array(
-            "CMD"       => "GetSessionInfoRequest",
-            "ID"        => $this->id );
-        
-        return assemble_request( $res ) . parent::to_generic_request();
-    }
-    
 };
 
 class GetSessionInfoResponse extends BackwardMessage
 {
     public          $session_info;  // type SessionInfo
 };
-
 
 ?>
