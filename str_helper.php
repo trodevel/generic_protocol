@@ -1,9 +1,9 @@
 <?php
-// $Revision: 12435 $ $Date:: 2019-12-07 #$ $Author: serge $
+// $Revision: 13114 $ $Date:: 2020-05-21 #$ $Author: serge $
 
 namespace generic_protocol;
 
-require_once __DIR__.'/../php_snippets/hexcodec.php';        // str2hex()
+require_once __DIR__.'/../php_snippets/hex_codec.php';       // \utils\hex_codec\encode()
 require_once __DIR__.'/../php_snippets/html_elems.php';      // get_html_table_row_header
 require_once __DIR__.'/../php_snippets/epoch_to_date.php';   // epoch_to_date_time
 
@@ -31,14 +31,14 @@ function to_html_AuthenticateRequest( & $obj )
 {
     return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
         get_html_table_row_header( array( 'REQUEST', 'USER_LOGIN', 'PASSWORD' ) ) .
-        get_html_table_row_data( array( 'AUTHENTICATE_REQUEST', str2hex( $obj->user_login ), str2hex( $obj->password ) ) ) );
+        get_html_table_row_data( array( 'AUTHENTICATE_REQUEST', \utils\hex_codec\encode( $obj->user_login ), \utils\hex_codec\encode( $obj->password ) ) ) );
 }
 
 function to_html_AuthenticateAltRequest( & $obj )
 {
     return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
         get_html_table_row_header( array( 'REQUEST', 'USER_ID', 'PASSWORD' ) ) .
-        get_html_table_row_data( array( 'AUTHENTICATE_ALT_REQUEST', $obj->user_id, str2hex( $obj->password ) ) ) );
+        get_html_table_row_data( array( 'AUTHENTICATE_ALT_REQUEST', $obj->user_id, \utils\hex_codec\encode( $obj->password ) ) ) );
 }
 
 function to_html_AuthenticateResponse( & $obj )
@@ -73,7 +73,7 @@ function to_html_GetUserIdRequest( & $obj )
 {
     return get_html_table( NULL, NULL, NULL, 'border="1" cellspacing="1" cellpadding="3"',
             get_html_table_row_header( array( 'REQUEST', 'USER_LOGIN' ) ) .
-            get_html_table_row_data( array( 'GET_USER_ID', str2hex( $obj->user_login ) ) ) );
+            get_html_table_row_data( array( 'GET_USER_ID', \utils\hex_codec\encode( $obj->user_login ) ) ) );
 }
 
 function to_html_GetUserIdResponse( & $obj )
