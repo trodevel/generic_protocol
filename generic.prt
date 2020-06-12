@@ -1,0 +1,137 @@
+############################################################
+#
+# Generic Protocol
+#
+# Copyright (C) 2016 Sergey Kolevatov
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+# $Revision: 13261 $ $Date:: 2020-06-13 #$ $Author: serge $
+
+############################################################
+
+protocol generic
+
+############################################################
+
+# forward/backward messages *******************************
+
+base_msg ForwardMessage
+
+base_msg_end
+
+base_msg BackwardMessage
+
+base_msg_end
+
+############################################################
+
+# error response *******************************************
+
+enum ErrorResponse_type_e
+
+    AUTHENTICATION_ERROR    = 1
+    NOT_PERMITTED           = 2
+    INVALID_ARGUMENT        = 3
+    RUNTIME_ERROR           = 4
+
+enum_end
+
+msg ErrorResponse: BackwardMessage
+
+    e ErrorResponse_type_e  type
+    string                descr
+
+msg_end
+
+# authentication messages **********************************
+
+msg AuthenticateRequest: ForwardMessage
+
+    string         user_login
+    string         password
+
+msg_end
+
+msg AuthenticateAltRequest: ForwardMessage
+
+    uint32         user_id
+    string         password
+
+msg_end
+
+msg AuthenticateResponse: BackwardMessage
+
+    string         session_id
+
+msg_end
+
+# session messages ****************************************
+
+msg CloseSessionRequest: ForwardMessage
+
+    string         session_id
+
+msg_end
+
+msg CloseSessionResponse: BackwardMessage
+
+msg_end
+
+# request base **********************************
+
+base_msg Request: ForwardMessage
+
+    string         session_id
+
+base_msg_end
+
+# user id handling **********************************
+
+msg GetUserIdRequest: Request
+
+    string         user_login
+
+msg_end
+
+msg GetUserIdResponse: BackwardMessage
+
+    uint32            user_id
+
+msg_end
+
+# session info **********************************
+
+obj SessionInfo
+
+    uint32              user_id
+    uint32              start_time
+    uint32              expiration_time
+
+obj_end
+
+msg GetSessionInfoRequest: Request
+
+    string              id
+
+msg_end
+
+msg GetSessionInfoResponse: BackwardMessage
+
+    o SessionInfo       session_info
+
+msg_end
+
+############################################################
