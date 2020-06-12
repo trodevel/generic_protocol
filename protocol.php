@@ -1,156 +1,187 @@
 <?php
-// $Revision: 13106 $ $Date:: 2020-05-21 #$ $Author: serge $
 
 namespace generic_protocol;
 
-// base messages *******************************************
 
-abstract class Object
-{
-}
+// includes
+require_once __DIR__.'/../basic_parser/object.php';
 
-// forward/backward messages *******************************
+// includes for used modules
 
-abstract class ForwardMessage extends Object
-{
-}
+// Enum ErrorResponse_type_e
+const ErrorResponse_type_e_AUTHENTICATION_ERROR = 1;
+const ErrorResponse_type_e_NOT_PERMITTED        = 2;
+const ErrorResponse_type_e_INVALID_ARGUMENT     = 3;
+const ErrorResponse_type_e_RUNTIME_ERROR        = 4;
 
-abstract class BackwardMessage extends Object
-{
-}
-
-// error response ******************************************
-
-class ErrorResponse extends BackwardMessage
-{
-    const AUTHENTICATION_ERROR    = 1;
-    const NOT_PERMITTED           = 2;
-    const INVALID_ARGUMENT        = 3;
-    const RUNTIME_ERROR           = 4;
-    const PARSE_ERROR             = 5;
-
-    public          $type;
-    public          $descr;
-
-    function __construct( $type, $descr )
-    {
-        $this->type    = $type;
-        $this->descr   = $descr;
-    }
-}
-
-// authentication messages *********************************
-
-class AuthenticateRequest extends ForwardMessage
-{
-    public          $user_login;
-    public          $password;
-
-    function __construct( $user_login, $password )
-    {
-        $this->user_login = $user_login;
-        $this->password   = $password;
-    }
-}
-
-class AuthenticateAltRequest extends ForwardMessage
-{
-    public          $user_id;
-    public          $password;
-
-    function __construct( $user_id, $password )
-    {
-        $this->user_id  = $user_id;
-        $this->password = $password;
-    }
-}
-
-class AuthenticateResponse extends BackwardMessage
-{
-    public          $session_id;
-
-    function __construct( $session_id )
-    {
-        $this->session_id = $session_id;
-    }
-}
-
-// session messages ****************************************
-
-class CloseSessionRequest extends ForwardMessage
-{
-    public          $session_id;
-
-    function __construct( $session_id )
-    {
-       $this->session_id = $session_id;
-    }
-}
-
-class CloseSessionResponse extends BackwardMessage
-{
-}
-
-// request base ********************************************
-
-abstract class Request extends ForwardMessage
-{
-    public          $session_id;
-
-    function __construct( $session_id )
-    {
-        $this->session_id = $session_id;
-    }
-}
-
-// user id handling **********************************
-
-class GetUserIdRequest extends Request
-{
-    public          $user_login;
-
-    function __construct( $session_id, $user_login )
-    {
-        parent::__construct( $session_id );
-
-        $this->user_login = $user_login;
-    }
-}
-
-class GetUserIdResponse extends BackwardMessage
-{
-    public          $user_id;
-
-    function __construct( $user_id )
-    {
-        $this->user_id = $user_id;
-    }
-}
-
-// session info **********************************
-
+// Object
 class SessionInfo
 {
-    public          $user_id;           // user ID
-    public          $start_time;        // session start time
-    public          $expiration_time;   // session expiration time
+    public $user_id             ; // type: uint32_t
+    public $start_time          ; // type: uint32_t
+    public $expiration_time     ; // type: uint32_t
 };
 
-class GetSessionInfoRequest extends Request
+// Base message
+class ForwardMessage extends \basic_parser\Object
 {
-    public          $id;
-
-    function __construct( $session_id, $id )
+    function __construct()
     {
-        parent::__construct( $session_id );
-
-        $this->id   = $id;
     }
 };
 
-class GetSessionInfoResponse extends BackwardMessage
+// Base message
+class BackwardMessage extends \basic_parser\Object
 {
-    public          $session_info;  // type SessionInfo
+    function __construct()
+    {
+    }
 };
 
+// Base message
+class Request extends ForwardMessage
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    public $session_id          ; // type: string
+};
+
+// Message
+class ErrorResponse extends BackwardMessage
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    const MESSAGE_ID = 1604294198;
+
+    public $type                ; // type: ErrorResponse_type_e
+    public $descr               ; // type: string
+};
+
+// Message
+class AuthenticateRequest extends ForwardMessage
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    const MESSAGE_ID = 641601580;
+
+    public $user_login          ; // type: string
+    public $password            ; // type: string
+};
+
+// Message
+class AuthenticateAltRequest extends ForwardMessage
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    const MESSAGE_ID = 3094302290;
+
+    public $user_id             ; // type: uint32_t
+    public $password            ; // type: string
+};
+
+// Message
+class AuthenticateResponse extends BackwardMessage
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    const MESSAGE_ID = 1812873298;
+
+    public $session_id          ; // type: string
+};
+
+// Message
+class CloseSessionRequest extends ForwardMessage
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    const MESSAGE_ID = 3342975108;
+
+    public $session_id          ; // type: string
+};
+
+// Message
+class CloseSessionResponse extends BackwardMessage
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    const MESSAGE_ID = 3034715224;
+};
+
+// Message
+class GetUserIdRequest extends Request
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    const MESSAGE_ID = 2375011622;
+
+    public $user_login          ; // type: string
+};
+
+// Message
+class GetUserIdResponse extends BackwardMessage
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    const MESSAGE_ID = 2356156561;
+
+    public $user_id             ; // type: uint32_t
+};
+
+// Message
+class GetSessionInfoRequest extends Request
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    const MESSAGE_ID = 2613135952;
+
+    public $id                  ; // type: string
+};
+
+// Message
+class GetSessionInfoResponse extends BackwardMessage
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    const MESSAGE_ID = 889225759;
+
+    public $session_info        ; // type: SessionInfo
+};
+
+# namespace_end generic_protocol
+
+
 ?>
+

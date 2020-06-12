@@ -1,173 +1,163 @@
-/*
+#ifndef APG_GENERIC__PROTOCOL_H
+#define APG_GENERIC__PROTOCOL_H
 
-Generic Protocol messages.
+// system includes
+#include <vector>
+#include <map>
 
-Copyright (C) 2016 Sergey Kolevatov
+// includes
+#include "basic_parser/object.h"
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-*/
-
-// $Revision: 12704 $ $Date:: 2020-02-04 #$ $Author: serge $
-
-#ifndef LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
-#define LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
-
-#include <cstdint>              // uint32_t
-#include <string>               // std::string
+// includes for used modules
 
 namespace generic_protocol
 {
 
-// base messages *******************************************
-
-struct Object
+// Enum
+enum class ErrorResponse_type_e
 {
-protected:
-    Object() {}
-
-    virtual ~Object() {};
+    AUTHENTICATION_ERROR = 1,
+    NOT_PERMITTED        = 2,
+    INVALID_ARGUMENT     = 3,
+    RUNTIME_ERROR        = 4,
 };
 
-// forward/backward messages *******************************
-
-struct ForwardMessage: public Object
-{
-protected:
-    ForwardMessage() {}
-
-public:
-    virtual ~ForwardMessage() {};
-};
-
-struct BackwardMessage: public Object
-{
-protected:
-    BackwardMessage() {}
-
-public:
-    virtual ~BackwardMessage() {};
-};
-
-// error response *******************************************
-
-struct ErrorResponse: public BackwardMessage
-{
-    enum type_e
-    {
-        AUTHENTICATION_ERROR    = 1,
-        NOT_PERMITTED           = 2,
-        INVALID_ARGUMENT        = 3,
-        RUNTIME_ERROR           = 4,
-    };
-
-    type_e          type;
-    std::string     descr;
-};
-
-// authentication messages **********************************
-
-struct AuthenticateRequest: public ForwardMessage
-{
-    virtual ~AuthenticateRequest() {};
-
-    std::string         user_login;
-    std::string         password;
-};
-
-struct AuthenticateAltRequest: public ForwardMessage
-{
-    virtual ~AuthenticateAltRequest() {};
-
-    uint32_t            user_id;
-    std::string         password;
-};
-
-struct AuthenticateResponse: public BackwardMessage
-{
-    virtual ~AuthenticateResponse() {};
-
-    std::string         session_id;
-};
-
-// session messages ****************************************
-
-struct CloseSessionRequest: public ForwardMessage
-{
-    virtual ~CloseSessionRequest() {};
-
-    std::string         session_id;
-};
-
-struct CloseSessionResponse: public BackwardMessage
-{
-    virtual ~CloseSessionResponse() {};
-};
-
-// request base **********************************
-
-struct Request: public ForwardMessage
-{
-protected:
-    Request() {}
-
-public:
-
-    virtual ~Request() {};
-
-    std::string         session_id;
-};
-
-// user id handling **********************************
-
-struct GetUserIdRequest: public Request
-{
-    virtual ~GetUserIdRequest() {};
-
-    std::string         user_login;
-};
-
-struct GetUserIdResponse: public BackwardMessage
-{
-    virtual ~GetUserIdResponse() {};
-
-    uint32_t            user_id;
-};
-
-// session info **********************************
-
+// Object
 struct SessionInfo
 {
-    uint32_t            user_id;
-    uint32_t            start_time;
-    uint32_t            expiration_time;
+    uint32_t             user_id   ;
+    uint32_t             start_time;
+    uint32_t             expiration_time;
 };
 
+// Base message
+struct ForwardMessage: public basic_parser::Object
+{
+};
+
+// Base message
+struct BackwardMessage: public basic_parser::Object
+{
+};
+
+// Base message
+struct Request: public ForwardMessage
+{
+    std::string          session_id;
+};
+
+// Message
+struct ErrorResponse: public BackwardMessage
+{
+    enum
+    {
+        message_id = 1604294198
+    };
+
+    ErrorResponse_type_e type      ;
+    std::string          descr     ;
+};
+
+// Message
+struct AuthenticateRequest: public ForwardMessage
+{
+    enum
+    {
+        message_id = 641601580
+    };
+
+    std::string          user_login;
+    std::string          password  ;
+};
+
+// Message
+struct AuthenticateAltRequest: public ForwardMessage
+{
+    enum
+    {
+        message_id = 3094302290
+    };
+
+    uint32_t             user_id   ;
+    std::string          password  ;
+};
+
+// Message
+struct AuthenticateResponse: public BackwardMessage
+{
+    enum
+    {
+        message_id = 1812873298
+    };
+
+    std::string          session_id;
+};
+
+// Message
+struct CloseSessionRequest: public ForwardMessage
+{
+    enum
+    {
+        message_id = 3342975108
+    };
+
+    std::string          session_id;
+};
+
+// Message
+struct CloseSessionResponse: public BackwardMessage
+{
+    enum
+    {
+        message_id = 3034715224
+    };
+};
+
+// Message
+struct GetUserIdRequest: public Request
+{
+    enum
+    {
+        message_id = 2375011622
+    };
+
+    std::string          user_login;
+};
+
+// Message
+struct GetUserIdResponse: public BackwardMessage
+{
+    enum
+    {
+        message_id = 2356156561
+    };
+
+    uint32_t             user_id   ;
+};
+
+// Message
 struct GetSessionInfoRequest: public Request
 {
-    virtual ~GetSessionInfoRequest() {};
+    enum
+    {
+        message_id = 2613135952
+    };
 
-    std::string         id;
+    std::string          id        ;
 };
 
+// Message
 struct GetSessionInfoResponse: public BackwardMessage
 {
-    virtual ~GetSessionInfoResponse() {};
+    enum
+    {
+        message_id = 889225759
+    };
 
-    SessionInfo         session_info;
+    SessionInfo          session_info;
 };
 
 } // namespace generic_protocol
 
-#endif // LIB_GENERIC_PROTOCOL_GENERIC_PROTOCOL_H
+#endif // APG_GENERIC__PROTOCOL_H
+

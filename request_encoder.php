@@ -1,197 +1,209 @@
 <?php
 
-// $Revision: 13098 $ $Date:: 2020-05-20 #$ $Author: serge $
-
 namespace generic_protocol;
 
+
+// includes
 require_once __DIR__.'/../basic_parser/request_encoder.php';
 
-// request base ********************************************
+// enums
 
-function to_generic_request__ForwardMessage( & $obj )
+function to_generic_request__ErrorResponse_type_e( $prefix, $r )
+{
+    $res = \basic_parser\to_generic_request__int( $prefix, $r );
+
+    return $res;
+}
+
+// objects
+
+function to_generic_request__SessionInfo( $prefix, & $r )
+{
+    $res = "";
+    $res .= "&" . \basic_parser\to_generic_request__int( $prefix . ".USER_ID", $r->user_id );
+    $res .= "&" . \basic_parser\to_generic_request__int( $prefix . ".START_TIME", $r->start_time );
+    $res .= "&" . \basic_parser\to_generic_request__int( $prefix . ".EXPIRATION_TIME", $r->expiration_time );
+
+    return $res;
+}
+
+// base messages
+
+function to_generic_request__ForwardMessage( & $r )
 {
     $res = "";
 
     return $res;
 }
 
-function to_generic_request__BackwardMessage( & $obj )
+function to_generic_request__BackwardMessage( & $r )
 {
     $res = "";
 
     return $res;
 }
 
-// error response ******************************************
-
-function to_generic_request__ErrorResponse( & $obj )
-{
-    // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "ErrorResponse" );
-
-    // base class
-    $res .= to_generic_request__BackwardMessage( $obj );
-
-    $res .= "&" . \basic_parser\to_generic_request__int( "TYPE", $obj->type );
-    $res .= "&" . \basic_parser\to_generic_request__string( "DESCR", $obj->descr );
-
-    return $res;
-}
-
-// authentication messages *********************************
-
-function to_generic_request__AuthenticateRequest( & $obj )
-{
-    // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "AUTHENTICATE_REQUEST" );
-
-    // base class
-    $res .= to_generic_request__ForwardMessage( $obj );
-
-    $res .= "&" . \basic_parser\to_generic_request__string( "USER_LOGIN", $obj->user_login );
-    $res .= "&" . \basic_parser\to_generic_request__string( "PASSWORD", $obj->password );
-
-    return $res;
-}
-
-function to_generic_request__AuthenticateAltRequest( & $obj )
-{
-    // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "AUTHENTICATE_ALT_REQUEST" );
-
-    // base class
-    $res .= to_generic_request__ForwardMessage( $obj );
-
-    $res .= "&" . \basic_parser\to_generic_request__int( "USER_ID", $obj->user_id );
-    $res .= "&" . \basic_parser\to_generic_request__string( "PASSWORD", $obj->password );
-
-    return $res;
-}
-
-function to_generic_request__AuthenticateResponse( & $obj )
-{
-    // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "AuthenticateResponse" );
-
-    // base class
-    $res .= to_generic_request__BackwardMessage( $obj );
-
-    $res .= "&" . \basic_parser\to_generic_request__string( "SESSION_ID", $obj->session_id );
-
-    return $res;
-}
-
-// session messages ****************************************
-
-function to_generic_request__CloseSessionRequest( & $obj )
-{
-    // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "CLOSE_SESSION_REQUEST" );
-
-    // base class
-    $res .= to_generic_request__ForwardMessage( $obj );
-
-    $res .= "&" . \basic_parser\to_generic_request__string( "SESSION_ID", $obj->session_id );
-
-    return $res;
-}
-
-function to_generic_request__CloseSessionResponse( & $obj )
-{
-    // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "CloseSessionResponse" );
-
-    // base class
-    $res .= to_generic_request__BackwardMessage( $obj );
-
-    return $res;
-}
-
-
-// user id handling ****************************************
-
-function to_generic_request__GetUserIdRequest( & $obj )
-{
-    // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "GET_USER_ID" );
-
-    // base class
-    $res .= to_generic_request__ForwardMessage( $obj );
-
-    $res .= "&" . \basic_parser\to_generic_request__string( "USER_LOGIN", $obj->user_login );
-
-    return $res;
-}
-
-function to_generic_request__GetUserIdResponse( & $obj )
-{
-    // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "GetUserIdResponse" );
-
-    // base class
-    $res .= to_generic_request__BackwardMessage( $obj );
-
-    $res .= "&" . \basic_parser\to_generic_request__int( "USER_ID", $obj->user_id );
-
-    return $res;
-}
-
-// session info ********************************************
-
-function to_generic_request__SessionInfo( $prefix, $obj )
+function to_generic_request__Request( & $r )
 {
     $res = "";
-    $res .= "&" . \basic_parser\to_generic_request__int( $prefix . ".USER_ID", $obj->user_id );
-    $res .= "&" . \basic_parser\to_generic_request__int( $prefix . ".START_TIME", $obj->start_time );
-    $res .= "&" . \basic_parser\to_generic_request__int( $prefix . ".EXPIRATION_TIME", $obj->expiration_time );
+    $res .= "&" . \basic_parser\to_generic_request__string( "SESSION_ID", $r->session_id );
 
     return $res;
 }
 
-function to_generic_request__GetSessionInfoRequest( & $obj )
+// messages
+
+function to_generic_request__ErrorResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "GetSessionInfoRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic/ErrorResponse" );
 
     // base class
-    $res .= to_generic_request__ForwardMessage( $obj );
+    $res .= to_generic_request__BackwardMessage( $r );
 
-    $res .= "&" . \basic_parser\to_generic_request__string( "SESSION_ID", $obj->session_id );
+    $res .= "&" . to_generic_request__ErrorResponse_type_e( "TYPE", $r->type );
+    $res .= "&" . \basic_parser\to_generic_request__string( "DESCR", $r->descr );
 
     return $res;
 }
 
-function to_generic_request__GetSessionInfoResponse( & $obj )
+function to_generic_request__AuthenticateRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "GetSessionInfoResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic/AuthenticateRequest" );
 
     // base class
-    $res .= to_generic_request__BackwardMessage( $obj );
+    $res .= to_generic_request__ForwardMessage( $r );
 
-    $res .= "&" . to_generic_request__SessionInfo( "SESSION_INFO", $obj->session_info );
+    $res .= "&" . \basic_parser\to_generic_request__string( "USER_LOGIN", $r->user_login );
+    $res .= "&" . \basic_parser\to_generic_request__string( "PASSWORD", $r->password );
 
     return $res;
 }
 
-// *********************************************************
+function to_generic_request__AuthenticateAltRequest( & $r )
+{
+    // name
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic/AuthenticateAltRequest" );
+
+    // base class
+    $res .= to_generic_request__ForwardMessage( $r );
+
+    $res .= "&" . \basic_parser\to_generic_request__int( "USER_ID", $r->user_id );
+    $res .= "&" . \basic_parser\to_generic_request__string( "PASSWORD", $r->password );
+
+    return $res;
+}
+
+function to_generic_request__AuthenticateResponse( & $r )
+{
+    // name
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic/AuthenticateResponse" );
+
+    // base class
+    $res .= to_generic_request__BackwardMessage( $r );
+
+    $res .= "&" . \basic_parser\to_generic_request__string( "SESSION_ID", $r->session_id );
+
+    return $res;
+}
+
+function to_generic_request__CloseSessionRequest( & $r )
+{
+    // name
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic/CloseSessionRequest" );
+
+    // base class
+    $res .= to_generic_request__ForwardMessage( $r );
+
+    $res .= "&" . \basic_parser\to_generic_request__string( "SESSION_ID", $r->session_id );
+
+    return $res;
+}
+
+function to_generic_request__CloseSessionResponse( & $r )
+{
+    // name
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic/CloseSessionResponse" );
+
+    // base class
+    $res .= to_generic_request__BackwardMessage( $r );
+
+
+    return $res;
+}
+
+function to_generic_request__GetUserIdRequest( & $r )
+{
+    // name
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic/GetUserIdRequest" );
+
+    // base class
+    $res .= to_generic_request__Request( $r );
+
+    $res .= "&" . \basic_parser\to_generic_request__string( "USER_LOGIN", $r->user_login );
+
+    return $res;
+}
+
+function to_generic_request__GetUserIdResponse( & $r )
+{
+    // name
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic/GetUserIdResponse" );
+
+    // base class
+    $res .= to_generic_request__BackwardMessage( $r );
+
+    $res .= "&" . \basic_parser\to_generic_request__int( "USER_ID", $r->user_id );
+
+    return $res;
+}
+
+function to_generic_request__GetSessionInfoRequest( & $r )
+{
+    // name
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic/GetSessionInfoRequest" );
+
+    // base class
+    $res .= to_generic_request__Request( $r );
+
+    $res .= "&" . \basic_parser\to_generic_request__string( "ID", $r->id );
+
+    return $res;
+}
+
+function to_generic_request__GetSessionInfoResponse( & $r )
+{
+    // name
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic/GetSessionInfoResponse" );
+
+    // base class
+    $res .= to_generic_request__BackwardMessage( $r );
+
+    $res .= "&" . to_generic_request__SessionInfo( "SESSION_INFO", $r->session_info );
+
+    return $res;
+}
+
+// generic
 
 function to_generic_request( $obj )
 {
     $handler_map = array(
-        'generic_protocol\ErrorResponse'            => 'to_generic_request__ErrorResponse',
-        'generic_protocol\AuthenticateRequest'      => 'to_generic_request__AuthenticateRequest',
-        'generic_protocol\AuthenticateAltRequest'   => 'to_generic_request__AuthenticateAltRequest',
-        'generic_protocol\AuthenticateResponse'     => 'to_generic_request__AuthenticateResponse',
-        'generic_protocol\CloseSessionRequest'      => 'to_generic_request__CloseSessionRequest',
-        'generic_protocol\CloseSessionResponse'     => 'to_generic_request__CloseSessionResponse',
+        // messages
+        'generic_protocol\ErrorResponse'         => 'to_generic_request__ErrorResponse',
+        'generic_protocol\AuthenticateRequest'         => 'to_generic_request__AuthenticateRequest',
+        'generic_protocol\AuthenticateAltRequest'         => 'to_generic_request__AuthenticateAltRequest',
+        'generic_protocol\AuthenticateResponse'         => 'to_generic_request__AuthenticateResponse',
+        'generic_protocol\CloseSessionRequest'         => 'to_generic_request__CloseSessionRequest',
+        'generic_protocol\CloseSessionResponse'         => 'to_generic_request__CloseSessionResponse',
         'generic_protocol\GetUserIdRequest'         => 'to_generic_request__GetUserIdRequest',
-        'generic_protocol\GetUserIdResponse'        => 'to_generic_request__GetUserIdResponse',
-        'generic_protocol\GetSessionInfoRequest'    => 'to_generic_request__GetSessionInfoRequest',
-        'generic_protocol\GetSessionInfoResponse'   => 'to_generic_request__GetSessionInfoResponse'
+        'generic_protocol\GetUserIdResponse'         => 'to_generic_request__GetUserIdResponse',
+        'generic_protocol\GetSessionInfoRequest'         => 'to_generic_request__GetSessionInfoRequest',
+        'generic_protocol\GetSessionInfoResponse'         => 'to_generic_request__GetSessionInfoResponse',
     );
 
-    $type = get_class ( $obj );
+    $type = get_class( $obj );
 
     if( array_key_exists( $type, $handler_map ) )
     {
@@ -201,5 +213,8 @@ function to_generic_request( $obj )
 
     return NULL;
 }
+
+# namespace_end generic_protocol
+
 
 ?>

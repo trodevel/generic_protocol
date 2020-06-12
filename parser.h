@@ -1,29 +1,10 @@
-/*
+#ifndef APG_GENERIC__PARSER_H
+#define APG_GENERIC__PARSER_H
 
-Request Parser.
-
-Copyright (C) 2014 Sergey Kolevatov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-*/
-
-// $Revision: 13061 $ $Date:: 2020-05-15 #$ $Author: serge $
-
-#include "generic_request/request.h"    // generic_request::Request
-#include "enums.h"              // request_type_e
-#include "protocol.h"   // Request...
+// includes
+#include "generic_request/request.h"
+#include "enums.h"
+#include "protocol.h"
 
 namespace generic_protocol
 {
@@ -31,13 +12,29 @@ namespace generic_protocol
 namespace parser
 {
 
-void get_value_or_throw( ErrorResponse::type_e * res, const std::string & key, const generic_request::Request & r );
+typedef basic_parser::Object    Object;
+
+basic_parser::Object * to_forward_message( const generic_request::Request & r );
+
+request_type_e detect_request_type( const generic_request::Request & r );
+
+// enums
+
+void get_value_or_throw( ErrorResponse_type_e * res, const std::string & key, const generic_request::Request & r );
+
+// objects
 
 void get_value_or_throw( SessionInfo * res, const std::string & key, const generic_request::Request & r );
 
+// base messages
+
+void get_value_or_throw( ForwardMessage * res, const generic_request::Request & r );
 void get_value_or_throw( BackwardMessage * res, const generic_request::Request & r );
 void get_value_or_throw( Request * res, const generic_request::Request & r );
 
+// messages
+
+void get_value_or_throw( ErrorResponse * res, const generic_request::Request & r );
 void get_value_or_throw( AuthenticateRequest * res, const generic_request::Request & r );
 void get_value_or_throw( AuthenticateAltRequest * res, const generic_request::Request & r );
 void get_value_or_throw( AuthenticateResponse * res, const generic_request::Request & r );
@@ -48,17 +45,21 @@ void get_value_or_throw( GetUserIdResponse * res, const generic_request::Request
 void get_value_or_throw( GetSessionInfoRequest * res, const generic_request::Request & r );
 void get_value_or_throw( GetSessionInfoResponse * res, const generic_request::Request & r );
 
-request_type_e   detect_request_type( const generic_request::Request & r );
+// to_... functions
 
-ForwardMessage *     to_forward_message( const generic_request::Request & r );
-
-ForwardMessage *     to_AuthenticateRequest( const generic_request::Request & r );
-ForwardMessage *     to_AuthenticateAltRequest( const generic_request::Request & r );
-ForwardMessage *     to_CloseSessionRequest( const generic_request::Request & r );
-Request *            to_request( Request * res, const generic_request::Request & r );
-ForwardMessage *     to_GetUserIdRequest( const generic_request::Request & r );
-ForwardMessage *     to_GetSessionInfoRequest( const generic_request::Request & r );
+Object * to_ErrorResponse( const generic_request::Request & r );
+Object * to_AuthenticateRequest( const generic_request::Request & r );
+Object * to_AuthenticateAltRequest( const generic_request::Request & r );
+Object * to_AuthenticateResponse( const generic_request::Request & r );
+Object * to_CloseSessionRequest( const generic_request::Request & r );
+Object * to_CloseSessionResponse( const generic_request::Request & r );
+Object * to_GetUserIdRequest( const generic_request::Request & r );
+Object * to_GetUserIdResponse( const generic_request::Request & r );
+Object * to_GetSessionInfoRequest( const generic_request::Request & r );
+Object * to_GetSessionInfoResponse( const generic_request::Request & r );
 
 } // namespace parser
 
 } // namespace generic_protocol
+
+#endif // APG_GENERIC__PARSER_H

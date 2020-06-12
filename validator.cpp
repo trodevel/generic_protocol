@@ -1,29 +1,6 @@
-/*
-
-Request Validator.
-
-Copyright (C) 2016 Sergey Kolevatov
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-*/
-
-// $Revision: 13037 $ $Date:: 2020-05-13 #$ $Author: serge $
-
-#include "validator.h"      // self
-
-#include "basic_parser/malformed_request.h"     // MalformedRequest
+// includes
+#include "validator.h"
+#include "basic_parser/validator.h"
 
 namespace generic_protocol
 {
@@ -31,69 +8,150 @@ namespace generic_protocol
 namespace validator
 {
 
-typedef basic_parser::MalformedRequest MalformedRequest;
+using ::basic_parser::validator::validate;
+using ::basic_parser::validator::validate_t;
+
+// enums
+
+bool validate( const std::string & prefix, const ErrorResponse_type_e & r )
+{
+    validate( prefix, static_cast<unsigned>( r ), true, true, static_cast<unsigned>( ErrorResponse_type_e::AUTHENTICATION_ERROR ), true, true, static_cast<unsigned>( ErrorResponse_type_e::RUNTIME_ERROR ) );
+
+    return true;
+}
+
+// objects
+
+bool validate( const std::string & prefix, const SessionInfo & r )
+{
+    validate( prefix + ".USER_ID", r.user_id );
+    validate( prefix + ".START_TIME", r.start_time );
+    validate( prefix + ".EXPIRATION_TIME", r.expiration_time );
+
+    return true;
+}
+
+// base messages
+
+bool validate( const ForwardMessage & r )
+{
+
+    return true;
+}
 
 bool validate( const BackwardMessage & r )
 {
-    return true;
-}
-
-bool validate( const AuthenticateRequest & r )
-{
-    if( r.user_login.empty() )
-        throw MalformedRequest( "USER_LOGIN is empty" );
-
-    if( r.password.empty() )
-        throw MalformedRequest( "PASSWORD is empty" );
-
-    return true;
-}
-
-bool validate( const AuthenticateAltRequest & r )
-{
-    if( r.user_id == 0 )
-        throw MalformedRequest( "USER_ID is 0" );
-
-    if( r.password.empty() )
-        throw MalformedRequest( "PASSWORD is empty" );
-
-    return true;
-}
-
-bool validate( const CloseSessionRequest & r )
-{
-    if( r.session_id.empty() )
-        throw MalformedRequest( "SESSION_ID is empty" );
 
     return true;
 }
 
 bool validate( const Request & r )
 {
-    if( r.session_id.empty() )
-        throw MalformedRequest( "SESSION_ID is empty" );
+    validate( "SESSION_ID", r.session_id );
+
+    return true;
+}
+
+// messages
+
+bool validate( const ErrorResponse & r )
+{
+    // base class
+    validator::validate( static_cast<const BackwardMessage&>( r ) );
+
+    validate( "TYPE", r.type );
+    validate( "DESCR", r.descr );
+
+    return true;
+}
+
+bool validate( const AuthenticateRequest & r )
+{
+    // base class
+    validator::validate( static_cast<const ForwardMessage&>( r ) );
+
+    validate( "USER_LOGIN", r.user_login );
+    validate( "PASSWORD", r.password );
+
+    return true;
+}
+
+bool validate( const AuthenticateAltRequest & r )
+{
+    // base class
+    validator::validate( static_cast<const ForwardMessage&>( r ) );
+
+    validate( "USER_ID", r.user_id );
+    validate( "PASSWORD", r.password );
+
+    return true;
+}
+
+bool validate( const AuthenticateResponse & r )
+{
+    // base class
+    validator::validate( static_cast<const BackwardMessage&>( r ) );
+
+    validate( "SESSION_ID", r.session_id );
+
+    return true;
+}
+
+bool validate( const CloseSessionRequest & r )
+{
+    // base class
+    validator::validate( static_cast<const ForwardMessage&>( r ) );
+
+    validate( "SESSION_ID", r.session_id );
+
+    return true;
+}
+
+bool validate( const CloseSessionResponse & r )
+{
+    // base class
+    validator::validate( static_cast<const BackwardMessage&>( r ) );
+
 
     return true;
 }
 
 bool validate( const GetUserIdRequest & r )
 {
-    if( r.session_id.empty() )
-        throw MalformedRequest( "SESSION_ID is empty" );
+    // base class
+    validator::validate( static_cast<const Request&>( r ) );
 
-    if( r.user_login.empty() )
-        throw MalformedRequest( "USER_LOGIN is empty" );
+    validate( "USER_LOGIN", r.user_login );
+
+    return true;
+}
+
+bool validate( const GetUserIdResponse & r )
+{
+    // base class
+    validator::validate( static_cast<const BackwardMessage&>( r ) );
+
+    validate( "USER_ID", r.user_id );
 
     return true;
 }
 
 bool validate( const GetSessionInfoRequest & r )
 {
-    if( r.session_id.empty() )
-        throw MalformedRequest( "SESSION_ID is empty" );
+    // base class
+    validator::validate( static_cast<const Request&>( r ) );
 
-    if( r.id.empty() )
-        throw MalformedRequest( "ID is empty" );
+    validate( "ID", r.id );
+
+    return true;
+}
+
+bool validate( const GetSessionInfoResponse & r )
+{
+    // base class
+    validator::validate( static_cast<const BackwardMessage&>( r ) );
+
+    validate( "SESSION_INFO", r.session_info );
 
     return true;
 }

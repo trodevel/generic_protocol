@@ -1,55 +1,201 @@
-#include <iostream>
-
 #include "protocol.h"
-#include "parser.h"
-#include "response_gen.h"
 #include "str_helper.h"
-#include "csv_helper.h"     // CsvHelper
-#include "../generic_request/parser.h"
+#include "csv_helper.h"
+#include "dummy_creator.h"
+#include "validator.h"
 
-void test( const std::string & str )
+#include <iostream>       // std::cout
+
+template <class T>
+void validate( const T & o, const std::string & name )
 {
-    std::cout << "REQ = " << str << " - ";
-
     try
     {
-        generic_request::Request gr = generic_request::Parser::to_request( str );
-
-        generic_protocol::ForwardMessage * r = generic_protocol::parser::to_forward_message( gr );
-
-        delete r;
-
-        std::cout << "ok\n";
+        generic_protocol::validator::validate( o );
+        std::cout << name << " : valid" << std::endl;
     }
     catch( std::exception & e )
     {
-        std::cout << "FAILED - " << e.what() << "\n";
+        std::cout << name << " : invalid : " << e.what() << std::endl;
     }
 }
 
-void test_GetSessionInfoResponse()
+// enums
+
+void example_ErrorResponse_type_e()
 {
-    generic_protocol::SessionInfo si;
+    auto obj = generic_protocol::dummy::create__ErrorResponse_type_e();
 
-    generic_protocol::init( & si, 123, 1515700200, 1515701100 );
-
-    auto s = generic_protocol::create_GetSessionInfoResponse( si );
-
-    std::cout << generic_protocol::csv_helper::to_csv( * s ) << std::endl;
-
-    delete s;
+    std::cout << "ErrorResponse_type_e : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
 }
+
+
+// objects
+
+void example_SessionInfo()
+{
+    auto obj = generic_protocol::dummy::create__SessionInfo();
+
+    std::cout << "SessionInfo : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+}
+
+
+// messages
+
+void example_ErrorResponse()
+{
+    auto & obj = * generic_protocol::dummy::create__ErrorResponse();
+
+    std::cout << "ErrorResponse : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+
+    std::cout << "ErrorResponse : CSV : " << generic_protocol::csv_helper::to_csv( obj ) << std::endl;
+
+    validate( obj, "ErrorResponse" );
+
+    delete & obj;
+}
+
+void example_AuthenticateRequest()
+{
+    auto & obj = * generic_protocol::dummy::create__AuthenticateRequest();
+
+    std::cout << "AuthenticateRequest : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+
+    std::cout << "AuthenticateRequest : CSV : " << generic_protocol::csv_helper::to_csv( obj ) << std::endl;
+
+    validate( obj, "AuthenticateRequest" );
+
+    delete & obj;
+}
+
+void example_AuthenticateAltRequest()
+{
+    auto & obj = * generic_protocol::dummy::create__AuthenticateAltRequest();
+
+    std::cout << "AuthenticateAltRequest : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+
+    std::cout << "AuthenticateAltRequest : CSV : " << generic_protocol::csv_helper::to_csv( obj ) << std::endl;
+
+    validate( obj, "AuthenticateAltRequest" );
+
+    delete & obj;
+}
+
+void example_AuthenticateResponse()
+{
+    auto & obj = * generic_protocol::dummy::create__AuthenticateResponse();
+
+    std::cout << "AuthenticateResponse : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+
+    std::cout << "AuthenticateResponse : CSV : " << generic_protocol::csv_helper::to_csv( obj ) << std::endl;
+
+    validate( obj, "AuthenticateResponse" );
+
+    delete & obj;
+}
+
+void example_CloseSessionRequest()
+{
+    auto & obj = * generic_protocol::dummy::create__CloseSessionRequest();
+
+    std::cout << "CloseSessionRequest : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+
+    std::cout << "CloseSessionRequest : CSV : " << generic_protocol::csv_helper::to_csv( obj ) << std::endl;
+
+    validate( obj, "CloseSessionRequest" );
+
+    delete & obj;
+}
+
+void example_CloseSessionResponse()
+{
+    auto & obj = * generic_protocol::dummy::create__CloseSessionResponse();
+
+    std::cout << "CloseSessionResponse : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+
+    std::cout << "CloseSessionResponse : CSV : " << generic_protocol::csv_helper::to_csv( obj ) << std::endl;
+
+    validate( obj, "CloseSessionResponse" );
+
+    delete & obj;
+}
+
+void example_GetUserIdRequest()
+{
+    auto & obj = * generic_protocol::dummy::create__GetUserIdRequest();
+
+    std::cout << "GetUserIdRequest : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+
+    std::cout << "GetUserIdRequest : CSV : " << generic_protocol::csv_helper::to_csv( obj ) << std::endl;
+
+    validate( obj, "GetUserIdRequest" );
+
+    delete & obj;
+}
+
+void example_GetUserIdResponse()
+{
+    auto & obj = * generic_protocol::dummy::create__GetUserIdResponse();
+
+    std::cout << "GetUserIdResponse : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+
+    std::cout << "GetUserIdResponse : CSV : " << generic_protocol::csv_helper::to_csv( obj ) << std::endl;
+
+    validate( obj, "GetUserIdResponse" );
+
+    delete & obj;
+}
+
+void example_GetSessionInfoRequest()
+{
+    auto & obj = * generic_protocol::dummy::create__GetSessionInfoRequest();
+
+    std::cout << "GetSessionInfoRequest : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+
+    std::cout << "GetSessionInfoRequest : CSV : " << generic_protocol::csv_helper::to_csv( obj ) << std::endl;
+
+    validate( obj, "GetSessionInfoRequest" );
+
+    delete & obj;
+}
+
+void example_GetSessionInfoResponse()
+{
+    auto & obj = * generic_protocol::dummy::create__GetSessionInfoResponse();
+
+    std::cout << "GetSessionInfoResponse : STR : " << generic_protocol::str_helper::to_string( obj ) << std::endl;
+
+    std::cout << "GetSessionInfoResponse : CSV : " << generic_protocol::csv_helper::to_csv( obj ) << std::endl;
+
+    validate( obj, "GetSessionInfoResponse" );
+
+    delete & obj;
+}
+
 
 int main()
 {
-    test_GetSessionInfoResponse();
+    // enums
 
-    std::cout << "\n*********************************\n" << std::endl;
+    example_ErrorResponse_type_e();
 
-    test( "CMD=AUTHENTICATE_REQUEST&USER_LOGIN=xxx&PASSWORD=yyy&SESSION_ID=zzz" );
-    test( "CMD=GET_USER_ID&USER_LOGIN=xxx&SESSION_ID=zzz" );
-    test( "CMD=GetSessionInfoRequest&ID=xxx&SESSION_ID=zzz" );
-    test( "CMD=GetSessionInfoRequest&SESSION_ID=zzz" );
+    // objects
+
+    example_SessionInfo();
+
+    // messages
+
+    example_ErrorResponse();
+    example_AuthenticateRequest();
+    example_AuthenticateAltRequest();
+    example_AuthenticateResponse();
+    example_CloseSessionRequest();
+    example_CloseSessionResponse();
+    example_GetUserIdRequest();
+    example_GetUserIdResponse();
+    example_GetSessionInfoRequest();
+    example_GetSessionInfoResponse();
 
     return 0;
 }
+
