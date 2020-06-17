@@ -173,8 +173,13 @@ void example_GetSessionInfoResponse()
 }
 
 
-int main()
+int main( int argc, char ** argv )
 {
+    if( argc > 1 )
+    {
+        std::srand( std::stoi( std::string( argv[1] ) ) );
+    }
+
     // enums
 
     example_ErrorResponse_type_e();

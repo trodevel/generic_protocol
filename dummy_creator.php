@@ -11,7 +11,7 @@ require_once 'object_initializer.php';
 
 function create_dummy__ErrorResponse_type_e()
 {
-    $res = 0;
+    $res = ErrorResponse_type_e__AUTHENTICATION_ERROR;
 
     return $res;
 }

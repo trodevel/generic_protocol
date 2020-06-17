@@ -12,7 +12,7 @@ namespace dummy
 
 ErrorResponse_type_e create__ErrorResponse_type_e()
 {
-    auto res = static_cast<ErrorResponse_type_e>( ::basic_parser::dummy::create__uint8() );
+    auto res = ErrorResponse_type_e::AUTHENTICATION_ERROR;
 
     return res;
 }

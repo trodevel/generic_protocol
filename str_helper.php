@@ -12,10 +12,10 @@ function to_string__ErrorResponse_type_e( $r )
 {
     $map = array
     (
-        ErrorResponse_type_e_AUTHENTICATION_ERROR => 'AUTHENTICATION_ERROR',
-        ErrorResponse_type_e_NOT_PERMITTED => 'NOT_PERMITTED',
-        ErrorResponse_type_e_INVALID_ARGUMENT => 'INVALID_ARGUMENT',
-        ErrorResponse_type_e_RUNTIME_ERROR => 'RUNTIME_ERROR',
+        ErrorResponse_type_e__AUTHENTICATION_ERROR => 'AUTHENTICATION_ERROR',
+        ErrorResponse_type_e__NOT_PERMITTED => 'NOT_PERMITTED',
+        ErrorResponse_type_e__INVALID_ARGUMENT => 'INVALID_ARGUMENT',
+        ErrorResponse_type_e__RUNTIME_ERROR => 'RUNTIME_ERROR',
     );
 
     if( array_key_exists( $r, $map ) )
