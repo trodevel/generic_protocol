@@ -18,7 +18,7 @@ using ::basic_parser::str_helper::write_t;
 
 #define TUPLE_VAL_STR(_x_)  _x_,#_x_
 
-std::ostream & write( std::ostream & os, const ErrorResponse_type_e & r )
+std::ostream & write( std::ostream & os, const ErrorResponse_type_e r )
 {
     typedef ErrorResponse_type_e Type;
     static const std::map< Type, std::string > m =

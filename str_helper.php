@@ -30,7 +30,7 @@ function to_string__ErrorResponse_type_e( $r )
 
 function to_string__SessionInfo( & $r )
 {
-    $res = "(";
+    $res = "";    $res .= "(";
 
     $res .= " user_id=" . \basic_parser\to_string__int( $r->user_id );
     $res .= " start_time=" . \basic_parser\to_string__int( $r->start_time );
@@ -45,7 +45,7 @@ function to_string__SessionInfo( & $r )
 
 function to_string__ForwardMessage( & $r )
 {
-    $res = "(";
+    $res = "";    $res .= "(";
 
 
     $res .= ")";
@@ -55,7 +55,7 @@ function to_string__ForwardMessage( & $r )
 
 function to_string__BackwardMessage( & $r )
 {
-    $res = "(";
+    $res = "";    $res .= "(";
 
 
     $res .= ")";
@@ -65,7 +65,7 @@ function to_string__BackwardMessage( & $r )
 
 function to_string__Request( & $r )
 {
-    $res = "(";
+    $res = "";    $res .= "(";
 
     $res .= " session_id=" . \basic_parser\to_string__string( $r->session_id );
 
@@ -78,8 +78,8 @@ function to_string__Request( & $r )
 
 function to_string__ErrorResponse( & $r )
 {
-    // base class
-    $res = to_string__BackwardMessage( $r );
+    $res = "";    // base class
+    $res .= to_string__BackwardMessage( $r );
 
     $res .= " type=" . to_string__ErrorResponse_type_e( $r->type );
     $res .= " descr=" . \basic_parser\to_string__string( $r->descr );
@@ -89,8 +89,8 @@ function to_string__ErrorResponse( & $r )
 
 function to_string__AuthenticateRequest( & $r )
 {
-    // base class
-    $res = to_string__ForwardMessage( $r );
+    $res = "";    // base class
+    $res .= to_string__ForwardMessage( $r );
 
     $res .= " user_login=" . \basic_parser\to_string__string( $r->user_login );
     $res .= " password=" . \basic_parser\to_string__string( $r->password );
@@ -100,8 +100,8 @@ function to_string__AuthenticateRequest( & $r )
 
 function to_string__AuthenticateAltRequest( & $r )
 {
-    // base class
-    $res = to_string__ForwardMessage( $r );
+    $res = "";    // base class
+    $res .= to_string__ForwardMessage( $r );
 
     $res .= " user_id=" . \basic_parser\to_string__int( $r->user_id );
     $res .= " password=" . \basic_parser\to_string__string( $r->password );
@@ -111,8 +111,8 @@ function to_string__AuthenticateAltRequest( & $r )
 
 function to_string__AuthenticateResponse( & $r )
 {
-    // base class
-    $res = to_string__BackwardMessage( $r );
+    $res = "";    // base class
+    $res .= to_string__BackwardMessage( $r );
 
     $res .= " session_id=" . \basic_parser\to_string__string( $r->session_id );
 
@@ -121,8 +121,8 @@ function to_string__AuthenticateResponse( & $r )
 
 function to_string__CloseSessionRequest( & $r )
 {
-    // base class
-    $res = to_string__ForwardMessage( $r );
+    $res = "";    // base class
+    $res .= to_string__ForwardMessage( $r );
 
     $res .= " session_id=" . \basic_parser\to_string__string( $r->session_id );
 
@@ -131,8 +131,8 @@ function to_string__CloseSessionRequest( & $r )
 
 function to_string__CloseSessionResponse( & $r )
 {
-    // base class
-    $res = to_string__BackwardMessage( $r );
+    $res = "";    // base class
+    $res .= to_string__BackwardMessage( $r );
 
 
     return $res;
@@ -140,8 +140,8 @@ function to_string__CloseSessionResponse( & $r )
 
 function to_string__GetUserIdRequest( & $r )
 {
-    // base class
-    $res = to_string__Request( $r );
+    $res = "";    // base class
+    $res .= to_string__Request( $r );
 
     $res .= " user_login=" . \basic_parser\to_string__string( $r->user_login );
 
@@ -150,8 +150,8 @@ function to_string__GetUserIdRequest( & $r )
 
 function to_string__GetUserIdResponse( & $r )
 {
-    // base class
-    $res = to_string__BackwardMessage( $r );
+    $res = "";    // base class
+    $res .= to_string__BackwardMessage( $r );
 
     $res .= " user_id=" . \basic_parser\to_string__int( $r->user_id );
 
@@ -160,8 +160,8 @@ function to_string__GetUserIdResponse( & $r )
 
 function to_string__GetSessionInfoRequest( & $r )
 {
-    // base class
-    $res = to_string__Request( $r );
+    $res = "";    // base class
+    $res .= to_string__Request( $r );
 
     $res .= " id=" . \basic_parser\to_string__string( $r->id );
 
@@ -170,8 +170,8 @@ function to_string__GetSessionInfoRequest( & $r )
 
 function to_string__GetSessionInfoResponse( & $r )
 {
-    // base class
-    $res = to_string__BackwardMessage( $r );
+    $res = "";    // base class
+    $res .= to_string__BackwardMessage( $r );
 
     $res .= " session_info=" . to_string__SessionInfo( $r->session_info );
 

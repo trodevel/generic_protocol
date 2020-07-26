@@ -23,9 +23,9 @@ function create_dummy__SessionInfo()
     $res = new SessionInfo;
 
     initialize__SessionInfo( $res
-        , \basic_parser\create_dummy__int()
-        , \basic_parser\create_dummy__int()
-        , \basic_parser\create_dummy__int()
+        , \basic_parser\create_dummy__int32()
+        , \basic_parser\create_dummy__int32()
+        , \basic_parser\create_dummy__int32()
         );
     return $res;
 }
@@ -59,7 +59,7 @@ function create_dummy__AuthenticateAltRequest()
     $res = new AuthenticateAltRequest;
 
     initialize__AuthenticateAltRequest( $res
-        , \basic_parser\create_dummy__int()
+        , \basic_parser\create_dummy__int32()
         , \basic_parser\create_dummy__string()
         );
     return $res;
@@ -110,7 +110,7 @@ function create_dummy__GetUserIdResponse()
     $res = new GetUserIdResponse;
 
     initialize__GetUserIdResponse( $res
-        , \basic_parser\create_dummy__int()
+        , \basic_parser\create_dummy__int32()
         );
     return $res;
 }

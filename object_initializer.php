@@ -3,6 +3,9 @@
 namespace generic_protocol;
 
 
+// includes
+require_once 'protocol.php';
+
 // objects
 
 function initialize__SessionInfo( & $res
@@ -146,6 +149,21 @@ function initialize__GetSessionInfoResponse( & $res
     initialize__BackwardMessage( $res );
 
     $res->session_info = $session_info;
+}
+
+// objects (constructors)
+
+function create__SessionInfo(
+    $user_id // uint32_t
+    , $start_time // uint32_t
+    , $expiration_time // uint32_t
+ )
+{
+    $res = new SessionInfo;
+
+    initialize__SessionInfo( $res, $user_id, $start_time, $expiration_time );
+
+    return $res;
 }
 
 // messages (constructors)

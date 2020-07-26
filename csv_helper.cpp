@@ -17,7 +17,7 @@ using ::basic_parser::csv_helper::write_t;
 
 // enums
 
-std::ostream & write( std::ostream & os, const ErrorResponse_type_e & r )
+std::ostream & write( std::ostream & os, const ErrorResponse_type_e r )
 {
     write( os, static_cast<unsigned>( r ) );
 
@@ -278,7 +278,7 @@ std::ostream & write( std::ostream & os, const basic_parser::Object & r )
     if( it != funcs.end() )
         return it->second( os, r );
 
-    return ::generic_protocol::csv_helper::write( os, r );
+    return os;
 }
 
 } // namespace csv_helper

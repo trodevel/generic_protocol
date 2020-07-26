@@ -13,7 +13,7 @@ using ::basic_parser::validator::validate_t;
 
 // enums
 
-bool validate( const std::string & prefix, const ErrorResponse_type_e & r )
+bool validate( const std::string & prefix, const ErrorResponse_type_e r )
 {
     validate( prefix, static_cast<unsigned>( r ), true, true, static_cast<unsigned>( ErrorResponse_type_e::AUTHENTICATION_ERROR ), true, true, static_cast<unsigned>( ErrorResponse_type_e::RUNTIME_ERROR ) );
 
@@ -47,7 +47,7 @@ bool validate( const BackwardMessage & r )
 
 bool validate( const Request & r )
 {
-    validate( "SESSION_ID", r.session_id );
+    validate( "SESSION_ID", r.session_id ); // String
 
     return true;
 }
@@ -60,7 +60,7 @@ bool validate( const ErrorResponse & r )
     validator::validate( static_cast<const BackwardMessage&>( r ) );
 
     validate( "TYPE", r.type );
-    validate( "DESCR", r.descr );
+    validate( "DESCR", r.descr ); // String
 
     return true;
 }
@@ -70,8 +70,8 @@ bool validate( const AuthenticateRequest & r )
     // base class
     validator::validate( static_cast<const ForwardMessage&>( r ) );
 
-    validate( "USER_LOGIN", r.user_login );
-    validate( "PASSWORD", r.password );
+    validate( "USER_LOGIN", r.user_login ); // String
+    validate( "PASSWORD", r.password ); // String
 
     return true;
 }
@@ -82,7 +82,7 @@ bool validate( const AuthenticateAltRequest & r )
     validator::validate( static_cast<const ForwardMessage&>( r ) );
 
     validate( "USER_ID", r.user_id );
-    validate( "PASSWORD", r.password );
+    validate( "PASSWORD", r.password ); // String
 
     return true;
 }
@@ -92,7 +92,7 @@ bool validate( const AuthenticateResponse & r )
     // base class
     validator::validate( static_cast<const BackwardMessage&>( r ) );
 
-    validate( "SESSION_ID", r.session_id );
+    validate( "SESSION_ID", r.session_id ); // String
 
     return true;
 }
@@ -102,7 +102,7 @@ bool validate( const CloseSessionRequest & r )
     // base class
     validator::validate( static_cast<const ForwardMessage&>( r ) );
 
-    validate( "SESSION_ID", r.session_id );
+    validate( "SESSION_ID", r.session_id ); // String
 
     return true;
 }
@@ -121,7 +121,7 @@ bool validate( const GetUserIdRequest & r )
     // base class
     validator::validate( static_cast<const Request&>( r ) );
 
-    validate( "USER_LOGIN", r.user_login );
+    validate( "USER_LOGIN", r.user_login ); // String
 
     return true;
 }
@@ -141,7 +141,7 @@ bool validate( const GetSessionInfoRequest & r )
     // base class
     validator::validate( static_cast<const Request&>( r ) );
 
-    validate( "ID", r.id );
+    validate( "ID", r.id ); // String
 
     return true;
 }

@@ -14,7 +14,7 @@ namespace str_helper
 {
 
 // enums
-std::ostream & write( std::ostream & os, const ErrorResponse_type_e & r );
+std::ostream & write( std::ostream & os, const ErrorResponse_type_e r );
 
 // objects
 std::ostream & write( std::ostream & os, const SessionInfo & r );

@@ -11,7 +11,7 @@ namespace validator
 {
 
 // enums
-bool validate( const std::string & prefix, const ErrorResponse_type_e & r );
+bool validate( const std::string & prefix, const ErrorResponse_type_e r );
 
 // objects
 bool validate( const std::string & prefix, const SessionInfo & r );
