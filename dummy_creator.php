@@ -11,7 +11,11 @@ require_once 'object_initializer.php';
 
 function create_dummy__ErrorResponse_type_e()
 {
-    $res = ErrorResponse_type_e__AUTHENTICATION_ERROR;
+    $SIZE = 4;
+
+    $values = array( ErrorResponse_type_e__AUTHENTICATION_ERROR, ErrorResponse_type_e__NOT_PERMITTED, ErrorResponse_type_e__INVALID_ARGUMENT, ErrorResponse_type_e__RUNTIME_ERROR,  );
+
+    $res = $values[ \basic_parser\create_dummy__int32() % $SIZE ];
 
     return $res;
 }
