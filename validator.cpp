@@ -15,7 +15,7 @@ using ::basic_parser::validator::validate_t;
 
 bool validate( const std::string & prefix, const ErrorResponse_type_e r )
 {
-    validate( prefix, static_cast<unsigned>( r ), true, true, static_cast<unsigned>( ErrorResponse_type_e::AUTHENTICATION_ERROR ), true, true, static_cast<unsigned>( ErrorResponse_type_e::RUNTIME_ERROR ) );
+    validate( prefix, static_cast<unsigned>( r ), true, true, static_cast<unsigned>( ErrorResponse_type_e::INVALID_OR_EXPIRED_SESSION ), true, true, static_cast<unsigned>( ErrorResponse_type_e::RUNTIME_ERROR ) );
 
     return true;
 }

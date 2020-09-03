@@ -12,7 +12,7 @@ function to_string__ErrorResponse_type_e( $r )
 {
     $map = array
     (
-        ErrorResponse_type_e__AUTHENTICATION_ERROR => 'AUTHENTICATION_ERROR',
+        ErrorResponse_type_e__INVALID_OR_EXPIRED_SESSION => 'INVALID_OR_EXPIRED_SESSION',
         ErrorResponse_type_e__NOT_PERMITTED => 'NOT_PERMITTED',
         ErrorResponse_type_e__INVALID_ARGUMENT => 'INVALID_ARGUMENT',
         ErrorResponse_type_e__RUNTIME_ERROR => 'RUNTIME_ERROR',

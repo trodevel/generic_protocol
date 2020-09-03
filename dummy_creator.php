@@ -13,7 +13,7 @@ function create_dummy__ErrorResponse_type_e()
 {
     $SIZE = 4;
 
-    $values = array( ErrorResponse_type_e__AUTHENTICATION_ERROR, ErrorResponse_type_e__NOT_PERMITTED, ErrorResponse_type_e__INVALID_ARGUMENT, ErrorResponse_type_e__RUNTIME_ERROR,  );
+    $values = array( ErrorResponse_type_e__INVALID_OR_EXPIRED_SESSION, ErrorResponse_type_e__NOT_PERMITTED, ErrorResponse_type_e__INVALID_ARGUMENT, ErrorResponse_type_e__RUNTIME_ERROR,  );
 
     $res = $values[ \basic_parser\create_dummy__int32() % $SIZE ];
 

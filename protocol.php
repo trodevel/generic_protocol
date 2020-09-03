@@ -9,7 +9,7 @@ require_once __DIR__.'/../basic_parser/object.php';
 // includes for used modules
 
 // Enum ErrorResponse_type_e
-const ErrorResponse_type_e__AUTHENTICATION_ERROR = 1;
+const ErrorResponse_type_e__INVALID_OR_EXPIRED_SESSION = 1;
 const ErrorResponse_type_e__NOT_PERMITTED        = 2;
 const ErrorResponse_type_e__INVALID_ARGUMENT     = 3;
 const ErrorResponse_type_e__RUNTIME_ERROR        = 4;

@@ -16,7 +16,7 @@ namespace generic_protocol
 // Enum
 enum class ErrorResponse_type_e
 {
-    AUTHENTICATION_ERROR = 1,
+    INVALID_OR_EXPIRED_SESSION = 1,
     NOT_PERMITTED        = 2,
     INVALID_ARGUMENT     = 3,
     RUNTIME_ERROR        = 4,

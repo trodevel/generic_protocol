@@ -15,7 +15,7 @@ ErrorResponse_type_e create__ErrorResponse_type_e()
 {
     static const unsigned SIZE = 4;
 
-    static const ErrorResponse_type_e values[SIZE] = { ErrorResponse_type_e::AUTHENTICATION_ERROR, ErrorResponse_type_e::NOT_PERMITTED, ErrorResponse_type_e::INVALID_ARGUMENT, ErrorResponse_type_e::RUNTIME_ERROR,  };
+    static const ErrorResponse_type_e values[SIZE] = { ErrorResponse_type_e::INVALID_OR_EXPIRED_SESSION, ErrorResponse_type_e::NOT_PERMITTED, ErrorResponse_type_e::INVALID_ARGUMENT, ErrorResponse_type_e::RUNTIME_ERROR,  };
 
     auto res = values[ ::basic_parser::dummy::create__uint32() % SIZE ];
 

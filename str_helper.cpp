@@ -23,7 +23,7 @@ std::ostream & write( std::ostream & os, const ErrorResponse_type_e r )
     typedef ErrorResponse_type_e Type;
     static const std::map< Type, std::string > m =
     {
-        { Type:: TUPLE_VAL_STR( AUTHENTICATION_ERROR ) },
+        { Type:: TUPLE_VAL_STR( INVALID_OR_EXPIRED_SESSION ) },
         { Type:: TUPLE_VAL_STR( NOT_PERMITTED ) },
         { Type:: TUPLE_VAL_STR( INVALID_ARGUMENT ) },
         { Type:: TUPLE_VAL_STR( RUNTIME_ERROR ) },
