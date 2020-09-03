@@ -18,7 +18,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-# $Revision: 13261 $ $Date:: 2020-06-13 #$ $Author: serge $
+# $Revision: 13620 $ $Date:: 2020-09-03 #$ $Author: serge $
 
 ############################################################
 
@@ -42,7 +42,7 @@ base_msg_end
 
 enum ErrorResponse_type_e
 
-    AUTHENTICATION_ERROR    = 1
+    INVALID_OR_EXPIRED_SESSION    = 1
     NOT_PERMITTED           = 2
     INVALID_ARGUMENT        = 3
     RUNTIME_ERROR           = 4
