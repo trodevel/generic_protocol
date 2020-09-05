@@ -32,6 +32,7 @@ function to_generic_request__SessionInfo( $prefix, & $r )
 function to_generic_request__ForwardMessage( & $r )
 {
     $res = "";
+    // no base class
 
     return $res;
 }
@@ -39,6 +40,7 @@ function to_generic_request__ForwardMessage( & $r )
 function to_generic_request__BackwardMessage( & $r )
 {
     $res = "";
+    // no base class
 
     return $res;
 }
@@ -46,6 +48,9 @@ function to_generic_request__BackwardMessage( & $r )
 function to_generic_request__Request( & $r )
 {
     $res = "";
+    // base class
+    $res .= to_generic_request__ForwardMessage( $r );
+
     $res .= "&" . \basic_parser\to_generic_request__string( "SESSION_ID", $r->session_id );
 
     return $res;

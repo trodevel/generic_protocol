@@ -62,9 +62,10 @@ function to_html__BackwardMessage( & $r )
 
 function to_html__Request( & $r )
 {
-    $header = array( 'SESSION_ID' );
+    $header = array( 'ForwardMessage', 'SESSION_ID' );
 
     $data = array(
+        to_html__ForwardMessage( $r ),
         \basic_parser\to_html__string( $r->session_id )
         );
 

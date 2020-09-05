@@ -35,18 +35,23 @@ bool validate( const std::string & prefix, const SessionInfo & r )
 
 bool validate( const ForwardMessage & r )
 {
+    // no base class
 
     return true;
 }
 
 bool validate( const BackwardMessage & r )
 {
+    // no base class
 
     return true;
 }
 
 bool validate( const Request & r )
 {
+    // base class
+    validator::validate( static_cast<const ForwardMessage&>( r ) );
+
     validate( "SESSION_ID", r.session_id ); // String
 
     return true;

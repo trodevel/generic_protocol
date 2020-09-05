@@ -32,16 +32,21 @@ function parse__SessionInfo( & $csv_arr, & $offset )
 
 function parse__ForwardMessage( & $res, & $csv_arr, & $offset )
 {
+    // no base class
 
 }
 
 function parse__BackwardMessage( & $res, & $csv_arr, & $offset )
 {
+    // no base class
 
 }
 
 function parse__Request( & $res, & $csv_arr, & $offset )
 {
+    // base class
+    parse__ForwardMessage( $res, $csv_arr, $offset );
+
     $res->session_id = \basic_parser\parse__string( $csv_arr, $offset );
 
 }

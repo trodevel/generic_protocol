@@ -42,14 +42,19 @@ void get_value_or_throw( SessionInfo * res, const std::string & prefix, const ge
 
 void get_value_or_throw( ForwardMessage * res, const generic_request::Request & r )
 {
+    // no base class
 }
 
 void get_value_or_throw( BackwardMessage * res, const generic_request::Request & r )
 {
+    // no base class
 }
 
 void get_value_or_throw( Request * res, const generic_request::Request & r )
 {
+    // base class
+    parser::get_value_or_throw( static_cast<ForwardMessage*>( res ), r );
+
     get_value_or_throw( & res->session_id, "SESSION_ID", r );
 }
 

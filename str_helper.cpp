@@ -60,6 +60,7 @@ std::ostream & write( std::ostream & os, const ForwardMessage & r )
 {
     os << "(";
 
+    // no base class
 
     os << ")";
 
@@ -70,6 +71,7 @@ std::ostream & write( std::ostream & os, const BackwardMessage & r )
 {
     os << "(";
 
+    // no base class
 
     os << ")";
 
@@ -79,6 +81,9 @@ std::ostream & write( std::ostream & os, const BackwardMessage & r )
 std::ostream & write( std::ostream & os, const Request & r )
 {
     os << "(";
+
+    // base class
+    str_helper::write( os, static_cast<const ForwardMessage&>( r ) );
 
     os << " session_id="; write( os, r.session_id );
 

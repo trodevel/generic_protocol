@@ -39,18 +39,23 @@ std::ostream & write( std::ostream & os, const SessionInfo & r )
 
 std::ostream & write( std::ostream & os, const ForwardMessage & r )
 {
+    // no base class
 
     return os;
 }
 
 std::ostream & write( std::ostream & os, const BackwardMessage & r )
 {
+    // no base class
 
     return os;
 }
 
 std::ostream & write( std::ostream & os, const Request & r )
 {
+    // base class
+    csv_helper::write( os, static_cast<const ForwardMessage&>( r ) );
+
     write( os, r.session_id );
 
     return os;
