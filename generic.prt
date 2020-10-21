@@ -18,11 +18,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-# $Revision: 13620 $ $Date:: 2020-09-03 #$ $Author: serge $
+# $Revision: 13985 $ $Date:: 2020-10-20 #$ $Author: serge $
 
 ############################################################
 
-protocol generic
+protocol generic_protocol
 
 ############################################################
 
