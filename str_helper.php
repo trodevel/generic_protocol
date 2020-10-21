@@ -242,7 +242,7 @@ function to_string( $obj )
     return NULL;
 }
 
-# namespace_end generic_protocol
+// namespace_end generic_protocol
 
 
 ?>

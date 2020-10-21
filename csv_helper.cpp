@@ -65,7 +65,7 @@ std::ostream & write( std::ostream & os, const Request & r )
 
 std::ostream & write( std::ostream & os, const ErrorResponse & r )
 {
-    write( os, std::string( "generic/ErrorResponse" ) );
+    write( os, std::string( "generic_protocol/ErrorResponse" ) );
 
     // base class
     csv_helper::write( os, static_cast<const BackwardMessage&>( r ) );
@@ -78,7 +78,7 @@ std::ostream & write( std::ostream & os, const ErrorResponse & r )
 
 std::ostream & write( std::ostream & os, const AuthenticateRequest & r )
 {
-    write( os, std::string( "generic/AuthenticateRequest" ) );
+    write( os, std::string( "generic_protocol/AuthenticateRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const ForwardMessage&>( r ) );
@@ -91,7 +91,7 @@ std::ostream & write( std::ostream & os, const AuthenticateRequest & r )
 
 std::ostream & write( std::ostream & os, const AuthenticateAltRequest & r )
 {
-    write( os, std::string( "generic/AuthenticateAltRequest" ) );
+    write( os, std::string( "generic_protocol/AuthenticateAltRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const ForwardMessage&>( r ) );
@@ -104,7 +104,7 @@ std::ostream & write( std::ostream & os, const AuthenticateAltRequest & r )
 
 std::ostream & write( std::ostream & os, const AuthenticateResponse & r )
 {
-    write( os, std::string( "generic/AuthenticateResponse" ) );
+    write( os, std::string( "generic_protocol/AuthenticateResponse" ) );
 
     // base class
     csv_helper::write( os, static_cast<const BackwardMessage&>( r ) );
@@ -116,7 +116,7 @@ std::ostream & write( std::ostream & os, const AuthenticateResponse & r )
 
 std::ostream & write( std::ostream & os, const CloseSessionRequest & r )
 {
-    write( os, std::string( "generic/CloseSessionRequest" ) );
+    write( os, std::string( "generic_protocol/CloseSessionRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const ForwardMessage&>( r ) );
@@ -128,7 +128,7 @@ std::ostream & write( std::ostream & os, const CloseSessionRequest & r )
 
 std::ostream & write( std::ostream & os, const CloseSessionResponse & r )
 {
-    write( os, std::string( "generic/CloseSessionResponse" ) );
+    write( os, std::string( "generic_protocol/CloseSessionResponse" ) );
 
     // base class
     csv_helper::write( os, static_cast<const BackwardMessage&>( r ) );
@@ -139,7 +139,7 @@ std::ostream & write( std::ostream & os, const CloseSessionResponse & r )
 
 std::ostream & write( std::ostream & os, const GetUserIdRequest & r )
 {
-    write( os, std::string( "generic/GetUserIdRequest" ) );
+    write( os, std::string( "generic_protocol/GetUserIdRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -151,7 +151,7 @@ std::ostream & write( std::ostream & os, const GetUserIdRequest & r )
 
 std::ostream & write( std::ostream & os, const GetUserIdResponse & r )
 {
-    write( os, std::string( "generic/GetUserIdResponse" ) );
+    write( os, std::string( "generic_protocol/GetUserIdResponse" ) );
 
     // base class
     csv_helper::write( os, static_cast<const BackwardMessage&>( r ) );
@@ -163,7 +163,7 @@ std::ostream & write( std::ostream & os, const GetUserIdResponse & r )
 
 std::ostream & write( std::ostream & os, const GetSessionInfoRequest & r )
 {
-    write( os, std::string( "generic/GetSessionInfoRequest" ) );
+    write( os, std::string( "generic_protocol/GetSessionInfoRequest" ) );
 
     // base class
     csv_helper::write( os, static_cast<const Request&>( r ) );
@@ -175,7 +175,7 @@ std::ostream & write( std::ostream & os, const GetSessionInfoRequest & r )
 
 std::ostream & write( std::ostream & os, const GetSessionInfoResponse & r )
 {
-    write( os, std::string( "generic/GetSessionInfoResponse" ) );
+    write( os, std::string( "generic_protocol/GetSessionInfoResponse" ) );
 
     // base class
     csv_helper::write( os, static_cast<const BackwardMessage&>( r ) );

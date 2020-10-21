@@ -7,7 +7,7 @@
 namespace generic_protocol
 {
 
-#define TUPLE_VAL_STR(_x_)  _x_,"generic/"+std::string(#_x_)
+#define TUPLE_VAL_STR(_x_)  _x_,"generic_protocol/"+std::string(#_x_)
 
 template< typename _U, typename _V >
 std::pair<_V,_U> make_inverse_pair( _U first, _V second )

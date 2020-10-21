@@ -1,5 +1,5 @@
-#ifndef APG_GENERIC__OBJECT_INITIALIZER_H
-#define APG_GENERIC__OBJECT_INITIALIZER_H
+#ifndef APG_GENERIC_PROTOCOL__OBJECT_INITIALIZER_H
+#define APG_GENERIC_PROTOCOL__OBJECT_INITIALIZER_H
 
 // includes
 #include "protocol.h"
@@ -101,4 +101,4 @@ GetSessionInfoResponse * create_GetSessionInfoResponse(
 
 } // namespace generic_protocol
 
-#endif // APG_GENERIC__OBJECT_INITIALIZER_H
+#endif // APG_GENERIC_PROTOCOL__OBJECT_INITIALIZER_H

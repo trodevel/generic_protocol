@@ -1,5 +1,5 @@
-#ifndef APG_GENERIC__VALIDATOR_H
-#define APG_GENERIC__VALIDATOR_H
+#ifndef APG_GENERIC_PROTOCOL__VALIDATOR_H
+#define APG_GENERIC_PROTOCOL__VALIDATOR_H
 
 // includes
 #include "protocol.h"
@@ -37,4 +37,4 @@ bool validate( const GetSessionInfoResponse & r );
 
 } // namespace generic_protocol
 
-#endif // APG_GENERIC__VALIDATOR_H
+#endif // APG_GENERIC_PROTOCOL__VALIDATOR_H

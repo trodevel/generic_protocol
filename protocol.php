@@ -57,7 +57,7 @@ class ErrorResponse extends BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 1604294198;
+    const MESSAGE_ID = 2436397031;
 
     public $type                ; // type: ErrorResponse_type_e
     public $descr               ; // type: string
@@ -71,7 +71,7 @@ class AuthenticateRequest extends ForwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 641601580;
+    const MESSAGE_ID = 2707794751;
 
     public $user_login          ; // type: string
     public $password            ; // type: string
@@ -85,7 +85,7 @@ class AuthenticateAltRequest extends ForwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3094302290;
+    const MESSAGE_ID = 1569172723;
 
     public $user_id             ; // type: uint32_t
     public $password            ; // type: string
@@ -99,7 +99,7 @@ class AuthenticateResponse extends BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 1812873298;
+    const MESSAGE_ID = 3895941687;
 
     public $session_id          ; // type: string
 };
@@ -112,7 +112,7 @@ class CloseSessionRequest extends ForwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3342975108;
+    const MESSAGE_ID = 1075477399;
 
     public $session_id          ; // type: string
 };
@@ -125,7 +125,7 @@ class CloseSessionResponse extends BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 3034715224;
+    const MESSAGE_ID = 819662397;
 };
 
 // Message
@@ -136,7 +136,7 @@ class GetUserIdRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 2375011622;
+    const MESSAGE_ID = 236152329;
 
     public $user_login          ; // type: string
 };
@@ -149,7 +149,7 @@ class GetUserIdResponse extends BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 2356156561;
+    const MESSAGE_ID = 656587107;
 
     public $user_id             ; // type: uint32_t
 };
@@ -162,7 +162,7 @@ class GetSessionInfoRequest extends Request
         parent::__construct();
     }
 
-    const MESSAGE_ID = 2613135952;
+    const MESSAGE_ID = 2795366045;
 
     public $id                  ; // type: string
 };
@@ -175,12 +175,12 @@ class GetSessionInfoResponse extends BackwardMessage
         parent::__construct();
     }
 
-    const MESSAGE_ID = 889225759;
+    const MESSAGE_ID = 3504890046;
 
     public $session_info        ; // type: SessionInfo
 };
 
-# namespace_end generic_protocol
+// namespace_end generic_protocol
 
 
 ?>

@@ -1,5 +1,5 @@
-#ifndef APG_GENERIC__DUMMY_CREATOR_H
-#define APG_GENERIC__DUMMY_CREATOR_H
+#ifndef APG_GENERIC_PROTOCOL__DUMMY_CREATOR_H
+#define APG_GENERIC_PROTOCOL__DUMMY_CREATOR_H
 
 // includes
 #include "protocol.h"
@@ -35,4 +35,4 @@ GetSessionInfoResponse * create__GetSessionInfoResponse();
 
 } // namespace generic_protocol
 
-#endif // APG_GENERIC__DUMMY_CREATOR_H
+#endif // APG_GENERIC_PROTOCOL__DUMMY_CREATOR_H

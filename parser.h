@@ -1,5 +1,5 @@
-#ifndef APG_GENERIC__PARSER_H
-#define APG_GENERIC__PARSER_H
+#ifndef APG_GENERIC_PROTOCOL__PARSER_H
+#define APG_GENERIC_PROTOCOL__PARSER_H
 
 // includes
 #include "generic_request/request.h"
@@ -62,4 +62,4 @@ Object * to_GetSessionInfoResponse( const generic_request::Request & r );
 
 } // namespace generic_protocol
 
-#endif // APG_GENERIC__PARSER_H
+#endif // APG_GENERIC_PROTOCOL__PARSER_H

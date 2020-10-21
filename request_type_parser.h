@@ -1,5 +1,5 @@
-#ifndef APG_GENERIC__REQUEST_TYPE_PARSER_H
-#define APG_GENERIC__REQUEST_TYPE_PARSER_H
+#ifndef APG_GENERIC_PROTOCOL__REQUEST_TYPE_PARSER_H
+#define APG_GENERIC_PROTOCOL__REQUEST_TYPE_PARSER_H
 
 // includes
 #include "enums.h"
@@ -14,4 +14,4 @@ public:
 };
 } // namespace generic_protocol
 
-#endif // APG_GENERIC__REQUEST_TYPE_PARSER_H
+#endif // APG_GENERIC_PROTOCOL__REQUEST_TYPE_PARSER_H

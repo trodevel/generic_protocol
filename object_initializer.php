@@ -3,8 +3,8 @@
 namespace generic_protocol;
 
 
-// includes
-require_once 'protocol.php';
+// own includes
+require_once __DIR__.'/../generic_protocol/protocol.php';
 
 // objects
 
@@ -282,7 +282,7 @@ function create__GetSessionInfoResponse(
     return $res;
 }
 
-# namespace_end generic_protocol
+// namespace_end generic_protocol
 
 
 ?>

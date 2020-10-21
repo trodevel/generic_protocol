@@ -1,5 +1,5 @@
-#ifndef APG_GENERIC__ENUMS_H
-#define APG_GENERIC__ENUMS_H
+#ifndef APG_GENERIC_PROTOCOL__ENUMS_H
+#define APG_GENERIC_PROTOCOL__ENUMS_H
 
 namespace generic_protocol
 {
@@ -21,4 +21,4 @@ enum class request_type_e
 
 } // namespace generic_protocol
 
-#endif // APG_GENERIC__ENUMS_H
+#endif // APG_GENERIC_PROTOCOL__ENUMS_H

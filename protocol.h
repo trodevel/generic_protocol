@@ -1,5 +1,5 @@
-#ifndef APG_GENERIC__PROTOCOL_H
-#define APG_GENERIC__PROTOCOL_H
+#ifndef APG_GENERIC_PROTOCOL__PROTOCOL_H
+#define APG_GENERIC_PROTOCOL__PROTOCOL_H
 
 // system includes
 #include <vector>
@@ -51,7 +51,7 @@ struct ErrorResponse: public BackwardMessage
 {
     enum
     {
-        message_id = 1604294198
+        message_id = 2436397031
     };
 
     ErrorResponse_type_e type      ;
@@ -63,7 +63,7 @@ struct AuthenticateRequest: public ForwardMessage
 {
     enum
     {
-        message_id = 641601580
+        message_id = 2707794751
     };
 
     std::string          user_login;
@@ -75,7 +75,7 @@ struct AuthenticateAltRequest: public ForwardMessage
 {
     enum
     {
-        message_id = 3094302290
+        message_id = 1569172723
     };
 
     uint32_t             user_id   ;
@@ -87,7 +87,7 @@ struct AuthenticateResponse: public BackwardMessage
 {
     enum
     {
-        message_id = 1812873298
+        message_id = 3895941687
     };
 
     std::string          session_id;
@@ -98,7 +98,7 @@ struct CloseSessionRequest: public ForwardMessage
 {
     enum
     {
-        message_id = 3342975108
+        message_id = 1075477399
     };
 
     std::string          session_id;
@@ -109,7 +109,7 @@ struct CloseSessionResponse: public BackwardMessage
 {
     enum
     {
-        message_id = 3034715224
+        message_id = 819662397
     };
 };
 
@@ -118,7 +118,7 @@ struct GetUserIdRequest: public Request
 {
     enum
     {
-        message_id = 2375011622
+        message_id = 236152329
     };
 
     std::string          user_login;
@@ -129,7 +129,7 @@ struct GetUserIdResponse: public BackwardMessage
 {
     enum
     {
-        message_id = 2356156561
+        message_id = 656587107
     };
 
     uint32_t             user_id   ;
@@ -140,7 +140,7 @@ struct GetSessionInfoRequest: public Request
 {
     enum
     {
-        message_id = 2613135952
+        message_id = 2795366045
     };
 
     std::string          id        ;
@@ -151,7 +151,7 @@ struct GetSessionInfoResponse: public BackwardMessage
 {
     enum
     {
-        message_id = 889225759
+        message_id = 3504890046
     };
 
     SessionInfo          session_info;
@@ -159,5 +159,5 @@ struct GetSessionInfoResponse: public BackwardMessage
 
 } // namespace generic_protocol
 
-#endif // APG_GENERIC__PROTOCOL_H
+#endif // APG_GENERIC_PROTOCOL__PROTOCOL_H
 

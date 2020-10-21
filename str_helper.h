@@ -1,5 +1,5 @@
-#ifndef APG_GENERIC__STR_HELPER_H
-#define APG_GENERIC__STR_HELPER_H
+#ifndef APG_GENERIC_PROTOCOL__STR_HELPER_H
+#define APG_GENERIC_PROTOCOL__STR_HELPER_H
 
 // system includes
 #include <sstream>
@@ -50,4 +50,4 @@ std::string to_string( const T & l )
 
 } // namespace generic_protocol
 
-#endif // APG_GENERIC__STR_HELPER_H
+#endif // APG_GENERIC_PROTOCOL__STR_HELPER_H

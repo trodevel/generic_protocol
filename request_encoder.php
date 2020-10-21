@@ -61,7 +61,7 @@ function to_generic_request__Request( & $r )
 function to_generic_request__ErrorResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "generic/ErrorResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic_protocol/ErrorResponse" );
 
     // base class
     $res .= to_generic_request__BackwardMessage( $r );
@@ -75,7 +75,7 @@ function to_generic_request__ErrorResponse( & $r )
 function to_generic_request__AuthenticateRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "generic/AuthenticateRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic_protocol/AuthenticateRequest" );
 
     // base class
     $res .= to_generic_request__ForwardMessage( $r );
@@ -89,7 +89,7 @@ function to_generic_request__AuthenticateRequest( & $r )
 function to_generic_request__AuthenticateAltRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "generic/AuthenticateAltRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic_protocol/AuthenticateAltRequest" );
 
     // base class
     $res .= to_generic_request__ForwardMessage( $r );
@@ -103,7 +103,7 @@ function to_generic_request__AuthenticateAltRequest( & $r )
 function to_generic_request__AuthenticateResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "generic/AuthenticateResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic_protocol/AuthenticateResponse" );
 
     // base class
     $res .= to_generic_request__BackwardMessage( $r );
@@ -116,7 +116,7 @@ function to_generic_request__AuthenticateResponse( & $r )
 function to_generic_request__CloseSessionRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "generic/CloseSessionRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic_protocol/CloseSessionRequest" );
 
     // base class
     $res .= to_generic_request__ForwardMessage( $r );
@@ -129,7 +129,7 @@ function to_generic_request__CloseSessionRequest( & $r )
 function to_generic_request__CloseSessionResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "generic/CloseSessionResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic_protocol/CloseSessionResponse" );
 
     // base class
     $res .= to_generic_request__BackwardMessage( $r );
@@ -141,7 +141,7 @@ function to_generic_request__CloseSessionResponse( & $r )
 function to_generic_request__GetUserIdRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "generic/GetUserIdRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic_protocol/GetUserIdRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -154,7 +154,7 @@ function to_generic_request__GetUserIdRequest( & $r )
 function to_generic_request__GetUserIdResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "generic/GetUserIdResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic_protocol/GetUserIdResponse" );
 
     // base class
     $res .= to_generic_request__BackwardMessage( $r );
@@ -167,7 +167,7 @@ function to_generic_request__GetUserIdResponse( & $r )
 function to_generic_request__GetSessionInfoRequest( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "generic/GetSessionInfoRequest" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic_protocol/GetSessionInfoRequest" );
 
     // base class
     $res .= to_generic_request__Request( $r );
@@ -180,7 +180,7 @@ function to_generic_request__GetSessionInfoRequest( & $r )
 function to_generic_request__GetSessionInfoResponse( & $r )
 {
     // name
-    $res = \basic_parser\to_generic_request__string( "CMD", "generic/GetSessionInfoResponse" );
+    $res = \basic_parser\to_generic_request__string( "CMD", "generic_protocol/GetSessionInfoResponse" );
 
     // base class
     $res .= to_generic_request__BackwardMessage( $r );
@@ -219,7 +219,7 @@ function to_generic_request( $obj )
     return NULL;
 }
 
-# namespace_end generic_protocol
+// namespace_end generic_protocol
 
 
 ?>

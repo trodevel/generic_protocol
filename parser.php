@@ -207,16 +207,16 @@ protected static function parse_csv_array( $csv_arr )
 
     $handler_map = array(
         // messages
-        'generic/ErrorResponse'         => 'parse__ErrorResponse',
-        'generic/AuthenticateRequest'         => 'parse__AuthenticateRequest',
-        'generic/AuthenticateAltRequest'         => 'parse__AuthenticateAltRequest',
-        'generic/AuthenticateResponse'         => 'parse__AuthenticateResponse',
-        'generic/CloseSessionRequest'         => 'parse__CloseSessionRequest',
-        'generic/CloseSessionResponse'         => 'parse__CloseSessionResponse',
-        'generic/GetUserIdRequest'         => 'parse__GetUserIdRequest',
-        'generic/GetUserIdResponse'         => 'parse__GetUserIdResponse',
-        'generic/GetSessionInfoRequest'         => 'parse__GetSessionInfoRequest',
-        'generic/GetSessionInfoResponse'         => 'parse__GetSessionInfoResponse',
+        'generic_protocol/ErrorResponse'         => 'parse__ErrorResponse',
+        'generic_protocol/AuthenticateRequest'         => 'parse__AuthenticateRequest',
+        'generic_protocol/AuthenticateAltRequest'         => 'parse__AuthenticateAltRequest',
+        'generic_protocol/AuthenticateResponse'         => 'parse__AuthenticateResponse',
+        'generic_protocol/CloseSessionRequest'         => 'parse__CloseSessionRequest',
+        'generic_protocol/CloseSessionResponse'         => 'parse__CloseSessionResponse',
+        'generic_protocol/GetUserIdRequest'         => 'parse__GetUserIdRequest',
+        'generic_protocol/GetUserIdResponse'         => 'parse__GetUserIdResponse',
+        'generic_protocol/GetSessionInfoRequest'         => 'parse__GetSessionInfoRequest',
+        'generic_protocol/GetSessionInfoResponse'         => 'parse__GetSessionInfoResponse',
     );
 
     $type = $csv_arr[0][0];
@@ -232,7 +232,7 @@ protected static function parse_csv_array( $csv_arr )
 
 }
 
-# namespace_end generic_protocol
+// namespace_end generic_protocol
 
 
 ?>

@@ -1,5 +1,5 @@
-#ifndef APG_GENERIC__CSV_HELPER_H
-#define APG_GENERIC__CSV_HELPER_H
+#ifndef APG_GENERIC_PROTOCOL__CSV_HELPER_H
+#define APG_GENERIC_PROTOCOL__CSV_HELPER_H
 
 // system includes
 #include <sstream>
@@ -53,4 +53,4 @@ std::string to_csv( const T & l )
 
 } // namespace generic_protocol
 
-#endif // APG_GENERIC__CSV_HELPER_H
+#endif // APG_GENERIC_PROTOCOL__CSV_HELPER_H
